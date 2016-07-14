@@ -85,7 +85,7 @@ public class SplashPresenter {
      * @param baseDao
      */
     private void initVideoData(List<Recommend.Data> data, List<Video> videoList, DataBaseDao baseDao) {
-        if (videoList == null) {
+        if (videoList == null || videoList.size() == 0) {
             //数据库没有数据，一般为第一次进入,保存数据到数据库
             videoList = new ArrayList<>();
             for (Recommend.Data d:data ) {
