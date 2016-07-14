@@ -6,6 +6,7 @@ import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.Video;
 import com.lemon95.ymtv.bean.impl.ISplashBean;
+import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.dao.SplashDao;
 import com.lemon95.ymtv.db.DataBaseDao;
 import com.lemon95.ymtv.view.activity.SplashActivity;
@@ -88,7 +89,17 @@ public class SplashPresenter {
             //数据库没有数据，一般为第一次进入,保存数据到数据库
             videoList = new ArrayList<>();
             for (Recommend.Data d:data ) {
+                iSplashBean.downImg(AppConstant.RESOURCE + d.getPicturePath(), new SplashDao.OnImageDownListener() {
+                    @Override
+                    public void onSuccess(String fileUrl) {
 
+                    }
+
+                    @Override
+                    public void onFailure(Throwable e) {
+
+                    }
+                });
             }
         } else {
 

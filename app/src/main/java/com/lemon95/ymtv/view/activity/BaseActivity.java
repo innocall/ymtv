@@ -18,8 +18,6 @@ import com.lemon95.ymtv.application.BaseApplication;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.umeng.analytics.MobclickAgent;
 
-import org.xutils.x;
-
 /**
  * Created by WXT on 2016/7/8.
  */
@@ -264,7 +262,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         //低内存运行
         LogUtils.e(TAG, "clear cache");
         // x.image().clearCacheFiles();    //清空缓存文件
-        x.image().clearMemCache();      //清空内存缓存
     }
 
     @Override
@@ -276,7 +273,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             case TRIM_MEMORY_UI_HIDDEN:
                 LogUtils.e(TAG,"clear cache");
                 //   x.image().clearCacheFiles();    //清空缓存文件
-                x.image().clearMemCache();      //清空内存缓存
                 break;
         }
 
