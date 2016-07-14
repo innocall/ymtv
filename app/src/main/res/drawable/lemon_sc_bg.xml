@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <!-- <item android:drawable="@drawable/lemon_search_none" android:state_enabled="true" android:state_focused="true"></item>
+    <item android:drawable="@drawable/lemon_search_none" android:state_enabled="true" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/lemon_sc_bg_none" />-->
+
+    <solid android:color="#359df5"></solid>
+
+</shape>

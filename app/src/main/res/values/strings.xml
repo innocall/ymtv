@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">影檬TV</string>
+    <string name="lemon95_dialog_title">提示</string>
+    <string name="lemon95_dialog_net_msg">网络断开，请检查网络连接！</string>
+    <string name="lemon95_dialog_cancal">取消</string>
+    <string name="lemon95_dialog_net_ok">检测网络!</string>
+    <string name="lemon95_login_msg">未登录</string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="lemon95_search">搜索</string>
+    <string name="lemon95_menu1">用户</string>
+    <string name="lemon95_menu2">每日推荐</string>
+    <string name="lemon95_menu3">影视分类</string>
+    <string name="lemon95_menu4">关于我们</string>
+    <string name="lemon95_play_re">播放记录</string>
+    <string name="lemon95_user_msg">用户信息</string>
+    <string name="lemon95_qp">求片记录</string>
+    <string name="lemon95_sc">收藏记录</string>
+
+    <!-- viewpager 标题栏字体-->
+    <string name="fzlt_zhun_hei">FZLTZHUNHEI_GBK.ttf</string>
+    <string name="fzlt_cu_hei">FZLTHC_GBK.ttf</string>
+
+    <string name="nav_tab_normal_ttf">@string/fzlt_zhun_hei</string>
+    <string name="nav_tab_focus_ttf">@string/fzlt_cu_hei</string>
+
+</resources>

@@ -1,0 +1,219 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content11"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:context="com.lemon95.ymtv.view.fragment.UserFragment">
+
+    <com.lemon95.androidtvwidget.view.SmoothHorizontalScrollView
+        android:id="@+id/test_hscroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_centerHorizontal="true"
+        android:scrollbars="none">
+
+        <com.lemon95.androidtvwidget.view.MainLayout
+            android:id="@+id/page1_main_lay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal">
+
+            <com.lemon95.androidtvwidget.view.ReflectItemView
+                android:id="@+id/page3_item1"
+                android:layout_width="@dimen/lemon95_mian_width"
+                android:layout_height="@dimen/lemon95_main_height"
+                android:layout_marginLeft="@dimen/lemon95_distance_20"
+                android:layout_marginTop="@dimen/lemon95_distance_30"
+                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusUp="@+id/title_bar3"
+                app:isShape="false"
+                app:isReflect="true">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/lemon_play_re_bg" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/lemon95_distance_110"
+                            android:layout_height="@dimen/lemon95_distance_100"
+                            android:src="@drawable/lemon_play_re" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/lemon95_play_re"
+                            android:textColor="@color/lemon_color3"
+                            android:textSize="@dimen/lemon95_text_24" />
+                    </LinearLayout>
+
+                </FrameLayout>
+            </com.lemon95.androidtvwidget.view.ReflectItemView>
+
+            <com.lemon95.androidtvwidget.view.ReflectItemView
+                android:id="@+id/page3_item2"
+                android:layout_width="@dimen/lemon95_distance_350"
+                android:layout_height="@dimen/lemon95_distance_210"
+                android:layout_marginLeft="@dimen/lemon95_distance_325"
+                android:layout_marginTop="@dimen/lemon95_distance_30"
+                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusUp="@+id/title_bar3"
+                app:isShape="false">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/lemon_qp_bg" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/lemon95_distance_110"
+                            android:layout_height="@dimen/lemon95_distance_100"
+                            android:src="@drawable/lemon_qp_img" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/lemon95_qp"
+                            android:textColor="@color/lemon_color3"
+                            android:textSize="@dimen/lemon95_text_24" />
+                    </LinearLayout>
+
+                </FrameLayout>
+            </com.lemon95.androidtvwidget.view.ReflectItemView>
+
+            <com.lemon95.androidtvwidget.view.ReflectItemView
+                android:id="@+id/page3_item3"
+                android:layout_width="@dimen/lemon95_distance_350"
+                android:layout_height="@dimen/lemon95_distance_210"
+                android:layout_marginLeft="@dimen/lemon95_distance_325"
+                android:layout_marginTop="@dimen/lemon95_distance_245"
+                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusUp="@+id/page3_item2"
+                app:isShape="false"
+                app:isReflect="true">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/lemon_sc_bg" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/lemon95_distance_110"
+                            android:layout_height="@dimen/lemon95_distance_100"
+                            android:src="@drawable/lemon_sc_img" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/lemon95_sc"
+                            android:textColor="@color/lemon_color3"
+                            android:textSize="@dimen/lemon95_text_24" />
+                    </LinearLayout>
+
+                </FrameLayout>
+            </com.lemon95.androidtvwidget.view.ReflectItemView>
+
+            <com.lemon95.androidtvwidget.view.ReflectItemView
+                android:id="@+id/page3_item4"
+                android:layout_width="@dimen/lemon95_mian_width"
+                android:layout_height="@dimen/lemon95_main_height"
+                android:layout_marginLeft="@dimen/lemon95_distance_680"
+                android:layout_marginTop="@dimen/lemon95_distance_30"
+                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusUp="@+id/title_bar3"
+                app:isShape="false"
+                app:isReflect="true">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/lemon_user_bg" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/lemon95_distance_110"
+                            android:layout_height="@dimen/lemon95_distance_100"
+                            android:src="@drawable/lemon_user_msg" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/lemon95_user_msg"
+                            android:textColor="@color/lemon_color3"
+                            android:textSize="@dimen/lemon95_text_24" />
+                    </LinearLayout>
+
+                </FrameLayout>
+            </com.lemon95.androidtvwidget.view.ReflectItemView>
+
+
+        </com.lemon95.androidtvwidget.view.MainLayout>
+
+    </com.lemon95.androidtvwidget.view.SmoothHorizontalScrollView>
+
+    <!-- 最顶层的边框移动 -->
+    <com.lemon95.androidtvwidget.view.MainUpView
+        android:id="@+id/mainUpView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.lemon95.androidtvwidget.view.MainUpView>
+
+</RelativeLayout>
