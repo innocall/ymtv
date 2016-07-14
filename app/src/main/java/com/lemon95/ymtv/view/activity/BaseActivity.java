@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.application.BaseApplication;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by WXT on 2016/7/8.
@@ -28,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public static final String TAG = BaseActivity.class.getSimpleName();
     private MyConnectionChanngeReceiver myReceiver;
     private boolean isNetWork = true;
-    private Context context;
+    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         //向用户展示信息前的准备工作在这个方法里处理
         preliminary();
         registerReceiver();
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+        MobclickAgent.onResume(this);          //统计时长
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
+        MobclickAgent.onPause(this);
     }
 
     /**
@@ -189,7 +202,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void netWorkNO() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        /*final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.lemon95_dialog_title);
         builder.setMessage(R.string.lemon95_dialog_net_msg);
         builder.setNegativeButton(R.string.lemon95_dialog_cancal, new DialogInterface.OnClickListener() {
@@ -212,7 +225,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 BaseActivity.this.startActivity(intent);
             }
         });
-        builder.show();
+        builder.show();*/
     }
 
     public void netWorkYew() {
