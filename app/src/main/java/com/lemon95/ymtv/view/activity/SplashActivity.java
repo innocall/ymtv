@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.lemon95.ymtv.R;
+import com.lemon95.ymtv.presenter.SplashPresenter;
 import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.view.impl.ISplashActivity;
@@ -18,7 +19,7 @@ import com.lemon95.ymtv.view.impl.ISplashActivity;
  */
 public class SplashActivity extends BaseActivity implements ISplashActivity{
 
-
+    private SplashPresenter splashPresenter = new SplashPresenter(this);
 
     @Override
     protected int getLayoutId() {
@@ -32,7 +33,7 @@ public class SplashActivity extends BaseActivity implements ISplashActivity{
 
     @Override
     protected void initialized() {
-
+        splashPresenter.start();
     }
 
 

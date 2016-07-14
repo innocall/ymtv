@@ -5,6 +5,9 @@ package com.lemon95.ymtv.common;
  */
 public interface AppConstant {
 
+    //String RESOURCE = "http://120.76.25.68:12345/"; //资源地址前部分
+    String RESOURCE = "http://tupian.lemon95.com:8088/"; //资源地址前部分
+
     //影视类型
     String MOVICE = "1";
     String SERIALS = "2";
