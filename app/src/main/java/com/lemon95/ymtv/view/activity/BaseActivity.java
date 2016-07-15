@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.application.BaseApplication;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -261,7 +262,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onLowMemory();
         //低内存运行
         LogUtils.e(TAG, "clear cache");
-        // x.image().clearCacheFiles();    //清空缓存文件
+        ImageLoader.getInstance().clearMemoryCache();  // 清除内存缓存
     }
 
     @Override
@@ -273,6 +274,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             case TRIM_MEMORY_UI_HIDDEN:
                 LogUtils.e(TAG,"clear cache");
                 //   x.image().clearCacheFiles();    //清空缓存文件
+                ImageLoader.getInstance().clearMemoryCache();  // 清除内存缓存
                 break;
         }
 

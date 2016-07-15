@@ -77,4 +77,5 @@ public class Video {
     public void setDownImg(String downImg) {
         this.downImg = downImg;
     }
+
 }

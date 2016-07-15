@@ -2,6 +2,7 @@ package com.lemon95.ymtv.api;
 
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Version;
+import com.lemon95.ymtv.bean.VideoType;
 
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
@@ -19,6 +20,13 @@ public interface ApiManagerService {
      */
     @GET("/Media/TVs/Recommends")
     Observable<Recommend> getRecommends();
+
+    /**
+     * 获取影视分类
+     * @return
+     */
+    @GET("/Media/TVs/Programs")
+    Observable<VideoType> getVideoType();
 
     /**
      * 检测app版本

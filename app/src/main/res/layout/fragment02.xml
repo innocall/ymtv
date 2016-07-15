@@ -25,28 +25,28 @@
                 android:id="@+id/page2_item1"
                 android:layout_width="@dimen/lemon95_mian_width"
                 android:layout_height="@dimen/lemon95_main_height"
+                android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:layout_marginLeft="@dimen/lemon95_distance_20"
                 android:layout_marginTop="@dimen/lemon95_distance_30"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:clickable="true"
                 android:focusable="true"
-                android:nextFocusUp="@+id/title_bar2"
                 android:nextFocusRight="@+id/page2_item2"
-                app:isShape="false"
-                app:isReflect="true">
+                android:nextFocusUp="@+id/title_bar2"
+                app:isReflect="true"
+                app:isShape="false">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/lemon_page2_img1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        android:src="@drawable/lemon_y_def" />
+                        android:src="@drawable/lemon_h_def" />
 
-                    <com.lemon95.androidtvwidget.view.LabelView
-                        xmlns:lv="http://schemas.android.com/apk/res-auto"
+                    <com.lemon95.androidtvwidget.view.LabelView xmlns:lv="http://schemas.android.com/apk/res-auto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -55,7 +55,8 @@
                         lv:lv_background_color="#3F9FE0"
                         lv:lv_fill_triangle="true"
                         lv:lv_gravity="TOP_RIGHT"
-                        lv:lv_text="热门"
+                        lv:lv_text="最新"
+                        android:visibility="gone"
                         lv:lv_text_size="18sp" />
 
                 </FrameLayout>
@@ -65,9 +66,9 @@
                 android:id="@+id/page2_item2"
                 android:layout_width="@dimen/lemon95_distance_350"
                 android:layout_height="@dimen/lemon95_distance_138"
+                android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:layout_marginLeft="@dimen/lemon95_distance_325"
                 android:layout_marginTop="@dimen/lemon95_distance_30"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar2"
@@ -78,13 +79,13 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/lemon_page2_img2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
                         android:src="@drawable/lemon_w_def" />
 
-                    <com.lemon95.androidtvwidget.view.LabelView
-                        xmlns:lv="http://schemas.android.com/apk/res-auto"
+                    <com.lemon95.androidtvwidget.view.LabelView xmlns:lv="http://schemas.android.com/apk/res-auto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -93,7 +94,8 @@
                         lv:lv_background_color="#e9064a"
                         lv:lv_fill_triangle="true"
                         lv:lv_gravity="TOP_RIGHT"
-                        lv:lv_text="新"
+                        lv:lv_text="hot"
+                        android:visibility="gone"
                         lv:lv_text_size="18sp" />
 
                 </FrameLayout>
@@ -103,9 +105,9 @@
                 android:id="@+id/page2_item3"
                 android:layout_width="@dimen/lemon95_distance_350"
                 android:layout_height="@dimen/lemon95_distance_138"
+                android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:layout_marginLeft="@dimen/lemon95_distance_325"
                 android:layout_marginTop="@dimen/lemon95_distance_173"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/page2_item2"
@@ -116,13 +118,13 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/lemon_page2_img3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
                         android:src="@drawable/lemon_w_def" />
 
-                    <com.lemon95.androidtvwidget.view.LabelView
-                        xmlns:lv="http://schemas.android.com/apk/res-auto"
+                    <com.lemon95.androidtvwidget.view.LabelView xmlns:lv="http://schemas.android.com/apk/res-auto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -131,7 +133,8 @@
                         lv:lv_background_color="#e9064a"
                         lv:lv_fill_triangle="true"
                         lv:lv_gravity="TOP_RIGHT"
-                        lv:lv_text="新"
+                        lv:lv_text="hot"
+                        android:visibility="gone"
                         lv:lv_text_size="18sp" />
 
                 </FrameLayout>
@@ -141,27 +144,27 @@
                 android:id="@+id/page2_item4"
                 android:layout_width="@dimen/lemon95_distance_350"
                 android:layout_height="@dimen/lemon95_distance_138"
+                android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:layout_marginLeft="@dimen/lemon95_distance_325"
                 android:layout_marginTop="@dimen/lemon95_distance_316"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/page2_item3"
-                app:isShape="false"
-                app:isReflect="true">
+                app:isReflect="true"
+                app:isShape="false">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/lemon_page2_img4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
                         android:src="@drawable/lemon_w_def" />
 
-                    <com.lemon95.androidtvwidget.view.LabelView
-                        xmlns:lv="http://schemas.android.com/apk/res-auto"
+                    <com.lemon95.androidtvwidget.view.LabelView xmlns:lv="http://schemas.android.com/apk/res-auto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -170,7 +173,8 @@
                         lv:lv_background_color="#e9064a"
                         lv:lv_fill_triangle="true"
                         lv:lv_gravity="TOP_RIGHT"
-                        lv:lv_text="新"
+                        lv:lv_text="hot"
+                        android:visibility="gone"
                         lv:lv_text_size="18sp" />
 
                 </FrameLayout>
@@ -179,29 +183,69 @@
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page2_item5"
                 android:layout_width="@dimen/lemon95_mian_width"
-                android:layout_height="@dimen/lemon95_main_height"
+                android:layout_height="@dimen/lemon95_distance_210"
+                android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:layout_marginLeft="@dimen/lemon95_distance_680"
                 android:layout_marginTop="@dimen/lemon95_distance_30"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:clickable="true"
                 android:focusable="true"
-                android:nextFocusUp="@+id/title_bar2"
                 android:nextFocusLeft="@+id/page2_item2"
-                app:isShape="false"
-                app:isReflect="true">
+                android:nextFocusUp="@+id/title_bar2"
+                app:isShape="false">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/lemon_page2_img5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        android:src="@drawable/lemon_y_def" />
+                        android:src="@drawable/lemon_wh_def" />
 
-                    <com.lemon95.androidtvwidget.view.LabelView
-                        xmlns:lv="http://schemas.android.com/apk/res-auto"
+                    <com.lemon95.androidtvwidget.view.LabelView xmlns:lv="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        lv:lv_background_color="#f71f03"
+                        lv:lv_fill_triangle="true"
+                        lv:lv_gravity="TOP_RIGHT"
+                        lv:lv_text="热门"
+                        android:visibility="gone"
+                        lv:lv_text_size="18sp" />
+                </FrameLayout>
+
+            </com.lemon95.androidtvwidget.view.ReflectItemView>
+
+            <com.lemon95.androidtvwidget.view.ReflectItemView
+                android:id="@+id/page2_item6"
+                android:layout_width="@dimen/lemon95_mian_width"
+                android:layout_height="@dimen/lemon95_distance_210"
+                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:layout_marginLeft="@dimen/lemon95_distance_680"
+                android:layout_marginTop="@dimen/lemon95_distance_245"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusLeft="@+id/page2_item2"
+                android:nextFocusUp="@+id/page2_item5"
+                app:isReflect="true"
+                app:isShape="false">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/lemon_page2_img6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/lemon_wh_def" />
+
+                    <com.lemon95.androidtvwidget.view.LabelView xmlns:lv="http://schemas.android.com/apk/res-auto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -210,7 +254,8 @@
                         lv:lv_background_color="#f71f03"
                         lv:lv_fill_triangle="true"
                         lv:lv_gravity="TOP_RIGHT"
-                        lv:lv_text="新"
+                        lv:lv_text="hot"
+                        android:visibility="gone"
                         lv:lv_text_size="18sp" />
                 </FrameLayout>
             </com.lemon95.androidtvwidget.view.ReflectItemView>

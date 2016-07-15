@@ -1,17 +1,18 @@
 package com.lemon95.ymtv.presenter;
 
-import android.nfc.Tag;
+import android.os.Handler;
+import android.os.Message;
 
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.Video;
+import com.lemon95.ymtv.bean.VideoType;
 import com.lemon95.ymtv.bean.impl.ISplashBean;
-import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.dao.SplashDao;
 import com.lemon95.ymtv.db.DataBaseDao;
+import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.view.activity.SplashActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +24,22 @@ import java.util.List;
  */
 public class SplashPresenter {
 
+    private static final String TAG = "SplashPresenter";
+    private static final int TOMAIN = 1;
     private SplashActivity splashActivity;
     private ISplashBean iSplashBean;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case TOMAIN:
+                    splashActivity.toMainActivity();
+                    break;
+            }
+        }
+    };
 
     public SplashPresenter(SplashActivity splashActivity) {
         this.splashActivity = splashActivity;
@@ -62,14 +77,37 @@ public class SplashPresenter {
             @Override
             public void onSuccess(Recommend recommend) {
                 //数据获取成功
-                List<Recommend.Data> data = recommend.getData();
+                final List<Recommend.Data> data = recommend.getData();
                 if (data == null) {
-
+                    LogUtils.e(TAG, "每日推荐获取为空");
                 } else {
-                    DataBaseDao baseDao = new DataBaseDao(splashActivity);
-                    List<Video> videoList = baseDao.getAllVideoList();
-                    initVideoData(data, videoList, baseDao);
+                    initVideoData(data);  //保存数据到数据库
                 }
+                initVideoType();
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                initVideoType();
+            }
+        });
+    }
+
+    /**
+     * 获取影视分类
+     */
+    public void initVideoType() {
+        iSplashBean.getVideoType(new SplashDao.OnVideoTypeListener() {
+            @Override
+            public void onSuccess(VideoType videoType) {
+                //数据获取成功
+                final List<VideoType.Data> data = videoType.getData();
+                if (data == null) {
+                    LogUtils.e(TAG, "每日推荐获取为空");
+                } else {
+                    saveDateToVideoType(data);
+                }
+                splashActivity.toMainActivity();
             }
 
             @Override
@@ -79,32 +117,37 @@ public class SplashPresenter {
     }
 
     /**
-     * 处理每日推荐数据
+     * 保存影视分类数据到数据库
      * @param data
-     * @param videoList
-     * @param baseDao
      */
-    private void initVideoData(List<Recommend.Data> data, List<Video> videoList, DataBaseDao baseDao) {
-        if (videoList == null || videoList.size() == 0) {
-            //数据库没有数据，一般为第一次进入,保存数据到数据库
-            videoList = new ArrayList<>();
-            for (Recommend.Data d:data ) {
-                iSplashBean.downImg(AppConstant.RESOURCE + d.getPicturePath(), new SplashDao.OnImageDownListener() {
-                    @Override
-                    public void onSuccess(String fileUrl) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Throwable e) {
-
-                    }
-                });
-            }
-        } else {
-
+    private void saveDateToVideoType(List<VideoType.Data> data) {
+        for (int i=0;i<data.size();i++) {
+            com.lemon95.ymtv.bean.VideoType.Data d = data.get(i);
+            //保存数据到数据库
+            DataBaseDao baseDao = new DataBaseDao(splashActivity);
+            baseDao.addOrUpdateVideoType(d);
         }
     }
+
+    /**
+     * 保存每日推荐数据到数据库
+     * @param data
+     */
+    private void initVideoData(List<Recommend.Data> data) {
+        for (int i=0;i<data.size();i++) {
+            com.lemon95.ymtv.bean.Recommend.Data d = data.get(i);
+            Video video = new Video();
+            video.setVideoTypeId(d.getVideoTypeId());
+            video.setVideoId(d.getVideoId());
+            video.setTitle(d.getTitle());
+            video.setOrderNum(d.getOrderNum());
+            video.setPicturePath(d.getPicturePath());
+            //保存数据到数据库
+            DataBaseDao baseDao = new DataBaseDao(splashActivity);
+            baseDao.addOrUpdateVideo(video);
+        }
+    }
+
 
 
     public void start() {

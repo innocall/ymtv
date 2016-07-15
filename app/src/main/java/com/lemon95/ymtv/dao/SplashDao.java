@@ -5,10 +5,12 @@ import android.graphics.Bitmap;
 import com.lemon95.ymtv.api.ApiManager;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Version;
+import com.lemon95.ymtv.bean.VideoType;
 import com.lemon95.ymtv.bean.impl.ISplashBean;
 import com.lemon95.ymtv.utils.ImageUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 
+import java.io.File;
 import java.io.InputStream;
 
 import okhttp3.ResponseBody;
@@ -68,15 +70,42 @@ public class SplashDao implements ISplashBean {
                 });
     }
 
+    /**
+     * 获取影视分类
+     * @param onVideoListener
+     */
     @Override
-    public void downImg(final String imgUrl,final OnImageDownListener onImageDownListener) {
+    public void getVideoType(final OnVideoTypeListener onVideoListener) {
+        ApiManager.getVideoType().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<VideoType>() {
+
+                    @Override
+                    public void call(VideoType videoType) {
+                        LogUtils.i(TAG, videoType.getReturnMsg());
+                        onVideoListener.onSuccess(videoType);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        //获取版本失败
+                        LogUtils.i(TAG, "获取影视类型失败");
+                        onVideoListener.onFailure(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void downImg(final String imgUrl,final String oldPath,final OnImageDownListener onImageDownListener) {
         ApiManager.downloadPicFromNet(imgUrl).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
 
                     @Override
                     public void call(ResponseBody responseBody) {
                         String fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1,imgUrl.lastIndexOf("."));
-                        ImageUtils.saveImage(responseBody,fileName);
+                        File file = new File(oldPath);
+                        if (file.exists()) {
+                            file.delete();
+                        }
                         onImageDownListener.onSuccess("/myImage/ymtv/" + fileName + ".png");
                     }
                 }, new Action1<Throwable>() {
@@ -107,6 +136,11 @@ public class SplashDao implements ISplashBean {
 
     public interface OnImageDownListener {
         void onSuccess(String fileUrl);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnVideoTypeListener {
+        void onSuccess(VideoType videoType);
         void onFailure(Throwable e);
     }
 }

@@ -24,7 +24,7 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item1"
-                android:layout_width="@dimen/lemon95_mian_width"
+                android:layout_width="@dimen/lemon95_distance_323"
                 android:layout_height="@dimen/lemon95_main_height"
                 android:layout_marginLeft="@dimen/lemon95_distance_20"
                 android:layout_marginTop="@dimen/lemon95_distance_30"
@@ -40,130 +40,79 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/lemon_page3_img1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        android:src="@drawable/lemon_play_re_bg" />
+                        android:src="@drawable/lemon_t_def" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="@dimen/lemon95_distance_110"
-                            android:layout_height="@dimen/lemon95_distance_100"
-                            android:src="@drawable/lemon_play_re" />
-
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="#577CF6"
+                        android:layout_gravity="bottom">
                         <TextView
+                            android:id="@+id/lemon_page3_name1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/lemon95_play_re"
-                            android:textColor="@color/lemon_color3"
-                            android:textSize="@dimen/lemon95_text_24" />
-                    </LinearLayout>
+                            android:text="电影"
+                            android:textSize="30sp"
+                            android:layout_centerInParent="true"
+                            android:textColor="#FFF"/>
+                    </RelativeLayout>
+
 
                 </FrameLayout>
             </com.lemon95.androidtvwidget.view.ReflectItemView>
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item2"
-                android:layout_width="@dimen/lemon95_distance_350"
-                android:layout_height="@dimen/lemon95_distance_210"
-                android:layout_marginLeft="@dimen/lemon95_distance_325"
+                android:layout_width="@dimen/lemon95_distance_323"
+                android:layout_height="@dimen/lemon95_main_height"
+                android:layout_marginLeft="@dimen/lemon95_distance_348"
                 android:layout_marginTop="@dimen/lemon95_distance_30"
                 android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar3"
-                app:isShape="false">
+                app:isShape="false"
+                app:isReflect="true">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/lemon_page3_img2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        android:src="@drawable/lemon_qp_bg" />
+                        android:src="@drawable/lemon_t_def" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="@dimen/lemon95_distance_110"
-                            android:layout_height="@dimen/lemon95_distance_100"
-                            android:src="@drawable/lemon_qp_img" />
-
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="#C152E5"
+                        android:layout_gravity="bottom">
                         <TextView
+                            android:id="@+id/lemon_page3_name2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/lemon95_qp"
-                            android:textColor="@color/lemon_color3"
-                            android:textSize="@dimen/lemon95_text_24" />
-                    </LinearLayout>
+                            android:text="电视剧"
+                            android:textSize="30sp"
+                            android:layout_centerInParent="true"
+                            android:textColor="#FFF"/>
+                    </RelativeLayout>
+
 
                 </FrameLayout>
             </com.lemon95.androidtvwidget.view.ReflectItemView>
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item3"
-                android:layout_width="@dimen/lemon95_distance_350"
-                android:layout_height="@dimen/lemon95_distance_210"
-                android:layout_marginLeft="@dimen/lemon95_distance_325"
-                android:layout_marginTop="@dimen/lemon95_distance_245"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
-                android:clickable="true"
-                android:focusable="true"
-                android:nextFocusUp="@+id/page3_item2"
-                app:isShape="false"
-                app:isReflect="true">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/lemon_sc_bg" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="@dimen/lemon95_distance_110"
-                            android:layout_height="@dimen/lemon95_distance_100"
-                            android:src="@drawable/lemon_sc_img" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/lemon95_sc"
-                            android:textColor="@color/lemon_color3"
-                            android:textSize="@dimen/lemon95_text_24" />
-                    </LinearLayout>
-
-                </FrameLayout>
-            </com.lemon95.androidtvwidget.view.ReflectItemView>
-
-            <com.lemon95.androidtvwidget.view.ReflectItemView
-                android:id="@+id/page3_item4"
-                android:layout_width="@dimen/lemon95_mian_width"
+                android:layout_width="@dimen/lemon95_distance_323"
                 android:layout_height="@dimen/lemon95_main_height"
-                android:layout_marginLeft="@dimen/lemon95_distance_680"
+                android:layout_marginLeft="@dimen/lemon95_distance_676"
                 android:layout_marginTop="@dimen/lemon95_distance_30"
                 android:layout_marginBottom="@dimen/lemon95_distance_20"
                 android:clickable="true"
@@ -177,30 +126,27 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/lemon_page3_img3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        android:src="@drawable/lemon_user_bg" />
+                        android:src="@drawable/lemon_t_def" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="@dimen/lemon95_distance_110"
-                            android:layout_height="@dimen/lemon95_distance_100"
-                            android:src="@drawable/lemon_user_msg" />
-
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="#32B7A3"
+                        android:layout_gravity="bottom">
                         <TextView
+                            android:id="@+id/lemon_page3_name3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/lemon95_user_msg"
-                            android:textColor="@color/lemon_color3"
-                            android:textSize="@dimen/lemon95_text_24" />
-                    </LinearLayout>
+                            android:text="每日一乐"
+                            android:textSize="30sp"
+                            android:layout_centerInParent="true"
+                            android:textColor="#FFF"/>
+                    </RelativeLayout>
+
 
                 </FrameLayout>
             </com.lemon95.androidtvwidget.view.ReflectItemView>

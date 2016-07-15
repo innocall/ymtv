@@ -31,4 +31,7 @@
     <dimen name="lemon95_distance_173">173.333dp</dimen>
     <dimen name="lemon95_distance_316">316.333dp</dimen>
     <dimen name="lemon95_distance_60">60dp</dimen>
+    <dimen name="lemon95_distance_323">323.333dp</dimen>
+    <dimen name="lemon95_distance_348">348.333dp</dimen>
+    <dimen name="lemon95_distance_676">676.333dp</dimen>
 </resources>

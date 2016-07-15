@@ -18,10 +18,10 @@ public class ImageUtils {
 
     /**
      * 保存图片到本地
-     * @param responseBody
+     * @param bitmap
      * @return
      */
-    public static void saveImage(ResponseBody responseBody,String picName) {
+    public static void saveImage(Bitmap bitmap,String picName) {
         String SDCarePath = Environment.getExternalStorageDirectory()
                 .toString();
         String sdStatus = Environment.getExternalStorageState();
@@ -34,7 +34,6 @@ public class ImageUtils {
         file.mkdirs();// 创建文件夹
         String fileName = SDCarePath + "/myImage/ymtv/" + picName + ".png";
         try {
-            Bitmap bitmap = BitmapFactory.decodeStream(responseBody.byteStream());
             b = new FileOutputStream(fileName);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, b);// 把数据写入文件
         } catch (FileNotFoundException e) {

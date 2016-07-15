@@ -39,6 +39,11 @@ public class SqliteHelper extends SQLiteOpenHelper {
                 + "videoTypeId varchar(64),"+ "videoId varchar(64),"+ "title varchar(225)," + "picturePath varchar(225),"+ "orderNum varchar(10),"
                 + "tag varchar(10)," + "createTime varchar(20)," + "downImg varchar(225),"+ "b1 varchar(225),"+ "b2 varchar(225),"+ "b3 varchar(225),"
                 + "b4 varchar(225))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS tb_videoVideo "
+                + "(id integer primary key autoincrement,"
+                + "videoTypeId varchar(64),"+ "title varchar(225)," + "picturePath varchar(225),"
+                + "tag varchar(10)," + "downImg varchar(225),"+ "b1 varchar(225),"+ "b2 varchar(225),"+ "b3 varchar(225),"
+                + "b4 varchar(225))");
     }
 
     @Override

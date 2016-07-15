@@ -30,4 +30,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.retrofit2:converter-scalars:2.0.2'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }

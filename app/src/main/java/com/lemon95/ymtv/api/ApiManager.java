@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Version;
+import com.lemon95.ymtv.bean.Video;
+import com.lemon95.ymtv.bean.VideoType;
 
 import java.io.IOException;
 import okhttp3.Interceptor;
@@ -76,6 +78,10 @@ public class ApiManager {
      */
     public static Observable<Version> getVersion() {
         return apiManager.getVersion();
+    }
+
+    public static Observable<VideoType> getVideoType() {
+        return apiManager.getVideoType();
     }
 
     /**

@@ -24,6 +24,8 @@ public interface ISplashBean {
      */
     public void getRecommends(SplashDao.OnVideoListener onVideoListener);
 
-    public void downImg(String imgUrl,SplashDao.OnImageDownListener onImageDownListener);
+    public void getVideoType(SplashDao.OnVideoTypeListener onVideoListener);
+
+    public void downImg(String imgUrl,String oldPath,SplashDao.OnImageDownListener onImageDownListener);
 
 }

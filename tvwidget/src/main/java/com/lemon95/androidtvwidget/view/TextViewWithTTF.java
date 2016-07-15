@@ -67,10 +67,8 @@ class TypeFaceMgr
             try
             {
                 font = Typeface.createFromFile("/system/fonts/" + aTTFName);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
+            } catch (Exception e) {
+               // e.printStackTrace();
                 return null;
             }
            

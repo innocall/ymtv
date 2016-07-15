@@ -2,8 +2,10 @@ package com.lemon95.ymtv.view.activity;
 
 import android.animation.Animator;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -13,6 +15,8 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lemon95.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.lemon95.androidtvwidget.bridge.OpenEffectBridge;
@@ -23,24 +27,44 @@ import com.lemon95.androidtvwidget.view.ReflectItemView;
 import com.lemon95.androidtvwidget.view.TextViewWithTTF;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.adapter.OpenTabTitleAdapter;
+import com.lemon95.ymtv.bean.Recommend;
+import com.lemon95.ymtv.bean.Video;
+import com.lemon95.ymtv.bean.VideoType;
+import com.lemon95.ymtv.common.AppConstant;
+import com.lemon95.ymtv.db.DataBaseDao;
+import com.lemon95.ymtv.presenter.MainPresenter;
+import com.lemon95.ymtv.presenter.SplashPresenter;
+import com.lemon95.ymtv.utils.ImageUtils;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.lemon95.ymtv.utils.StringUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import org.w3c.dom.Text;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelectListener {
+public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelectListener,View.OnClickListener {
 
     private List<View> viewList;// view数组
     private View view1, view2, view3, view4;
     ViewPager viewpager;
     OpenTabHost mOpenTabHost;
     OpenTabTitleAdapter mOpenTabTitleAdapter;
-
+    private MainPresenter mainPresenter = new MainPresenter(this);
     private OpenEffectBridge mSavebridge;
+    private DataBaseDao dataBaseDao;
     private View mOldFocus;
     private Button lemon_but_search;  //搜索
     private ReflectItemView page1_item1,page1_item2,page1_item3,page1_item4;
-    private ReflectItemView page2_item1,page2_item2,page2_item3,page2_item4,page2_item5;
+    private ImageView lemon_page2_img1,lemon_page2_img2,lemon_page2_img3,lemon_page2_img4,lemon_page2_img5,lemon_page2_img6;
+    private ImageView lemon_page3_img1,lemon_page3_img2,lemon_page3_img3;
+    private TextView lemon_page3_name1,lemon_page3_name2,lemon_page3_name3;
+    private  List<VideoType.Data> videoTypeList; //影视分类
+    private List<Video> videoList;  //每日推荐
 
     @Override
     protected int getLayoutId() {
@@ -56,21 +80,64 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         initAllViewPager();
         // 初始化.
         initViewMove();
-
         initView();
+        initRecommends(); //初始化每日推荐数据
+        initVideoType(); //初始化影视分类
+        initOnClick();
+    }
+
+    /**
+     * 初始化影视类型
+     */
+    private void initVideoType() {
+        //从数据库获取数据
+        dataBaseDao = new DataBaseDao(context);
+        videoTypeList = dataBaseDao.getAllVideoTypeList();
+        if (videoTypeList != null && videoTypeList.size() == 3) {
+            showVideoType(videoTypeList);
+        } else {
+            if (videoTypeList.size() > 3) {
+                dataBaseDao.deleteVideoType();
+            }
+            mainPresenter.getVideoType(); //重新获取数据，并保存数据库
+        }
+    }
+
+    /**
+     * 初始化每日推荐数据
+     */
+    private void initRecommends() {
+        //从数据库获取数据
+        dataBaseDao = new DataBaseDao(context);
+        videoList = dataBaseDao.getAllVideoList();
+        if (videoList != null && videoList.size() == 6) {
+            showRecommends(videoList);
+        } else {
+            if (videoList.size() > 6) {
+                dataBaseDao.deleteVideo();
+            }
+            mainPresenter.getRecommends(); //重新获取数据，并保存数据库
+        }
     }
 
     private void initView() {
         lemon_but_search = (Button)findViewById(R.id.lemon_but_search);
-        page1_item1 = (ReflectItemView)findViewById(R.id.page1_item1);
-        page1_item2 = (ReflectItemView)findViewById(R.id.page1_item2);
-        page1_item3 = (ReflectItemView)findViewById(R.id.page1_item3);
-        page1_item4 = (ReflectItemView)findViewById(R.id.page1_item4);
-        page2_item1 = (ReflectItemView)findViewById(R.id.page2_item1);
-        page2_item2 = (ReflectItemView)findViewById(R.id.page2_item2);
-        page2_item3 = (ReflectItemView)findViewById(R.id.page2_item3);
-        page2_item4 = (ReflectItemView)findViewById(R.id.page2_item4);
-        page2_item5 = (ReflectItemView)findViewById(R.id.page2_item5);
+        page1_item1 = (ReflectItemView)view1.findViewById(R.id.page1_item1);
+        page1_item2 = (ReflectItemView)view1.findViewById(R.id.page1_item2);
+        page1_item3 = (ReflectItemView)view1.findViewById(R.id.page1_item3);
+        page1_item4 = (ReflectItemView)view1.findViewById(R.id.page1_item4);
+        lemon_page2_img1 = (ImageView)view2.findViewById(R.id.lemon_page2_img1);
+        lemon_page2_img2 = (ImageView)view2.findViewById(R.id.lemon_page2_img2);
+        lemon_page2_img3 = (ImageView)view2.findViewById(R.id.lemon_page2_img3);
+        lemon_page2_img4 = (ImageView)view2.findViewById(R.id.lemon_page2_img4);
+        lemon_page2_img5 = (ImageView)view2.findViewById(R.id.lemon_page2_img5);
+        lemon_page2_img6 = (ImageView)view2.findViewById(R.id.lemon_page2_img6);
+        lemon_page3_img1 = (ImageView)view3.findViewById(R.id.lemon_page3_img1);
+        lemon_page3_img2 = (ImageView)view3.findViewById(R.id.lemon_page3_img2);
+        lemon_page3_img3 = (ImageView)view3.findViewById(R.id.lemon_page3_img3);
+        lemon_page3_name1 = (TextView)view3.findViewById(R.id.lemon_page3_name1);
+        lemon_page3_name2 = (TextView)view3.findViewById(R.id.lemon_page3_name2);
+        lemon_page3_name3 = (TextView)view3.findViewById(R.id.lemon_page3_name3);
         lemon_but_search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -131,27 +198,11 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                 int pos = viewpager.getCurrentItem();
                 final MainUpView mainUpView = (MainUpView) viewList.get(pos).findViewById(R.id.mainUpView1);
                 final OpenEffectBridge bridge = (OpenEffectBridge) mainUpView.getEffectBridge();
-//                if(newFocus instanceof TextViewWithTTF) {
-//                    newFocus = mOpenTabHost.getTitleViewIndexAt(pos);
-//                }
                 if (!(newFocus instanceof ReflectItemView)) { // 不是 ReflectitemView 的话.
                     OPENLOG.D("onGlobalFocusChanged no ReflectItemView + " + (newFocus instanceof GridView));
                     mainUpView.setUnFocusView(mOldFocus);
                     bridge.setVisibleWidget(true); // 隐藏.
                     mSavebridge = null;
-                    // 处理gridview的边框.
-                   /* if ((newFocus instanceof GridView) && pos == 1) {
-                        View newView = null;
-                        bridge.setVisibleWidget(false);
-                      //  newView = gridView.getSelectedView();
-                        //
-                        if (newView != null) {
-                            newView.bringToFront();
-                            mainUpView.setFocusView(newView, mOldFocus, 1.2f);
-                        }
-                        mOldFocus = newView;
-                        return; // 反之最后的 mOldFocus 出问题.
-                    }*/
                 } else {
                     LogUtils.i(TAG, "onGlobalFocusChanged yes ReflectItemView");
                     newFocus.bringToFront();
@@ -282,6 +333,195 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
             mainUpView.setDrawUpRectPadding(new Rect(10,10,8,10)); // 边框图片设置间距.
             EffectNoDrawBridge bridget = (EffectNoDrawBridge) mainUpView.getEffectBridge();
             bridget.setTranDurAnimTime(100);
+        }
+    }
+
+    /**
+     * 控制每日推荐图片显示
+     * @param list
+     */
+    public void showRecommends(List<Video> list) {
+        videoList = list;
+        for (int i=0;i<list.size();i++) {
+            Video video = list.get(i);
+            final String orderNum = video.getOrderNum();
+            if ("1".equals(orderNum)) {
+                viewImage(video, orderNum,lemon_page2_img1);
+            } else if ("2".equals(orderNum)) {
+                viewImage(video, orderNum,lemon_page2_img2);
+            } else if ("3".equals(orderNum)) {
+                viewImage(video, orderNum,lemon_page2_img3);
+            } else if ("4".equals(orderNum)) {
+                viewImage(video, orderNum,lemon_page2_img4);
+            } else if ("5".equals(orderNum)) {
+                viewImage(video, orderNum,lemon_page2_img5);
+            } else if ("6".equals(orderNum)) {
+                viewImage(video, orderNum,lemon_page2_img6);
+            }
+        }
+    }
+
+    /**
+     * 控制影视分类显示
+     * @param videoList
+     */
+    public void showVideoType(List<VideoType.Data> videoList) {
+        videoTypeList = videoList;
+        for (int i=0;i<videoList.size();i++) {
+            VideoType.Data videoType = videoList.get(i);
+            if (i == 0) {
+                lemon_page3_name1.setText(videoType.getTitle());
+                viewVideoTypeImg(videoType, lemon_page3_img1);
+            } else if(i == 1) {
+                lemon_page3_name2.setText(videoType.getTitle());
+                viewVideoTypeImg(videoType, lemon_page3_img2);
+            } else if(i == 2) {
+                lemon_page3_name3.setText(videoType.getTitle());
+                viewVideoTypeImg(videoType,lemon_page3_img3);
+            }
+        }
+    }
+
+    private void viewVideoTypeImg(VideoType.Data videoType, ImageView imagView) {
+        final String downImg = videoType.getDownImg();
+        if (StringUtils.isBlank(downImg)) {
+            loadVideoTypeImg(videoType, downImg, imagView);
+        } else {
+            String SDCarePath = Environment.getExternalStorageDirectory().toString();
+            File file = new File(SDCarePath + downImg);
+            LogUtils.i(TAG, "图片保存地址：" + SDCarePath + downImg);
+            if (file.exists()) {
+                //文件存在，判断图片是否需要更新
+                LogUtils.i(TAG,"加载本地显示");
+                ImageLoader.getInstance().displayImage("file://" + SDCarePath + downImg, imagView);
+            } else {
+                //文件不存在从新下载
+                loadVideoTypeImg(videoType, "", imagView);
+            }
+        }
+    }
+
+    private void loadVideoTypeImg(final VideoType.Data videoType,final String downImg, ImageView imagView) {
+        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + videoType.getPicturePath(), imagView,
+                new ImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String imageUri, View view) {
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String imgUrl, View arg1,Bitmap arg2) {
+                        //加载成功
+                        String fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1,imgUrl.lastIndexOf("."));
+                        ImageUtils.saveImage(arg2, fileName);
+                        if (StringUtils.isNotBlank(downImg)) {
+                            File file = new File(downImg);
+                            if (file.exists()) {
+                                file.delete();
+                            }
+                        }
+                        videoType.setDownImg("/myImage/ymtv/" + fileName + ".png");
+                        dataBaseDao.addOrUpdateVideoType(videoType);
+                        LogUtils.i(TAG, "加载成功" + imgUrl);
+                    }
+
+                    @Override
+                    public void onLoadingCancelled(String imageUri, View view) {
+                    }
+                });
+    }
+
+    private void viewImage(Video video, String orderNum,ImageView imagView) {
+        final String downImg = video.getDownImg();
+        if (StringUtils.isBlank(downImg)) {
+            loadImg(video, orderNum, downImg,imagView);
+        } else {
+            String SDCarePath = Environment.getExternalStorageDirectory().toString();
+            File file = new File(SDCarePath + downImg);
+            LogUtils.i(TAG, "图片保存地址：" + SDCarePath + downImg);
+            if (file.exists()) {
+                //文件存在，判断图片是否需要更新
+                LogUtils.i(TAG,"加载本地显示");
+                ImageLoader.getInstance().displayImage("file://" + SDCarePath + downImg, imagView);
+            } else {
+                //文件不存在从新下载
+                loadImg(video, orderNum, "",imagView);
+            }
+        }
+    }
+
+    /**
+     * 加载网络图片
+     * @param video
+     * @param orderNum
+     * @param downImg
+     */
+    private void loadImg(final Video video, final String orderNum, final String downImg,ImageView imagView) {
+        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + video.getPicturePath(), imagView,
+                new ImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String imageUri, View view) {
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String imgUrl, View arg1,Bitmap arg2) {
+                        //加载成功
+                        String fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1,imgUrl.lastIndexOf("."));
+                        ImageUtils.saveImage(arg2, fileName);
+                        if (StringUtils.isNotBlank(downImg)) {
+                            File file = new File(downImg);
+                            if (file.exists()) {
+                                file.delete();
+                            }
+                        }
+                        video.setDownImg("/myImage/ymtv/" + fileName + ".png");
+                        dataBaseDao.addOrUpdateVideo(video);
+                        LogUtils.i(TAG, "加载成功" + imgUrl);
+                    }
+
+                    @Override
+                    public void onLoadingCancelled(String imageUri, View view) {
+                    }
+                });
+    }
+
+    private void initOnClick() {
+        lemon_page2_img1.setOnClickListener(this);
+        lemon_page2_img2.setOnClickListener(this);
+        lemon_page2_img3.setOnClickListener(this);
+        lemon_page2_img4.setOnClickListener(this);
+        lemon_page2_img5.setOnClickListener(this);
+        lemon_page2_img6.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.lemon_page2_img1:
+
+                break;
+            case R.id.lemon_page2_img2:
+
+                break;
+            case R.id.lemon_page2_img3:
+
+                break;
+            case R.id.lemon_page2_img4:
+
+                break;
+            case R.id.lemon_page2_img5:
+
+                break;
+            case R.id.lemon_page2_img6:
+
+                break;
         }
     }
 

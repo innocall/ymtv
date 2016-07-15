@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.presenter.SplashPresenter;
 import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.view.impl.ISplashActivity;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 启动页,
@@ -20,6 +23,7 @@ import com.lemon95.ymtv.view.impl.ISplashActivity;
 public class SplashActivity extends BaseActivity implements ISplashActivity{
 
     private SplashPresenter splashPresenter = new SplashPresenter(this);
+    private ImageView lemon_splash_id;
 
     @Override
     protected int getLayoutId() {
@@ -29,10 +33,12 @@ public class SplashActivity extends BaseActivity implements ISplashActivity{
 
     @Override
     protected void setupViews() {
+        lemon_splash_id = (ImageView)findViewById(R.id.lemon_splash_id);
     }
 
     @Override
     protected void initialized() {
+        ImageLoader.getInstance().displayImage("assets://lemon_splash.jpg",lemon_splash_id);
         splashPresenter.start();
     }
 
