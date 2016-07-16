@@ -24,11 +24,11 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item1"
-                android:layout_width="@dimen/lemon95_distance_323"
-                android:layout_height="@dimen/lemon95_main_height"
-                android:layout_marginLeft="@dimen/lemon95_distance_20"
-                android:layout_marginTop="@dimen/lemon95_distance_30"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:layout_width="@dimen/lemon95_323px"
+                android:layout_height="@dimen/lemon95_425px"
+                android:layout_marginLeft="@dimen/lemon95_20px"
+                android:layout_marginTop="@dimen/lemon95_30px"
+                android:layout_marginBottom="@dimen/lemon95_20px"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar3"
@@ -48,7 +48,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="@dimen/lemon95_60px"
                         android:background="#577CF6"
                         android:layout_gravity="bottom">
                         <TextView
@@ -56,7 +56,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="电影"
-                            android:textSize="30sp"
+                            android:textSize="@dimen/lemon95_30px"
                             android:layout_centerInParent="true"
                             android:textColor="#FFF"/>
                     </RelativeLayout>
@@ -67,11 +67,11 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item2"
-                android:layout_width="@dimen/lemon95_distance_323"
-                android:layout_height="@dimen/lemon95_main_height"
-                android:layout_marginLeft="@dimen/lemon95_distance_348"
-                android:layout_marginTop="@dimen/lemon95_distance_30"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:layout_width="@dimen/lemon95_323px"
+                android:layout_height="@dimen/lemon95_425px"
+                android:layout_marginLeft="@dimen/lemon95_348px"
+                android:layout_marginTop="@dimen/lemon95_30px"
+                android:layout_marginBottom="@dimen/lemon95_20px"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar3"
@@ -91,7 +91,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="@dimen/lemon95_60px"
                         android:background="#C152E5"
                         android:layout_gravity="bottom">
                         <TextView
@@ -99,7 +99,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="电视剧"
-                            android:textSize="30sp"
+                            android:textSize="@dimen/lemon95_30px"
                             android:layout_centerInParent="true"
                             android:textColor="#FFF"/>
                     </RelativeLayout>
@@ -110,11 +110,11 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item3"
-                android:layout_width="@dimen/lemon95_distance_323"
-                android:layout_height="@dimen/lemon95_main_height"
-                android:layout_marginLeft="@dimen/lemon95_distance_676"
-                android:layout_marginTop="@dimen/lemon95_distance_30"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:layout_width="@dimen/lemon95_323px"
+                android:layout_height="@dimen/lemon95_425px"
+                android:layout_marginLeft="@dimen/lemon95_676px"
+                android:layout_marginTop="@dimen/lemon95_30px"
+                android:layout_marginBottom="@dimen/lemon95_20px"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar3"
@@ -134,7 +134,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="@dimen/lemon95_60px"
                         android:background="#32B7A3"
                         android:layout_gravity="bottom">
                         <TextView
@@ -142,7 +142,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="每日一乐"
-                            android:textSize="30sp"
+                            android:textSize="@dimen/lemon95_30px"
                             android:layout_centerInParent="true"
                             android:textColor="#FFF"/>
                     </RelativeLayout>

@@ -1,37 +1,41 @@
 <resources>
-    <dimen name="lemon95_main_top">15dp</dimen>
-    <dimen name="lemon95_main_left">50dp</dimen>
-    <dimen name="lemon95_user_logo">80dp</dimen>
-    <dimen name="lemon95_text_30">30sp</dimen>
-    <dimen name="lemon95_distance_15">15dp</dimen>
-    <dimen name="lemon95_distance_7">7dp</dimen>
-    <dimen name="lemon95_text_20">20sp</dimen>
-    <dimen name="lemon95_search_left">15dp</dimen>
-    <dimen name="lemon95_search_height">40dp</dimen>
-    <dimen name="lemon95_search_width">120dp</dimen>
-    <dimen name="lemon95_text_24">24sp</dimen>
-    <dimen name="lemon95_logo_height">50dp</dimen>
-    <dimen name="lemon95_logo_width">150dp</dimen>
-    <dimen name="lemon95_distance_30">30dp</dimen>
-    <dimen name="lemon95_distance_110">100dp</dimen>
-    <dimen name="lemon95_distance_100">90dp</dimen>
-    <dimen name="lemon95_distance_10">10dp</dimen>
-    <dimen name="tab_highlight_height">60dp</dimen>
-    <dimen name="dim_05_dp">3dp</dimen>
-    <dimen name="lemon95_main_rigth">80dp</dimen>
-    <dimen name="lemon95_mian_width">300dp</dimen>
-    <dimen name="lemon95_main_height">425dp</dimen>
-    <dimen name="lemon95_distance_20">20dp</dimen>
-    <dimen name="lemon95_distance_350">350dp</dimen>
-    <dimen name="lemon95_distance_210">210dp</dimen>
-    <dimen name="lemon95_distance_325">325dp</dimen>
-    <dimen name="lemon95_distance_245">245dp</dimen>
-    <dimen name="lemon95_distance_680">680dp</dimen>
-    <dimen name="lemon95_distance_138">138.333dp</dimen>
-    <dimen name="lemon95_distance_173">173.333dp</dimen>
-    <dimen name="lemon95_distance_316">316.333dp</dimen>
-    <dimen name="lemon95_distance_60">60dp</dimen>
-    <dimen name="lemon95_distance_323">323.333dp</dimen>
-    <dimen name="lemon95_distance_348">348.333dp</dimen>
-    <dimen name="lemon95_distance_676">676.333dp</dimen>
+
+    <dimen name="lemon95_58dp">58dp</dimen>
+    <dimen name="lemon95_30dp">30dp</dimen>
+
+    <dimen name="lemon95_15px">15px</dimen>
+    <dimen name="lemon95_30px">30px</dimen>
+    <dimen name="lemon95_50px">50px</dimen>
+    <dimen name="lemon95_80px">80px</dimen>
+    <dimen name="lemon95_10px">10px</dimen>
+    <dimen name="lemon95_120px">120px</dimen>
+    <dimen name="lemon95_40px">40px</dimen>
+    <dimen name="lemon95_07px">7px</dimen>
+    <dimen name="lemon95_20px">20px</dimen>
+    <dimen name="lemon95_24px">24px</dimen>
+    <dimen name="lemon95_300px">300px</dimen>
+    <dimen name="lemon95_425px">425px</dimen>
+    <dimen name="lemon95_100px">100px</dimen>
+    <dimen name="lemon95_90px">90px</dimen>
+    <dimen name="lemon95_350px">350px</dimen>
+    <dimen name="lemon95_210px">210px</dimen>
+    <dimen name="lemon95_325px">325px</dimen>
+    <dimen name="lemon95_245px">245px</dimen>
+    <dimen name="lemon95_680px">680px</dimen>
+    <dimen name="lemon95_80dp">80dp</dimen>
+    <dimen name="lemon95_138px">138.333px</dimen>
+    <dimen name="lemon95_173px">173.333px</dimen>
+    <dimen name="lemon95_316px">316.333px</dimen>
+    <dimen name="lemon95_323px">323.333px</dimen>
+    <dimen name="lemon95_348px">348.333px</dimen>
+    <dimen name="lemon95_676px">676.333px</dimen>
+    <dimen name="lemon95_60px">60px</dimen>
+    <dimen name="lemon95_164px">164px</dimen>
+    <dimen name="lemon95_56px">56px</dimen>
+    <dimen name="lemon95_108px">108px</dimen>
+    <dimen name="lemon95_810px">810px</dimen>
+    <dimen name="lemon95_162px">162px</dimen>
+    <dimen name="lemon95_240px">240px</dimen>
+
+
 </resources>

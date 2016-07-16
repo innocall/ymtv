@@ -6,81 +6,75 @@
     android:layout_height="match_parent"
     android:background="@drawable/lemon95_main_bg"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/lemon95_main_left"
-    android:paddingRight="@dimen/lemon95_main_left"
-    android:paddingTop="@dimen/lemon95_main_top">
+    android:paddingLeft="@dimen/lemon95_100px"
+    android:paddingRight="@dimen/lemon95_100px"
+    android:paddingTop="@dimen/lemon95_15px">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5">
+        android:layout_height="@dimen/lemon95_162px"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/lemon95_30px"
+        android:layout_marginRight="@dimen/lemon95_30px">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/lemon95_distance_30"
-            android:layout_marginRight="@dimen/lemon95_distance_30">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/lemon95_120px"
+                android:layout_height="@dimen/lemon95_120px"
+                android:src="@drawable/lemon_user_logo" />
 
-                <ImageView
-                    android:layout_width="@dimen/lemon95_user_logo"
-                    android:layout_height="@dimen/lemon95_user_logo"
-                    android:src="@drawable/lemon_user_logo" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/lemon95_distance_10"
-                    android:text="@string/lemon95_login_msg"
-                    android:textColor="@color/lemon_color1"
-                    android:textSize="@dimen/lemon95_text_30" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal">
+                android:layout_marginLeft="@dimen/lemon95_10px"
+                android:text="@string/lemon95_login_msg"
+                android:textColor="@color/lemon_color1"
+                android:textSize="@dimen/lemon95_30px" />
+        </LinearLayout>
 
-                <Button
-                    android:id="@+id/lemon_but_search"
-                    android:layout_width="@dimen/lemon95_search_width"
-                    android:layout_height="@dimen/lemon95_search_height"
-                    android:background="@drawable/lemon_bug_search_bg"
-                    android:drawablePadding="@dimen/lemon95_distance_7"
-                    android:drawableRight="@drawable/lemon_search"
-                    android:paddingLeft="@dimen/lemon95_search_left"
-                    android:paddingRight="@dimen/lemon95_search_left"
-                    android:text="@string/lemon95_search"
-                    android:textColor="@color/lemon_color2"
-                    android:textSize="@dimen/lemon95_text_20" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
 
-                <TextClock
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/lemon95_distance_15"
-                    android:fontFamily="sans-serif-light"
-                    android:format12Hour="hh:mm"
-                    android:format24Hour="HH:mm"
-                    android:textColor="@color/lemon_color2"
-                    android:textSize="@dimen/lemon95_text_24"
-                    android:textStyle="bold" />
+            <Button
+                android:id="@+id/lemon_but_search"
+                android:layout_width="@dimen/lemon95_240px"
+                android:layout_height="@dimen/lemon95_60px"
+                android:background="@drawable/lemon_bug_search_bg"
+                android:drawablePadding="@dimen/lemon95_07px"
+                android:drawableRight="@drawable/lemon_search"
+                android:paddingLeft="@dimen/lemon95_30px"
+                android:paddingRight="@dimen/lemon95_30px"
+                android:text="@string/lemon95_search"
+                android:textColor="@color/lemon_color2"
+                android:textSize="@dimen/lemon95_30px" />
 
-            </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/lemon95_20px"
+                android:fontFamily="sans-serif-light"
+                android:format12Hour="hh:mm"
+                android:format24Hour="HH:mm"
+                android:textColor="@color/lemon_color2"
+                android:textSize="@dimen/lemon95_30px"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7.5"
+        android:layout_height="@dimen/lemon95_810px"
         android:orientation="vertical">
 
 
@@ -95,31 +89,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/lemon95_distance_60"
+            android:layout_marginLeft="@dimen/lemon95_60px"
             android:visibility="visible" />
 
     </LinearLayout>
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="@dimen/lemon95_108px"
+        android:layout_marginRight="@dimen/lemon95_30px">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/lemon95_distance_30">
+        <ImageView
+            android:layout_width="@dimen/lemon95_164px"
+            android:layout_height="@dimen/lemon95_56px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/lemon_logo" />
 
-            <ImageView
-                android:layout_width="@dimen/lemon95_logo_width"
-                android:layout_height="@dimen/lemon95_logo_height"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/lemon_logo" />
-
-        </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
