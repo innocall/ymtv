@@ -24,11 +24,11 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item1"
-                android:layout_width="@dimen/lemon95_323px"
-                android:layout_height="@dimen/lemon95_425px"
+                android:layout_width="@dimen/lemon95_555px"
+                android:layout_height="@dimen/lemon95_640px"
                 android:layout_marginLeft="@dimen/lemon95_20px"
-                android:layout_marginTop="@dimen/lemon95_30px"
-                android:layout_marginBottom="@dimen/lemon95_20px"
+                android:layout_marginTop="@dimen/lemon95_50px"
+                android:layout_marginBottom="@dimen/lemon95_30px"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar3"
@@ -67,10 +67,10 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item2"
-                android:layout_width="@dimen/lemon95_323px"
-                android:layout_height="@dimen/lemon95_425px"
-                android:layout_marginLeft="@dimen/lemon95_348px"
-                android:layout_marginTop="@dimen/lemon95_30px"
+                android:layout_width="@dimen/lemon95_555px"
+                android:layout_height="@dimen/lemon95_640px"
+                android:layout_marginLeft="@dimen/lemon95_582px"
+                android:layout_marginTop="@dimen/lemon95_50px"
                 android:layout_marginBottom="@dimen/lemon95_20px"
                 android:clickable="true"
                 android:focusable="true"
@@ -110,10 +110,10 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item3"
-                android:layout_width="@dimen/lemon95_323px"
-                android:layout_height="@dimen/lemon95_425px"
-                android:layout_marginLeft="@dimen/lemon95_676px"
-                android:layout_marginTop="@dimen/lemon95_30px"
+                android:layout_width="@dimen/lemon95_555px"
+                android:layout_height="@dimen/lemon95_640px"
+                android:layout_marginLeft="@dimen/lemon95_1145px"
+                android:layout_marginTop="@dimen/lemon95_50px"
                 android:layout_marginBottom="@dimen/lemon95_20px"
                 android:clickable="true"
                 android:focusable="true"

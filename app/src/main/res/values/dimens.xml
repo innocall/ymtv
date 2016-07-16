@@ -36,6 +36,11 @@
     <dimen name="lemon95_810px">810px</dimen>
     <dimen name="lemon95_162px">162px</dimen>
     <dimen name="lemon95_240px">240px</dimen>
+    <dimen name="lemon95_38px">38px</dimen>
+    <dimen name="lemon95_640px">640px</dimen>
+    <dimen name="lemon95_555px">555px</dimen>
+    <dimen name="lemon95_582px">582.5px</dimen>
+    <dimen name="lemon95_1145px">1145px</dimen>
 
 
 </resources>
