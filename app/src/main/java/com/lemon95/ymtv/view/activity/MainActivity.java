@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -36,10 +37,12 @@ import com.lemon95.ymtv.presenter.MainPresenter;
 import com.lemon95.ymtv.presenter.SplashPresenter;
 import com.lemon95.ymtv.utils.ImageUtils;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.umeng.analytics.MobclickAgent;
 
 import org.w3c.dom.Text;
 
@@ -60,11 +63,13 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     private View mOldFocus;
     private Button lemon_but_search;  //搜索
     private ReflectItemView page1_item1,page1_item2,page1_item3,page1_item4;
+    private ReflectItemView page2_item1,page2_item2,page2_item3,page2_item4;
     private ImageView lemon_page2_img1,lemon_page2_img2,lemon_page2_img3,lemon_page2_img4,lemon_page2_img5,lemon_page2_img6;
     private ImageView lemon_page3_img1,lemon_page3_img2,lemon_page3_img3;
     private TextView lemon_page3_name1,lemon_page3_name2,lemon_page3_name3;
     private  List<VideoType.Data> videoTypeList; //影视分类
     private List<Video> videoList;  //每日推荐
+    private String userId;
 
     @Override
     protected int getLayoutId() {
@@ -75,6 +80,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     protected void setupViews() {
        // OPENLOG.initTag("hailongqiu", true); // 测试LOG输出.
         // 初始化标题栏.
+        userId = PreferenceUtils.getString(context,AppConstant.USERID,""); //获取用户ID
         initAllTitleBar();
         // 初始化viewpager.
         initAllViewPager();
@@ -126,6 +132,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         page1_item2 = (ReflectItemView)view1.findViewById(R.id.page1_item2);
         page1_item3 = (ReflectItemView)view1.findViewById(R.id.page1_item3);
         page1_item4 = (ReflectItemView)view1.findViewById(R.id.page1_item4);
+        page2_item1 = (ReflectItemView)view2.findViewById(R.id.page2_item1);
         lemon_page2_img1 = (ImageView)view2.findViewById(R.id.lemon_page2_img1);
         lemon_page2_img2 = (ImageView)view2.findViewById(R.id.lemon_page2_img2);
         lemon_page2_img3 = (ImageView)view2.findViewById(R.id.lemon_page2_img3);
@@ -493,7 +500,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     }
 
     private void initOnClick() {
-        lemon_page2_img1.setOnClickListener(this);
+        page2_item1.setOnClickListener(this);
         lemon_page2_img2.setOnClickListener(this);
         lemon_page2_img3.setOnClickListener(this);
         lemon_page2_img4.setOnClickListener(this);
@@ -504,22 +511,32 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.lemon_page2_img1:
-
+            case R.id.page2_item1:
+                MobclickAgent.onEvent(context, "page2_item1");
+                Video video = videoList.get(0);
+                Bundle bundle = new Bundle();
+                bundle.putString("videoId",video.getVideoId());
+                bundle.putString("userId",userId);
+                startActivity(MovieDetailsActivity.class,bundle);
                 break;
             case R.id.lemon_page2_img2:
+                MobclickAgent.onEvent(context, "page2_item2");
 
                 break;
             case R.id.lemon_page2_img3:
+                MobclickAgent.onEvent(context, "page2_item3");
 
                 break;
             case R.id.lemon_page2_img4:
+                MobclickAgent.onEvent(context, "page2_item4");
 
                 break;
             case R.id.lemon_page2_img5:
+                MobclickAgent.onEvent(context, "page2_item5");
 
                 break;
             case R.id.lemon_page2_img6:
+                MobclickAgent.onEvent(context, "page2_item6");
 
                 break;
         }

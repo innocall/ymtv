@@ -3,7 +3,10 @@ package com.lemon95.ymtv.view.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -33,6 +36,15 @@ public class SplashActivity extends BaseActivity implements ISplashActivity{
 
     @Override
     protected void setupViews() {
+        // 方法1 Android获得屏幕的宽和高
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        int width = metric.widthPixels;  // 屏幕宽度（像素）
+        int height = metric.heightPixels;  // 屏幕高度（像素）
+        float density = metric.density;  // 屏幕密度（0.75 / 1.0 / 1.5）
+        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
+        LogUtils.e(TAG,"分辨率：" + width + "*" + height + ";屏幕密度:" + densityDpi);
+        showToastLong("分辨率：" + width + "*" + height + ";屏幕密度:" + densityDpi);
         lemon_splash_id = (ImageView)findViewById(R.id.lemon_splash_id);
     }
 

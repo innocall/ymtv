@@ -16,6 +16,10 @@
     <string name="lemon95_user_msg">用户信息</string>
     <string name="lemon95_qp">求片记录</string>
     <string name="lemon95_sc">收藏记录</string>
+    <string name="lemon95_movie">电影</string>
+    <string name="lemon_movie_details_msg">看此影片的还在看</string>
+    <string name="lemon_play">立即播放</string>
+    <string name="lemon_sc">添加收藏</string>
 
     <!-- viewpager 标题栏字体-->
     <string name="fzlt_zhun_hei">FZLTZHUNHEI_GBK.ttf</string>

@@ -2,7 +2,10 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#e840384d</color>
     <color name="lemon_color2">#9B9A9A</color>
     <color name="lemon_color3">#FFF</color>
+    <color name="lemon_b3aeae">#B3AEAE</color>
+    <color name="lemon_3df1ed">#3df1ed</color>
+    <color name="lemon_dcdcdc">#DCDCDC</color>
 </resources>

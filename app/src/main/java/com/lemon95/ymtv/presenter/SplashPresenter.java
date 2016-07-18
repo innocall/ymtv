@@ -112,6 +112,7 @@ public class SplashPresenter {
 
             @Override
             public void onFailure(Throwable e) {
+                splashActivity.toMainActivity();
             }
         });
     }

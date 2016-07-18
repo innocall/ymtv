@@ -2,6 +2,8 @@ package com.lemon95.ymtv.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.lemon95.ymtv.bean.GenresMovie;
+import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.Video;
@@ -85,11 +87,34 @@ public class ApiManager {
     }
 
     /**
+     * 获取影视详情
+     * @param id
+     * @param userId
+     * @param isPersonal
+     * @return
+     */
+    public static Observable<Movie> getDetails(String id,String userId,boolean isPersonal) {
+        return apiManager.getDetail(id, userId, isPersonal);
+    }
+
+    /**
      * 下载图片
      * @param fileUrl
      * @return
      */
     public static Observable<ResponseBody> downloadPicFromNet(String fileUrl){
         return apiManager.downloadPicFromNet(fileUrl);
+    }
+
+    /**
+     * 获取相应体裁影视
+     * @param genreIds
+     * @param vipLevel
+     * @param currenPage
+     * @param pageSize
+     * @return
+     */
+    public static Observable<GenresMovie> getMoviesByGenres(String genreIds,String vipLevel,String currenPage,String pageSize) {
+        return apiManager.getMoviesByGenres(genreIds,vipLevel,currenPage,pageSize);
     }
 }

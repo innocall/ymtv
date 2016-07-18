@@ -31,7 +31,9 @@ public class ImageUtils {
         }
         FileOutputStream b = null;
         File file = new File(SDCarePath + "/myImage/ymtv/");
-        file.mkdirs();// 创建文件夹
+        if (!file.exists()) {
+            boolean isP = file.mkdirs();
+        }
         String fileName = SDCarePath + "/myImage/ymtv/" + picName + ".png";
         try {
             b = new FileOutputStream(fileName);
@@ -45,6 +47,21 @@ public class ImageUtils {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * 获取大图地址
+     * @param path
+     * @return
+     */
+    public static String getBigImg(String path) {
+        if (StringUtils.isNotBlank(path)) {
+            String l = path.substring(0,path.lastIndexOf("/") + 1);
+            String name = path.substring(path.lastIndexOf("/") + 2,path.length());
+            return l + name;
+        } else {
+            return path;
         }
     }
 
