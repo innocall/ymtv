@@ -18,16 +18,14 @@
         <com.lemon95.androidtvwidget.view.MainLayout
             android:id="@+id/page2_main_lay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingRight="@dimen/lemon95_main_rigth">
+            android:layout_height="match_parent">
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page2_item1"
-                android:layout_width="@dimen/lemon95_mian_width"
-                android:layout_height="@dimen/lemon95_main_height"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
-                android:layout_marginLeft="@dimen/lemon95_distance_20"
-                android:layout_marginTop="@dimen/lemon95_distance_30"
+                android:layout_width="@dimen/px412"
+                android:layout_height="@dimen/px660"
+                android:layout_marginLeft="@dimen/px297"
+                android:layout_marginTop="@dimen/px48"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusRight="@+id/page2_item2"
@@ -64,11 +62,10 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page2_item2"
-                android:layout_width="@dimen/lemon95_distance_350"
-                android:layout_height="@dimen/lemon95_distance_138"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
-                android:layout_marginLeft="@dimen/lemon95_distance_325"
-                android:layout_marginTop="@dimen/lemon95_distance_30"
+                android:layout_width="@dimen/px489"
+                android:layout_height="@dimen/px216"
+                android:layout_marginLeft="@dimen/px715"
+                android:layout_marginTop="@dimen/px48"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar2"
@@ -103,11 +100,10 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page2_item3"
-                android:layout_width="@dimen/lemon95_distance_350"
-                android:layout_height="@dimen/lemon95_distance_138"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
-                android:layout_marginLeft="@dimen/lemon95_distance_325"
-                android:layout_marginTop="@dimen/lemon95_distance_173"
+                android:layout_width="@dimen/px489"
+                android:layout_height="@dimen/px216"
+                android:layout_marginLeft="@dimen/px715"
+                android:layout_marginTop="@dimen/px270"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/page2_item2"
@@ -142,11 +138,10 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page2_item4"
-                android:layout_width="@dimen/lemon95_distance_350"
-                android:layout_height="@dimen/lemon95_distance_138"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
-                android:layout_marginLeft="@dimen/lemon95_distance_325"
-                android:layout_marginTop="@dimen/lemon95_distance_316"
+                android:layout_width="@dimen/px489"
+                android:layout_height="@dimen/px216"
+                android:layout_marginLeft="@dimen/px715"
+                android:layout_marginTop="@dimen/px492"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/page2_item3"
@@ -182,11 +177,11 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page2_item5"
-                android:layout_width="@dimen/lemon95_mian_width"
-                android:layout_height="@dimen/lemon95_distance_210"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
-                android:layout_marginLeft="@dimen/lemon95_distance_680"
-                android:layout_marginTop="@dimen/lemon95_distance_30"
+                android:layout_width="@dimen/px412"
+                android:layout_height="@dimen/px327"
+                android:layout_marginLeft="@dimen/px1211"
+                android:layout_marginTop="@dimen/px48"
+                android:layout_marginRight="@dimen/px297"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusLeft="@+id/page2_item2"
@@ -222,11 +217,11 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page2_item6"
-                android:layout_width="@dimen/lemon95_mian_width"
-                android:layout_height="@dimen/lemon95_distance_210"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
-                android:layout_marginLeft="@dimen/lemon95_distance_680"
-                android:layout_marginTop="@dimen/lemon95_distance_245"
+                android:layout_width="@dimen/px412"
+                android:layout_height="@dimen/px327"
+                android:layout_marginLeft="@dimen/px1211"
+                android:layout_marginTop="@dimen/px381"
+                android:layout_marginRight="@dimen/px297"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusLeft="@+id/page2_item2"

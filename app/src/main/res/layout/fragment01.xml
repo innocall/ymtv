@@ -24,11 +24,10 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page1_item1"
-                android:layout_width="@dimen/lemon95_mian_width"
-                android:layout_height="@dimen/lemon95_main_height"
-                android:layout_marginLeft="@dimen/lemon95_distance_20"
-                android:layout_marginTop="@dimen/lemon95_distance_30"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:layout_width="@dimen/px412"
+                android:layout_height="@dimen/px660"
+                android:layout_marginTop="@dimen/px48"
+                android:layout_marginLeft="@dimen/px297"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar1"
@@ -52,8 +51,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="@dimen/lemon95_distance_110"
-                            android:layout_height="@dimen/lemon95_distance_100"
+                            android:layout_width="@dimen/px164"
+                            android:layout_height="@dimen/px140"
                             android:src="@drawable/lemon_play_re" />
 
                         <TextView
@@ -62,7 +61,7 @@
                             android:layout_gravity="center_horizontal"
                             android:text="@string/lemon95_play_re"
                             android:textColor="@color/lemon_color3"
-                            android:textSize="@dimen/lemon95_text_24" />
+                            android:textSize="@dimen/px36" />
                     </LinearLayout>
 
                 </FrameLayout>
@@ -70,11 +69,10 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page1_item2"
-                android:layout_width="@dimen/lemon95_distance_350"
-                android:layout_height="@dimen/lemon95_distance_210"
-                android:layout_marginLeft="@dimen/lemon95_distance_325"
-                android:layout_marginTop="@dimen/lemon95_distance_30"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:layout_width="@dimen/px489"
+                android:layout_height="@dimen/px327"
+                android:layout_marginLeft="@dimen/px715"
+                android:layout_marginTop="@dimen/px48"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar1"
@@ -87,27 +85,26 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
                         android:src="@drawable/lemon_qp_bg" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="@dimen/lemon95_distance_110"
-                            android:layout_height="@dimen/lemon95_distance_100"
+                            android:layout_width="@dimen/px108"
+                            android:layout_height="@dimen/px108"
                             android:src="@drawable/lemon_qp_img" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
                             android:text="@string/lemon95_qp"
                             android:textColor="@color/lemon_color3"
-                            android:textSize="@dimen/lemon95_text_24" />
+                            android:textSize="@dimen/px36" />
                     </LinearLayout>
 
                 </FrameLayout>
@@ -115,11 +112,10 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page1_item3"
-                android:layout_width="@dimen/lemon95_distance_350"
-                android:layout_height="@dimen/lemon95_distance_210"
-                android:layout_marginLeft="@dimen/lemon95_distance_325"
-                android:layout_marginTop="@dimen/lemon95_distance_245"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:layout_width="@dimen/px489"
+                android:layout_height="@dimen/px327"
+                android:layout_marginLeft="@dimen/px715"
+                android:layout_marginTop="@dimen/px381"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/page1_item2"
@@ -140,20 +136,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="@dimen/lemon95_distance_110"
-                            android:layout_height="@dimen/lemon95_distance_100"
+                            android:layout_width="@dimen/px108"
+                            android:layout_height="@dimen/px108"
                             android:src="@drawable/lemon_sc_img" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
                             android:text="@string/lemon95_sc"
                             android:textColor="@color/lemon_color3"
-                            android:textSize="@dimen/lemon95_text_24" />
+                            android:textSize="@dimen/px36" />
                     </LinearLayout>
 
                 </FrameLayout>
@@ -161,11 +157,11 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page1_item4"
-                android:layout_width="@dimen/lemon95_mian_width"
-                android:layout_height="@dimen/lemon95_main_height"
-                android:layout_marginLeft="@dimen/lemon95_distance_680"
-                android:layout_marginTop="@dimen/lemon95_distance_30"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:layout_width="@dimen/px412"
+                android:layout_height="@dimen/px660"
+                android:layout_marginLeft="@dimen/px1211"
+                android:layout_marginTop="@dimen/px48"
+                android:layout_marginRight="@dimen/px297"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar1"
@@ -189,8 +185,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="@dimen/lemon95_distance_110"
-                            android:layout_height="@dimen/lemon95_distance_100"
+                            android:layout_width="@dimen/px164"
+                            android:layout_height="@dimen/px140"
                             android:src="@drawable/lemon_user_msg" />
 
                         <TextView
@@ -199,7 +195,7 @@
                             android:layout_gravity="center_horizontal"
                             android:text="@string/lemon95_user_msg"
                             android:textColor="@color/lemon_color3"
-                            android:textSize="@dimen/lemon95_text_24" />
+                            android:textSize="@dimen/px36" />
                     </LinearLayout>
 
                 </FrameLayout>

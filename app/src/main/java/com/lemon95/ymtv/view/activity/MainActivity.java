@@ -427,7 +427,11 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                     public void onLoadingComplete(String imgUrl, View arg1,Bitmap arg2) {
                         //加载成功
                         String fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1,imgUrl.lastIndexOf("."));
-                        ImageUtils.saveImage(arg2, fileName);
+                        try {
+                            ImageUtils.saveImage(arg2, fileName);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         if (StringUtils.isNotBlank(downImg)) {
                             File file = new File(downImg);
                             if (file.exists()) {
@@ -485,7 +489,11 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                     public void onLoadingComplete(String imgUrl, View arg1,Bitmap arg2) {
                         //加载成功
                         String fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1,imgUrl.lastIndexOf("."));
-                        ImageUtils.saveImage(arg2, fileName);
+                        try {
+                            ImageUtils.saveImage(arg2, fileName);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         if (StringUtils.isNotBlank(downImg)) {
                             File file = new File(downImg);
                             if (file.exists()) {

@@ -24,11 +24,10 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page4_item1"
-                android:layout_width="@dimen/lemon95_mian_width"
-                android:layout_height="@dimen/lemon95_main_height"
-                android:layout_marginLeft="@dimen/lemon95_distance_20"
-                android:layout_marginTop="@dimen/lemon95_distance_30"
-                android:layout_marginBottom="@dimen/lemon95_distance_20"
+                android:layout_width="@dimen/px435"
+                android:layout_height="@dimen/px660"
+                android:layout_marginLeft="@dimen/px297"
+                android:layout_marginTop="@dimen/px48"
                 android:clickable="true"
                 android:focusable="true"
                 android:nextFocusUp="@+id/title_bar4"
@@ -52,8 +51,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="@dimen/lemon95_distance_110"
-                            android:layout_height="@dimen/lemon95_distance_100"
+                            android:layout_width="@dimen/px164"
+                            android:layout_height="@dimen/px140"
                             android:src="@drawable/lemon_my" />
 
                         <TextView
@@ -62,7 +61,7 @@
                             android:layout_gravity="center_horizontal"
                             android:text="@string/lemon95_menu4"
                             android:textColor="@color/lemon_color3"
-                            android:textSize="@dimen/lemon95_text_24" />
+                            android:textSize="@dimen/px36" />
                     </LinearLayout>
 
                 </FrameLayout>

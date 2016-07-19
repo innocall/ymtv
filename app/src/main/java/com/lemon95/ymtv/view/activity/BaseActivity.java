@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.lemon95.ymtv.R;
@@ -36,6 +37,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
+        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setFlags(flag,flag);
         context = this.getApplicationContext();
         LogUtils.i(TAG, "开始加载");
         int layoutId = getLayoutId();

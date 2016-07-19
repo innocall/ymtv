@@ -21,7 +21,7 @@ public class ImageUtils {
      * @param bitmap
      * @return
      */
-    public static void saveImage(Bitmap bitmap,String picName) {
+    public static void saveImage(Bitmap bitmap,String picName) throws Exception{
         String SDCarePath = Environment.getExternalStorageDirectory()
                 .toString();
         String sdStatus = Environment.getExternalStorageState();
