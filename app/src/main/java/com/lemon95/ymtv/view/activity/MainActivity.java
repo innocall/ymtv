@@ -277,7 +277,14 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
 
     @Override
     protected void initialized() {
-
+        if (mOpenTabHost != null) {
+            List<View> viewList = mOpenTabHost.getAllTitleView();
+            if (viewList != null && viewList.size() > 1) {
+                viewList.get(1).setFocusableInTouchMode(true);
+                viewList.get(1).setFocusable(true);
+                onTabSelect(mOpenTabHost, viewList.get(1),1);
+            }
+        }
     }
 
     @Override
