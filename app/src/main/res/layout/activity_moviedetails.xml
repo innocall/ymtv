@@ -262,8 +262,7 @@
         android:id="@+id/lemon_movie_details_pro"
         android:layout_width="@dimen/px150"
         android:layout_height="@dimen/px150"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/px465" />
+        android:layout_gravity="center"/>
 
     <!-- 最顶层的边框移动 -->
     <com.lemon95.androidtvwidget.view.MainUpView

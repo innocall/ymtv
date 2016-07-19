@@ -1956,4 +1956,7 @@
     <dimen name="px1918">1278.667px</dimen>
     <dimen name="px1919">1279.333px</dimen>
     <dimen name="px1920">1280px</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

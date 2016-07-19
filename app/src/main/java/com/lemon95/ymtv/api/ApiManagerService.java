@@ -1,9 +1,11 @@
 package com.lemon95.ymtv.api;
 
+import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Version;
+import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
 
 import okhttp3.ResponseBody;
@@ -59,4 +61,31 @@ public interface ApiManagerService {
      */
     @GET
     Observable<ResponseBody> downloadPicFromNet(@Url String fileUrl);
+
+    /**
+     * 查询影视类型
+     * @param type
+     * @return
+     */
+    @GET("/Media/Videos/CombQueryConditions")
+    Observable<Conditions> getCombQueryConditions(@Query("type") String type);
+
+
+    /**
+     * 查询影视列表
+     * @param areaId
+     * @param genreId
+     * @param groupId
+     * @param chargeMethod
+     * @param vipLevel
+     * @param year
+     * @param type
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("/Media/Videos/CombSearch")
+    Observable<VideoSearchList> getCombSearch(@Query("areaId") String areaId,@Query("genreId") String genreId,@Query("groupId") String groupId,@Query("chargeMethod") String chargeMethod,@Query("vipLevel") String vipLevel,@Query("year") String year,@Query("type") String type,@Query("currentPage") String currentPage,@Query("pageSize") String pageSize);
+
+
 }

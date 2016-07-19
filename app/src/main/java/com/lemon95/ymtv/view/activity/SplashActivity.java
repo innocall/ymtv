@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -66,4 +67,6 @@ public class SplashActivity extends BaseActivity implements ISplashActivity{
     public String getVersion() {
         return AppSystemUtils.getVersionName(context);
     }
+
+
 }

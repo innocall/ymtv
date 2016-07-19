@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     private Button lemon_but_search;  //搜索
     private ReflectItemView page1_item1,page1_item2,page1_item3,page1_item4;
     private ReflectItemView page2_item1,page2_item2,page2_item3,page2_item4;
+    private ReflectItemView page3_item1,page3_item2,page3_item3;
     private ImageView lemon_page2_img1,lemon_page2_img2,lemon_page2_img3,lemon_page2_img4,lemon_page2_img5,lemon_page2_img6;
     private ImageView lemon_page3_img1,lemon_page3_img2,lemon_page3_img3;
     private TextView lemon_page3_name1,lemon_page3_name2,lemon_page3_name3;
@@ -145,6 +146,9 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         lemon_page3_name1 = (TextView)view3.findViewById(R.id.lemon_page3_name1);
         lemon_page3_name2 = (TextView)view3.findViewById(R.id.lemon_page3_name2);
         lemon_page3_name3 = (TextView)view3.findViewById(R.id.lemon_page3_name3);
+        page3_item1 = (ReflectItemView)view3.findViewById(R.id.page3_item1);
+        page3_item2 = (ReflectItemView)view3.findViewById(R.id.page3_item2);
+        page3_item3 = (ReflectItemView)view3.findViewById(R.id.page3_item3);
         lemon_but_search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -506,6 +510,9 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         lemon_page2_img4.setOnClickListener(this);
         lemon_page2_img5.setOnClickListener(this);
         lemon_page2_img6.setOnClickListener(this);
+        page3_item1.setOnClickListener(this);
+        page3_item2.setOnClickListener(this);
+        page3_item3.setOnClickListener(this);
     }
 
     @Override
@@ -538,6 +545,24 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
             case R.id.lemon_page2_img6:
                 MobclickAgent.onEvent(context, "page2_item6");
 
+                break;
+            case R.id.page3_item1:
+                MobclickAgent.onEvent(context, "page3_item1");
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("videoType",AppConstant.MOVICE);
+                startActivity(VideoListActivity.class,bundle1);
+                break;
+            case R.id.page3_item2:
+                MobclickAgent.onEvent(context, "page3_item2");
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("videoType",AppConstant.SERIALS);
+                startActivity(VideoListActivity.class, bundle2);
+                break;
+            case R.id.page3_item3:
+                MobclickAgent.onEvent(context, "page3_item3");
+                Bundle bundle3 = new Bundle();
+                bundle3.putString("videoType",AppConstant.FUNNY);
+                startActivity(VideoListActivity.class, bundle3);
                 break;
         }
     }

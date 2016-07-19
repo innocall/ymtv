@@ -45,7 +45,7 @@ public class ImageUtils {
                 b.flush();
                 b.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
     }

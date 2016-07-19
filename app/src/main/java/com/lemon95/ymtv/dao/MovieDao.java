@@ -1,9 +1,11 @@
 package com.lemon95.ymtv.dao;
 
 import com.lemon95.ymtv.api.ApiManager;
+import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.Recommend;
+import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.utils.LogUtils;
 
@@ -59,6 +61,46 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    @Override
+    public void getCombQueryConditions(String type, final OnConditionsListener onVideoListener) {
+        ApiManager.getCombQueryConditions(type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Conditions>() {
+
+                    @Override
+                    public void call(Conditions conditions) {
+                        LogUtils.i(TAG, conditions.getReturnMsg());
+                        onVideoListener.onSuccess(conditions);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        //获取版本失败
+                        LogUtils.i(TAG, "影视查询类型获取失败");
+                        onVideoListener.onFailure(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void getCombSearch(String areaId, String genreId, String groupId, String chargeMethod, String vipLevel, String year, String type, String currentPage, String pageSize, final OnVideoSearchListListener onVideoSearchListListener) {
+        ApiManager.getCombSearch(areaId, genreId, groupId, chargeMethod, vipLevel, year, type, currentPage, pageSize).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<VideoSearchList>() {
+
+                    @Override
+                    public void call(VideoSearchList videoSearchList) {
+                        LogUtils.i(TAG, videoSearchList.getReturnMsg());
+                        onVideoSearchListListener.onSuccess(videoSearchList);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        //获取版本失败
+                        LogUtils.i(TAG, "影视列表获取失败");
+                        onVideoSearchListListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -66,6 +108,16 @@ public class MovieDao implements IMovieBean{
 
     public interface OnGenresMovieDetailsListener{
         void onSuccess(GenresMovie movie);  //获取成功
+        void onFailure(Throwable e);  //获取失败
+    }
+
+    public interface OnConditionsListener{
+        void onSuccess(Conditions movie);  //获取成功
+        void onFailure(Throwable e);  //获取失败
+    }
+
+    public interface OnVideoSearchListListener{
+        void onSuccess(VideoSearchList videoSearchList);  //获取成功
         void onFailure(Throwable e);  //获取失败
     }
 }

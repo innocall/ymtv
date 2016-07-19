@@ -2,6 +2,7 @@ package com.lemon95.ymtv.view.activity;
 
 import android.graphics.Rect;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -17,8 +18,6 @@ import com.lemon95.androidtvwidget.view.MainUpView;
 import com.lemon95.androidtvwidget.view.ReflectItemView;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.bean.GenresMovie;
-import com.lemon95.ymtv.bean.Movie;
-import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.presenter.MovieDetailsPresenter;
 import com.lemon95.ymtv.utils.ImageUtils;
@@ -41,6 +40,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     private com.lemon95.ymtv.bean.Movie.Data data; //影片数据
     private List<GenresMovie.Data> dataList; //相关影视
     private MovieDetailsPresenter movieDetailsActivity = new MovieDetailsPresenter(this);
+    private boolean isKeyDown = false;
 
     @Override
     protected int getLayoutId() {
@@ -58,7 +58,6 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         details_play = (ReflectItemView)findViewById(R.id.details_play);
         lemon_movie_details_pro = (ProgressBar)findViewById(R.id.lemon_movie_details_pro);
         lemon_movie_details_main = (LinearLayout)findViewById(R.id.lemon_movie_details_main);
-
     }
 
     @Override
@@ -131,7 +130,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     public void initViewMoveDate(com.lemon95.ymtv.bean.Movie.Data data) {
         this.data = data;
         ((TextView)findViewById(R.id.movie_details_name)).setText("《" + data.getMovieName() + "》");
-        ((TextView)findViewById(R.id.movie_details_type)).setText("类型:" + data.getVideoGenres());
+        ((TextView)findViewById(R.id.movie_details_type)).setText("类型：" + data.getVideoGenres());
         ((TextView)findViewById(R.id.movie_details_grade)).setText("评分：" + data.getScore());
         ((TextView)findViewById(R.id.movie_details_direct)).setText("导演：" + data.getDirector());
         ((TextView)findViewById(R.id.movie_details_act)).setText("主演：" + data.getStarring());
@@ -149,6 +148,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     public void hidePro() {
         lemon_movie_details_pro.setVisibility(View.GONE);
         lemon_movie_details_main.setVisibility(View.VISIBLE);
+        isKeyDown = false;
     }
 
     /**
@@ -228,14 +228,71 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.details_play:
-                showToastShort("点击");
-                break;
-            case R.id.details_item1:
-                showToastShort("点击");
-                break;
+        if (lemon_movie_details_pro.getVisibility() == View.GONE) {
+            String userId = getIntent().getStringExtra("userId");
+            switch (v.getId()) {
+                case R.id.details_play:
+                    showToastShort("播放");
+                    break;
+                case R.id.details_item1:
+                    isKeyDown = true;
+                    String videoId1 = dataList.get(0).getVideoId();
+                    movieDetailsActivity.initPageData(videoId1, userId, false);
+                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
+                    break;
+                case R.id.details_item2:
+                    isKeyDown = true;
+                    String videoId2 = dataList.get(1).getVideoId();
+                    movieDetailsActivity.initPageData(videoId2, userId, false);
+                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
+                    break;
+                case R.id.details_item3:
+                    isKeyDown = true;
+                    String videoId3 = dataList.get(2).getVideoId();
+                    movieDetailsActivity.initPageData(videoId3, userId, false);
+                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
+                    break;
+                case R.id.details_item4:
+                    isKeyDown = true;
+                    String videoId4 = dataList.get(3).getVideoId();
+                    movieDetailsActivity.initPageData(videoId4, userId, false);
+                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
+                    break;
+                case R.id.details_item5:
+                    isKeyDown = true;
+                    String videoId5 = dataList.get(4).getVideoId();
+                    movieDetailsActivity.initPageData(videoId5, userId, false);
+                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
+                    break;
+                case R.id.details_item6:
+                    isKeyDown = true;
+                    String videoId6 = dataList.get(5).getVideoId();
+                    movieDetailsActivity.initPageData(videoId6, userId, false);
+                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
+                    break;
+                case R.id.details_item7:
+                    isKeyDown = true;
+                    String videoId7 = dataList.get(6).getVideoId();
+                    movieDetailsActivity.initPageData(videoId7, userId, false);
+                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
+                    break;
+            }
         }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        /*if(keyCode==KeyEvent.KEYCODE_DPAD_UP){
+        } else if (keyCode==KeyEvent.KEYCODE_DPAD_LEFT) {
+        } else if (keyCode==KeyEvent.KEYCODE_DPAD_RIGHT) {
+        } else if (keyCode==KeyEvent.KEYCODE_DPAD_DOWN) {
+        } else if (keyCode==KeyEvent.KEYCODE_DPAD_CENTER||keyCode==KeyEvent.KEYCODE_ENTER) {
+        }*/
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return super.onKeyDown(keyCode, event);
+        }
+        return isKeyDown;
     }
 
 }

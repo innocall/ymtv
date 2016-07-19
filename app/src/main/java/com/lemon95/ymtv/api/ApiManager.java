@@ -2,11 +2,13 @@ package com.lemon95.ymtv.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.Video;
+import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -116,5 +119,31 @@ public class ApiManager {
      */
     public static Observable<GenresMovie> getMoviesByGenres(String genreIds,String vipLevel,String currenPage,String pageSize) {
         return apiManager.getMoviesByGenres(genreIds,vipLevel,currenPage,pageSize);
+    }
+
+    /**
+     * 查询影视类型
+     * @param type
+     * @return
+     */
+    public static Observable<Conditions> getCombQueryConditions(String type) {
+        return apiManager.getCombQueryConditions(type);
+    }
+
+    /**
+     * 获取影视列表
+     * @param areaId
+     * @param genreId
+     * @param groupId
+     * @param chargeMethod
+     * @param vipLevel
+     * @param year
+     * @param type
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static Observable<VideoSearchList> getCombSearch(String areaId,String genreId,String groupId,String chargeMethod,String vipLevel,String year,String type,String currentPage,String pageSize) {
+        return apiManager.getCombSearch(areaId,genreId,groupId,chargeMethod,vipLevel,year,type,currentPage,pageSize);
     }
 }

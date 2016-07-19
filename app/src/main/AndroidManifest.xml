@@ -4,10 +4,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- WindowManger 权限(浮动窗口)-->
+    <!-- WindowManger 权限(浮动窗口) -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -26,10 +26,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5786f45ee0f55ae7b3002254"></meta-data>
+            android:value="5786f45ee0f55ae7b3002254" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="ymtv" />
@@ -45,9 +44,11 @@
         </activity>
         <activity
             android:name=".view.activity.MainActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".view.activity.MovieDetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".view.activity.VideoListActivity"
             android:screenOrientation="landscape"></activity>
     </application>
 

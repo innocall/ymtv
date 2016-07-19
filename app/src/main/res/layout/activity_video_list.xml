@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/lemon95_main_bg"
+    android:orientation="horizontal"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:focusableInTouchMode="false"
+    android:focusable="false"
+    tools:context="com.lemon95.ymtv.view.activity.VideoListActivity">
+
+    <ProgressBar
+        android:id="@+id/lemon_movie_details_pro1"
+        android:layout_width="@dimen/px150"
+        android:layout_height="@dimen/px150"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:id="@+id/lemon_movie_details_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="@dimen/px309"
+            android:layout_height="match_parent"
+            android:background="@drawable/lemon_video_menu_bg"
+            android:gravity="center_horizontal"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lemon_movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px54"
+                android:text="@string/lemon95_movie"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:textColor="@color/lemon_b3aeae"
+                android:textSize="@dimen/px51" />
+            
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px75"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:src="@drawable/lemon_up"/>
+
+            <com.lemon95.androidtvwidget.view.ListViewTV
+                android:id="@+id/lemon_video_menu_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px820"
+                android:scrollbars="none"
+                android:layout_gravity="center"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:listSelector="@drawable/lemon_liangguang_03"></com.lemon95.androidtvwidget.view.ListViewTV>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px75"
+                android:layout_gravity="center"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:src="@drawable/lemon_down"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/px100"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px135">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px60"
+                    android:text="@string/lemon95_rm_movie"
+                    android:paddingLeft="@dimen/px48"
+                    android:textColor="@color/lemon_b3aeae"
+                    android:textSize="@dimen/px36" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/px60"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/lemon_but_search"
+                        android:layout_width="@dimen/px180"
+                        android:layout_height="@dimen/px55"
+                        android:background="@drawable/lemon_bug_search_bg"
+                        android:drawablePadding="@dimen/px24"
+                        android:drawableRight="@drawable/lemon_search"
+                        android:paddingLeft="@dimen/px24"
+                        android:paddingRight="@dimen/px24"
+                        android:text="@string/lemon95_search"
+                        android:textColor="@color/lemon_color2"
+                        android:textSize="@dimen/px30" />
+
+                    <TextClock
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/lemon95_distance_15"
+                        android:fontFamily="sans-serif-light"
+                        android:format12Hour="hh:mm"
+                        android:format24Hour="HH:mm"
+                        android:textColor="@color/lemon_b3aeae"
+                        android:textSize="@dimen/px36" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px872">
+
+                <com.lemon95.androidtvwidget.view.GridViewTV
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/px872"
+                    android:layout_gravity="center"
+                    android:clipChildren="false"
+                    android:columnWidth="@dimen/px249"
+                    android:paddingLeft="@dimen/px48"
+                    android:paddingRight="@dimen/px6"
+                    android:gravity="center_vertical"
+                    android:horizontalSpacing="@dimen/px48"
+                    android:numColumns="auto_fit"
+                    android:scrollbars="none" />
+
+                <ProgressBar
+                    android:id="@+id/lemon_movie_details_pro2"
+                    android:layout_width="@dimen/px150"
+                    android:layout_height="@dimen/px150"
+                    android:layout_gravity="center" />
+
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="@dimen/px246"
+                    android:layout_height="@dimen/px84"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/px30"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/lemon_logo" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    <!-- 最顶层边框 -->
+    <com.lemon95.androidtvwidget.view.MainUpView
+        android:id="@+id/mainUpView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

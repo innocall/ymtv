@@ -16,4 +16,6 @@ public interface AppConstant {
     //本地保存的用户信息key
     String USERNAME = "USERNAME";
     String USERID = "USERID";
+
+    String PAGESIZE = "30";
 }
