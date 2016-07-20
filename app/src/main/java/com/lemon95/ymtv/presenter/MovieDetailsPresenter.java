@@ -5,6 +5,7 @@ import android.widget.TextView;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.Recommend;
+import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.dao.MovieDao;
 import com.lemon95.ymtv.dao.SplashDao;
@@ -45,7 +46,7 @@ public class MovieDetailsPresenter {
             @Override
             public void onFailure(Throwable e) {
                 movieDetailsActivity.showToastLong("数据获取失败");
-                movieDetailsActivity.finish();
+               // movieDetailsActivity.finish();
             }
         });
     }
@@ -57,8 +58,8 @@ public class MovieDetailsPresenter {
                 List<GenresMovie.Data> dataList = movie.getData();
                 if (dataList != null && dataList.size() > 0) {
                     movieDetailsActivity.initViewByGenresMoveDate(dataList);
-                    movieDetailsActivity.hidePro();
                 }
+                movieDetailsActivity.hidePro();
             }
 
             @Override
@@ -69,5 +70,45 @@ public class MovieDetailsPresenter {
         });
     }
 
+    public void initSerialData(String id) {
+        iMovieBean.getSerialDetail(id, new MovieDao.OnSerialDitionListener() {
+            @Override
+            public void onSuccess(SerialDitions serialDitions) {
+                SerialDitions.Data data = serialDitions.getData();
+                if (data != null) {
+                    movieDetailsActivity.initViewSerialDate(data);
+                    // movieDetailsActivity.hidePro();
+                    //获取相应题材影视
+                    getSerialByGenres(data.getVideoGenreIds(), "1", "1", "7");
+                } else {
+                    movieDetailsActivity.showToastLong("数据获取为空");
+                }
+            }
 
+            @Override
+            public void onFailure(Throwable e) {
+                movieDetailsActivity.showToastLong("数据获取失败");
+               // movieDetailsActivity.finish();
+            }
+        });
+    }
+
+    private void getSerialByGenres(String videoGenreIds, String s, String s1, String s2) {
+        iMovieBean.getSerialsByGenres(videoGenreIds, s, s1, s2, new MovieDao.OnGenresMovieDetailsListener() {
+            @Override
+            public void onSuccess(GenresMovie movie) {
+                List<GenresMovie.Data> dataList = movie.getData();
+                if (dataList != null && dataList.size() > 0) {
+                    movieDetailsActivity.initViewByGenresMoveDate(dataList);
+                }
+                movieDetailsActivity.hidePro();
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                movieDetailsActivity.showToastLong("相关影视获取失败");
+                movieDetailsActivity.finish();
+            }
+        });
+    }
 }

@@ -24,6 +24,8 @@ public interface IMovieBean {
      */
     public void getMoviesByGenres(String genreIds,String vipLevel,String currenPage,String pageSize,MovieDao.OnGenresMovieDetailsListener onVideoListener);
 
+    public void getSerialsByGenres(String genreIds,String vipLevel,String currenPage,String pageSize,MovieDao.OnGenresMovieDetailsListener onVideoListener);
+
     /**
      * 获取影视类型
      * @param type
@@ -46,4 +48,10 @@ public interface IMovieBean {
      */
     public void getCombSearch(String areaId,String genreId,String groupId,String chargeMethod,String vipLevel,String year,String type,String currentPage,String pageSize,MovieDao.OnVideoSearchListListener onVideoSearchListListener);
 
+    /**
+     * 获取电视剧详情
+     * @param id
+     * @param onSerialDitionListener
+     */
+    public void getSerialDetail(String id,MovieDao.OnSerialDitionListener onSerialDitionListener);
 }

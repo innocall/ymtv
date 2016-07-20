@@ -2,6 +2,7 @@ package com.lemon95.androidtvwidget.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.GridView;
@@ -53,4 +54,12 @@ public class GridViewTV extends GridView {
 		return mWidgetTvViewBring.getChildDrawingOrder(childCount, i);
 	}
 
+	@Override
+	protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
+		int lastSelectItem = getSelectedItemPosition();
+		super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
+		if (gainFocus) {
+			setSelection(lastSelectItem);
+		}
+	}
 }

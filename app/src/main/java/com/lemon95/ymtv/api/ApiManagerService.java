@@ -4,6 +4,7 @@ import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.Recommend;
+import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
@@ -87,5 +88,22 @@ public interface ApiManagerService {
     @GET("/Media/Videos/CombSearch")
     Observable<VideoSearchList> getCombSearch(@Query("areaId") String areaId,@Query("genreId") String genreId,@Query("groupId") String groupId,@Query("chargeMethod") String chargeMethod,@Query("vipLevel") String vipLevel,@Query("year") String year,@Query("type") String type,@Query("currentPage") String currentPage,@Query("pageSize") String pageSize);
 
+    /**
+     * 获取电视剧详情
+     * @param id
+     * @return
+     */
+    @GET("/Media/Serials/Detail")
+    Observable<SerialDitions> getSerialDetail(@Query("id") String id);
 
+    /**
+     * 获取相应体裁电视剧
+     * @param genreIds
+     * @param vipLevel
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("/Media/Serials/GetSerialsByGenres")
+    Observable<GenresMovie> getSerialsByGenres(@Query("genreIds") String genreIds,@Query("vipLevel") String vipLevel,@Query("currentPage") String currentPage,@Query("pageSize") String pageSize);
 }

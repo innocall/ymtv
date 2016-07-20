@@ -21,6 +21,7 @@
     <string name="lemon_play">立即播放</string>
     <string name="lemon_sc">添加收藏</string>
     <string name="lemon95_rm_movie">热门播放</string>
+    <string name="lemon_serial">选择剧集</string>
 
     <!-- viewpager 标题栏字体-->
     <string name="fzlt_zhun_hei">FZLTZHUNHEI_GBK.ttf</string>

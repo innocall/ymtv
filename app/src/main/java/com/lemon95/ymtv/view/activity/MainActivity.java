@@ -70,7 +70,6 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     private TextView lemon_page3_name1,lemon_page3_name2,lemon_page3_name3;
     private  List<VideoType.Data> videoTypeList; //影视分类
     private List<Video> videoList;  //每日推荐
-    private String userId;
 
     @Override
     protected int getLayoutId() {
@@ -81,7 +80,6 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     protected void setupViews() {
        // OPENLOG.initTag("hailongqiu", true); // 测试LOG输出.
         // 初始化标题栏.
-        userId = PreferenceUtils.getString(context,AppConstant.USERID,""); //获取用户ID
         initAllTitleBar();
         // 初始化viewpager.
         initAllViewPager();
@@ -231,14 +229,14 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                                 bridge.setVisibleWidget(false);
                         }
                     });
-                    float scale = 1.03f;
+                    float scale = 1.05f;
                     // test scale.
                     if (pos == 1)
-                        scale = 1.03f;
+                        scale = 1.05f;
                     else if (pos == 2)
-                        scale = 1.03f;
+                        scale = 1.05f;
                     else if (pos == 3)
-                        scale = 1.03f;
+                        scale = 1.05f;
                     mainUpView.setFocusView(newFocus, mOldFocus, scale);
                 }
                 mOldFocus = newFocus;
@@ -531,7 +529,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                 Video video = videoList.get(0);
                 Bundle bundle = new Bundle();
                 bundle.putString("videoId",video.getVideoId());
-                bundle.putString("userId",userId);
+                bundle.putString("videoType",video.getVideoTypeId());
                 startActivity(MovieDetailsActivity.class,bundle);
                 break;
             case R.id.lemon_page2_img2:

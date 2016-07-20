@@ -5,6 +5,7 @@ import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.Recommend;
+import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.utils.LogUtils;
@@ -62,6 +63,26 @@ public class MovieDao implements IMovieBean{
     }
 
     @Override
+    public void getSerialsByGenres(String genreIds, String vipLevel, String currenPage, String pageSize, final OnGenresMovieDetailsListener onVideoListener) {
+        ApiManager.getSerialsByGenres(genreIds, vipLevel, currenPage, pageSize).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<GenresMovie>() {
+
+                    @Override
+                    public void call(GenresMovie movie) {
+                        LogUtils.i(TAG, movie.getReturnMsg());
+                        onVideoListener.onSuccess(movie);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        //获取版本失败
+                        LogUtils.i(TAG, "相应题材影视获取失败");
+                        onVideoListener.onFailure(throwable);
+                    }
+                });
+    }
+
+    @Override
     public void getCombQueryConditions(String type, final OnConditionsListener onVideoListener) {
         ApiManager.getCombQueryConditions(type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Conditions>() {
@@ -101,6 +122,25 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    @Override
+    public void getSerialDetail(String id, final OnSerialDitionListener onSerialDitionListener) {
+        ApiManager.getSerialDetail(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<SerialDitions>() {
+
+                    @Override
+                    public void call(SerialDitions serialDitions) {
+                        LogUtils.i(TAG, serialDitions.getReturnMsg());
+                        onSerialDitionListener.onSuccess(serialDitions);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        LogUtils.i(TAG, "电视剧详情获取失败");
+                        onSerialDitionListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -118,6 +158,11 @@ public class MovieDao implements IMovieBean{
 
     public interface OnVideoSearchListListener{
         void onSuccess(VideoSearchList videoSearchList);  //获取成功
+        void onFailure(Throwable e);  //获取失败
+    }
+
+    public interface OnSerialDitionListener{
+        void onSuccess(SerialDitions serialDitions);  //获取成功
         void onFailure(Throwable e);  //获取失败
     }
 }

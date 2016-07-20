@@ -1,6 +1,7 @@
 package com.lemon95.ymtv.adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.common.AppConstant;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -21,10 +23,17 @@ public class GridViewAdapter extends BaseAdapter {
 
     List<VideoSearchList.Data.VideoBriefs> videoBriefsList;
     private Context context;
+    private DisplayImageOptions options;
 
     public GridViewAdapter(List<VideoSearchList.Data.VideoBriefs> videoBriefsList,Context context) {
         this.videoBriefsList = videoBriefsList;
         this.context = context;
+        // 使用DisplayImageOptions.Builder()创建DisplayImageOptions
+        options = new DisplayImageOptions.Builder()
+                .showStubImage(R.drawable.lemon_details_small_def)          // 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.drawable.lemon_details_small_def)  // 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.drawable.lemon_details_small_def)       // 设置图片加载或解码过程中发生错误显示的图片
+                .build();                                   // 创建配置过得DisplayImageOption对象
     }
 
     @Override
@@ -53,7 +62,7 @@ public class GridViewAdapter extends BaseAdapter {
             view.setTag(holder);
         }
         VideoSearchList.Data.VideoBriefs videoBriefs = videoBriefsList.get(position);
-        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + videoBriefs.getPicturePath(),holder.lemon_grid_img);
+        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + videoBriefs.getPicturePath(),holder.lemon_grid_img,options);
         holder.lemon_grid_textView.setText(videoBriefs.getVideoName());
         return view;
     }

@@ -70,7 +70,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px783"
+        android:layout_height="@dimen/px853"
         android:orientation="vertical">
 
 

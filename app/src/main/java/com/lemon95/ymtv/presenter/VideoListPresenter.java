@@ -73,10 +73,8 @@ public class VideoListPresenter {
             @Override
             public void onSuccess(VideoSearchList videoSearchList) {
                 VideoSearchList.Data data = videoSearchList.getData();
-                if (data != null) {
-                    List<VideoSearchList.Data.VideoBriefs> videoBriefsList =  data.getVideoBriefs();
-                    videoListActivity.showGridView(videoBriefsList);
-                }
+                List<VideoSearchList.Data.VideoBriefs> videoBriefsList =  data.getVideoBriefs();
+                videoListActivity.showGridView(data);
             }
 
             @Override

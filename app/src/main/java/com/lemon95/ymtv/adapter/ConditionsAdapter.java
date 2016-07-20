@@ -1,11 +1,14 @@
 package com.lemon95.ymtv.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.lemon95.androidtvwidget.view.TextViewWithTTF;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.bean.QueryConditions;
 
@@ -51,6 +54,9 @@ public class ConditionsAdapter extends BaseAdapter {
         }
         QueryConditions queryConditions = conditionsArrayList.get(position);
         holder.lemon_video_tv.setText(queryConditions.getName());
+        if (position == 0) {
+            holder.lemon_video_tv.setTextColor(Color.WHITE);
+        }
         return view;
     }
 

@@ -6,6 +6,7 @@ import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.Recommend;
+import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.Video;
 import com.lemon95.ymtv.bean.VideoSearchList;
@@ -118,7 +119,19 @@ public class ApiManager {
      * @return
      */
     public static Observable<GenresMovie> getMoviesByGenres(String genreIds,String vipLevel,String currenPage,String pageSize) {
-        return apiManager.getMoviesByGenres(genreIds,vipLevel,currenPage,pageSize);
+        return apiManager.getMoviesByGenres(genreIds, vipLevel, currenPage, pageSize);
+    }
+
+    /**
+     * 获取相应题材电视剧
+     * @param genreIds
+     * @param vipLevel
+     * @param currenPage
+     * @param pageSize
+     * @return
+     */
+    public static Observable<GenresMovie> getSerialsByGenres(String genreIds,String vipLevel,String currenPage,String pageSize) {
+        return apiManager.getSerialsByGenres(genreIds, vipLevel, currenPage, pageSize);
     }
 
     /**
@@ -144,6 +157,15 @@ public class ApiManager {
      * @return
      */
     public static Observable<VideoSearchList> getCombSearch(String areaId,String genreId,String groupId,String chargeMethod,String vipLevel,String year,String type,String currentPage,String pageSize) {
-        return apiManager.getCombSearch(areaId,genreId,groupId,chargeMethod,vipLevel,year,type,currentPage,pageSize);
+        return apiManager.getCombSearch(areaId, genreId, groupId, chargeMethod, vipLevel, year, type, currentPage, pageSize);
+    }
+
+    /**
+     * 获取电视剧详情
+     * @param id
+     * @return
+     */
+    public static Observable<SerialDitions> getSerialDetail(String id) {
+        return apiManager.getSerialDetail(id);
     }
 }

@@ -18,10 +18,12 @@ import com.lemon95.androidtvwidget.view.MainUpView;
 import com.lemon95.androidtvwidget.view.ReflectItemView;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.bean.GenresMovie;
+import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.presenter.MovieDetailsPresenter;
 import com.lemon95.ymtv.utils.ImageUtils;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class MovieDetailsActivity extends BaseActivity implements View.OnClickListener{
 
-    private ReflectItemView details_play;
+    private ReflectItemView details_play,details_serial;
     private MainUpView mainUpView2;
     View mOldFocus; // 4.3以下版本需要自己保存.
     OpenEffectBridge mOpenEffectBridge;
@@ -41,6 +43,9 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     private List<GenresMovie.Data> dataList; //相关影视
     private MovieDetailsPresenter movieDetailsActivity = new MovieDetailsPresenter(this);
     private boolean isKeyDown = false;
+    private SerialDitions.Data serialData; //点数据数据
+    String videoType = "1";
+    private String userId;
 
     @Override
     protected int getLayoutId() {
@@ -58,14 +63,25 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         details_play = (ReflectItemView)findViewById(R.id.details_play);
         lemon_movie_details_pro = (ProgressBar)findViewById(R.id.lemon_movie_details_pro);
         lemon_movie_details_main = (LinearLayout)findViewById(R.id.lemon_movie_details_main);
+        details_serial = (ReflectItemView) findViewById(R.id.details_serial);
     }
 
     @Override
     protected void initialized() {
         String videoId = getIntent().getStringExtra("videoId");
-        String userId = getIntent().getStringExtra("userId");
+        userId = PreferenceUtils.getString(context, AppConstant.USERID, ""); //获取用户ID
+        videoType = getIntent().getStringExtra("videoType");
+        TextView textView = (TextView)findViewById(R.id.lemon95_movie_title_id);
         LogUtils.i(TAG, videoId + ";" + userId);
-        movieDetailsActivity.initPageData(videoId, userId, false);
+        if (AppConstant.MOVICE.equals(videoType)) {
+            textView.setText(getString(R.string.lemon95_movie));
+            movieDetailsActivity.initPageData(videoId, userId, false);
+            details_serial.setVisibility(View.GONE);
+        } else if(AppConstant.SERIALS.equals(videoType)) {
+            textView.setText("电视剧");
+            details_serial.setVisibility(View.VISIBLE);
+            movieDetailsActivity.initSerialData(videoId);
+        }
     }
 
     public void initViewMove() {
@@ -99,7 +115,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
 
     public void testTopDemo(View newView, float scale) {
         // 测试第一个小人放大的效果.
-        if (newView.getId() == R.id.details_play || newView.getId() == R.id.details_sc) { // 小人在外面的测试.
+        if (newView.getId() == R.id.details_play || newView.getId() == R.id.details_sc || newView.getId() == R.id.details_serial) { // 小人在外面的测试.
             LogUtils.e(TAG,"隐藏");
             mOpenEffectBridge.setVisibleWidget(false);
             mainUpView2.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
@@ -229,7 +245,6 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (lemon_movie_details_pro.getVisibility() == View.GONE) {
-            String userId = getIntent().getStringExtra("userId");
             switch (v.getId()) {
                 case R.id.details_play:
                     showToastShort("播放");
@@ -237,46 +252,54 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                 case R.id.details_item1:
                     isKeyDown = true;
                     String videoId1 = dataList.get(0).getVideoId();
-                    movieDetailsActivity.initPageData(videoId1, userId, false);
+                    face(dataList.get(0),videoId1);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item2:
                     isKeyDown = true;
                     String videoId2 = dataList.get(1).getVideoId();
-                    movieDetailsActivity.initPageData(videoId2, userId, false);
+                    face(dataList.get(1),videoId2);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item3:
                     isKeyDown = true;
                     String videoId3 = dataList.get(2).getVideoId();
-                    movieDetailsActivity.initPageData(videoId3, userId, false);
+                    face(dataList.get(2), videoId3);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item4:
                     isKeyDown = true;
                     String videoId4 = dataList.get(3).getVideoId();
-                    movieDetailsActivity.initPageData(videoId4, userId, false);
+                    face(dataList.get(3), videoId4);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item5:
                     isKeyDown = true;
                     String videoId5 = dataList.get(4).getVideoId();
-                    movieDetailsActivity.initPageData(videoId5, userId, false);
+                    face(dataList.get(4), videoId5);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item6:
                     isKeyDown = true;
                     String videoId6 = dataList.get(5).getVideoId();
-                    movieDetailsActivity.initPageData(videoId6, userId, false);
+                    face(dataList.get(5), videoId6);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item7:
                     isKeyDown = true;
                     String videoId7 = dataList.get(6).getVideoId();
-                    movieDetailsActivity.initPageData(videoId7, userId, false);
+                    face(dataList.get(6), videoId7);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
             }
+        }
+    }
+
+    public void face(GenresMovie.Data data ,String videoId) {
+        if (AppConstant.SERIALS.equals(data.getVideoTypeId())) {
+            movieDetailsActivity.initSerialData(videoId);
+        } else {
+            movieDetailsActivity.initPageData(videoId, userId, false);
         }
     }
 
@@ -295,4 +318,20 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         return isKeyDown;
     }
 
+    /**
+     * 初始化电视剧数据
+     * @param data
+     */
+    public void initViewSerialDate(SerialDitions.Data data) {
+        this.serialData = data;
+        ((TextView)findViewById(R.id.movie_details_name)).setText("《" + data.getSerialName() + "》");
+        ((TextView)findViewById(R.id.movie_details_type)).setText("类型：" + data.getVideoGenres());
+        ((TextView)findViewById(R.id.movie_details_grade)).setText("评分：" + data.getScore());
+        ((TextView)findViewById(R.id.movie_details_direct)).setText("导演：" + data.getDirector());
+        ((TextView)findViewById(R.id.movie_details_act)).setText("主演：" + data.getStarring());
+        ((TextView)findViewById(R.id.movie_details_descri)).setText(data.getDescription());
+        ImageView imageView = (ImageView)findViewById(R.id.movie_details_img_id);
+        LogUtils.e(TAG, ImageUtils.getBigImg(data.getPicturePath()));
+        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + ImageUtils.getBigImg(data.getPicturePath()), imageView);
+    }
 }

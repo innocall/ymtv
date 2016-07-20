@@ -24,6 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
         android:visibility="gone">
 
         <LinearLayout
@@ -58,8 +60,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/px820"
                 android:scrollbars="none"
+                android:descendantFocusability="afterDescendants"
                 android:layout_gravity="center"
                 android:focusableInTouchMode="true"
+                android:nextFocusRight="@+id/gridView"
+                android:nextFocusUp="@+id/lemon_video_menu_id"
                 android:focusable="true"
                 android:listSelector="@drawable/lemon_liangguang_03"></com.lemon95.androidtvwidget.view.ListViewTV>
 
@@ -83,6 +88,7 @@
                 android:layout_height="@dimen/px135">
 
                 <TextView
+                    android:id="@+id/lemon_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/px60"
@@ -108,6 +114,9 @@
                         android:paddingLeft="@dimen/px24"
                         android:paddingRight="@dimen/px24"
                         android:text="@string/lemon95_search"
+                        android:visibility="gone"
+                        android:nextFocusLeft="@+id/gridView"
+                        android:nextFocusDown="@+id/gridView"
                         android:textColor="@color/lemon_color2"
                         android:textSize="@dimen/px30" />
 
@@ -138,7 +147,10 @@
                     android:columnWidth="@dimen/px249"
                     android:paddingLeft="@dimen/px48"
                     android:paddingRight="@dimen/px6"
+                    android:descendantFocusability="afterDescendants"
                     android:gravity="center_vertical"
+                    android:nextFocusLeft="@+id/lemon_video_menu_id"
+                    android:nextFocusUp="@+id/lemon_but_search"
                     android:horizontalSpacing="@dimen/px48"
                     android:numColumns="auto_fit"
                     android:scrollbars="none" />
@@ -171,6 +183,6 @@
     <com.lemon95.androidtvwidget.view.MainUpView
         android:id="@+id/mainUpView2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
 </FrameLayout>

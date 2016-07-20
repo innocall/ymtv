@@ -200,7 +200,6 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:nextFocusDown="@+id/details_item1"
-                        android:nextFocusRight="@null"
                         app:isShape="true"
                         app:radius="@dimen/px8">
 
@@ -232,6 +231,60 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:text="@string/lemon_sc"
+                                    android:textColor="#FFFFFF"
+                                    android:layout_marginLeft="@dimen/px12"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center_vertical"
+                                    android:textSize="@dimen/px40"/>
+
+                            </LinearLayout>
+                        </FrameLayout>
+                    </com.lemon95.androidtvwidget.view.ReflectItemView>
+
+                    <com.lemon95.androidtvwidget.view.ReflectItemView
+                        android:id="@+id/details_serial"
+                        android:layout_width="@dimen/px279"
+                        android:layout_height="@dimen/px78"
+                        android:layout_marginLeft="@dimen/px667"
+                        android:layout_marginRight="@dimen/px24"
+                        android:layout_marginTop="@dimen/px27"
+                        android:layout_marginBottom="@dimen/px12"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/details_item1"
+                        android:nextFocusRight="@null"
+                        app:isShape="true"
+                        android:visibility="gone"
+                        app:radius="@dimen/px8">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="@dimen/px279"
+                                android:layout_height="@dimen/px78"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/lemon_anniu_03" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:scaleType="fitXY"
+                                    android:layout_gravity="center_vertical"
+                                    android:src="@drawable/lemon_serial" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="@string/lemon_serial"
                                     android:textColor="#FFFFFF"
                                     android:layout_marginLeft="@dimen/px12"
                                     android:layout_gravity="center_vertical"
