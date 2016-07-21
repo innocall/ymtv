@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:gravity="center" >
+
+    <ProgressBar
+        android:id="@+id/sdk_sdk_ijk_load_buffer_load"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateDrawable="@drawable/venvy_video_sdk_ijk_progress_bar_load_bg"
+        android:indeterminateOnly="true" />
+
+    <TextView
+        android:id="@+id/sdk_sdk_ijk_load_buffer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sdk_sdk_ijk_load_buffer_load"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/venvy_video_buffer_text_color" />
+
+</RelativeLayout>

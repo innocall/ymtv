@@ -1,0 +1,5 @@
+<resources>
+
+    <dimen name="venvy_video_sdk_panel_height">64dp</dimen>
+	<dimen name="venvy_video_dg_padding">120dp</dimen>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/venvy_video_load_bg_color"
+    android:clickable="true" >
+
+    <ProgressBar
+        android:id="@+id/sdk_ijk_progress_bar"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateDrawable="@drawable/venvy_video_sdk_ijk_progress_bar_bg"
+        android:indeterminateOnly="true" />
+
+    <ImageView
+        android:id="@+id/sdk_ijk_progress_bar_logo"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/venvy_sdk_progress_bar_bg" />
+
+    <TextView
+        android:id="@+id/sdk_ijk_progress_bar_text"
+        style="@style/venvy_video_load_text_style"
+        android:layout_below="@+id/sdk_ijk_progress_bar"
+        android:text="@string/sdk_video_connect_server_text" />
+
+</RelativeLayout>

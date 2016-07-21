@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:gravity="center" >
+
+    <ImageView
+        android:id="@+id/sdk_media_controller_operation_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/venvy_sdk_media_controller_volume" />
+
+    <TextView
+        android:id="@+id/sdk_media_controller_tv_volume_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sdk_media_controller_operation_bg"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/venvy_video_buffer_text_color" />
+
+</RelativeLayout>

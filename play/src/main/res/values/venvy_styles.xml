@@ -1,0 +1,120 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base application theme. -->
+    <style name="venvy_videojj_style" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+    </style>
+
+    <!-- 视频控制器属性控件设置 -->
+    <style name="venvy_media_controller_title_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/venvy_video_title_text_size</item>
+    </style>
+
+    <style name="venvy_media_controller_panel_formal_style">
+        <item name="android:layout_width">@dimen/venvy_video_sdk_panel_height</item>
+        <item name="android:layout_height">@dimen/venvy_video_sdk_panel_height</item>
+    </style>
+
+    <style name="venvy_media_controller_back_style" parent="@style/venvy_media_controller_panel_formal_style">
+        <item name="android:background">@null</item>
+        <item name="android:src">@drawable/venvy_sdk_arrow_left_bg</item>
+    </style>
+
+    <style name="venvy_media_controller_mass_style" parent="@style/venvy_media_controller_panel_formal_style">
+        <item name="android:background">@null</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/venvy_video_title_text_size</item>
+    </style>
+
+    <style name="venvy_media_controller_lock_style" parent="@style/venvy_media_controller_panel_formal_style">
+        <item name="android:background">@null</item>
+        <item name="android:src">@drawable/venvy_sdk_media_controller_unlock_bg</item>
+    </style>
+
+    <style name="venvy_media_controller_set_more_style" parent="@style/venvy_media_controller_panel_formal_style">
+        <item name="android:background">@null</item>
+        <item name="android:src">@drawable/venvy_sdk_media_controller_set_more_bg</item>
+    </style>
+
+    <style name="venvy_media_controller_popup_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/venvy_video_buffer_text_color</item>
+        <item name="android:textSize">@dimen/venvy_video_info_text_size</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="venvy_media_controller_SeekBar_Style" parent="android:Widget.SeekBar">
+        <item name="android:progressDrawable">@drawable/venvy_video_sdk_seek_progress_bar_bg</item>
+        <item name="android:indeterminateDrawable">@drawable/venvy_video_sdk_seek_progress_bar_bg</item>
+        <item name="android:minHeight">5dp</item>
+        <item name="android:maxHeight">5dp</item>
+        <item name="android:thumb">@drawable/venvy_video_sdk_media_controller_drag_bg</item>
+        <item name="android:thumbOffset">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:max">1000</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="venvy_media_controller_time_text_Style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:text">00:00</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- 清晰度 -->
+    <style name="venvy_video_quality_text_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/venvy_video_quality_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="venvy_video_quality_line_style">
+        <item name="android:layout_height">15dp</item>
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">25dp</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="venvy_video_load_text_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:textColor">@color/venvy_video_load_text_color</item>
+        <item name="android:textSize">@dimen/venvy_video_load_text_size</item>
+    </style>
+
+</resources>

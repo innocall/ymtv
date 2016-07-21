@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Venvy</string>
+
+    <!-- 视频控制器 -->
+    <string name="sdk_video_screen_locked_string">Screen has been locked</string>
+    <string name="sdk_video_screen_unlocked_string">Screen lock has been lifted</string>
+    <string name="sdk_video_open_gesture_string">Open Gesture</string>
+     <string name="sdk_video_close_gesture_string">Close Gesture</string>
+    <!-- 优酷清晰度 -->
+    <string name="sdk_video_quality_sd_string">SD Mode</string>
+    <string name="sdk_video_quality_hd_string">HD Mode</string>
+    <string name="sdk_video_quality_super_hd_string">Super Mode</string>
+    <string name="sdk_video_quality_1080_string">1080P</string>
+    <string name="sdk_video_quality_smooth_string">fluency</string>
+    <string name="sdk_video_quality_speed_string">topspeed</string>
+    <string name="sdk_video_quality_720_string">720P</string>
+    <string name="sdk_video_connect_server_text">Connect to the server...</string>
+    <string name="sdk_video_connect_loading_text">Load the data in the...</string>
+    <string name="sdk_video_more_state_string">gesture state</string>
+    <string name="sdk_video_more_gestures_open_string">Gestures to open</string>
+    <string name="sdk_video_more_gestures_ban_string">Gestures to close</string>
+    <string name="sdk_video_invalid_address_string">video address is invalid</string>
+    <string name="sdk_video_scale_default_string">default</string>
+</resources>

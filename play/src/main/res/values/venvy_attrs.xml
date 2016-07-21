@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="VideoJjCofInfo">
+        <attr name="VideoJjAppKay" format="string" />
+        <attr name="VideoJjPageName" format="string" />
+    </declare-styleable>
+</resources>

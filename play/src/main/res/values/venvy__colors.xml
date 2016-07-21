@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="venvy_video_line_color">#78729B</color>
+    <color name="venvy_video_dg_divider_color">#E9E9E9</color>
+    <color name="venvy_video_dg_item_text_color">#404060</color>
+    <color name="venvy_video_buffer_text_color">#ffececec</color>
+    <color name="venvy_video_load_bg_color">#BABABA</color>
+    <color name="venvy_video_load_text_color">#666666</color>
+    <color name="venvy_video_link_color">#ffffff</color>
+    <color name="venvy_video_link_color_up">#f3f3f3</color>
+</resources>

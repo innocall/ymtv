@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- 视频控制器 -->
+    <string name="sdk_video_screen_locked_string">屏幕已锁定</string>
+    <string name="sdk_video_screen_unlocked_string">屏幕锁定已解除</string>
+    <string name="sdk_video_open_gesture_string">手势已开启</string>
+    <string name="sdk_video_close_gesture_string">手势已关闭</string>
+    <!-- 优酷清晰度 -->
+    <string name="sdk_video_quality_sd_string">标清</string>
+    <string name="sdk_video_quality_hd_string">高清</string>
+    <string name="sdk_video_quality_super_hd_string">超清</string>
+    <string name="sdk_video_quality_1080_string">1080P</string>
+    <string name="sdk_video_quality_smooth_string">流畅</string>
+    <string name="sdk_video_quality_speed_string">极速</string>
+    <string name="sdk_video_quality_720_string">720P</string>
+    <string name="sdk_video_connect_server_text">连接服务器中...</string>
+    <string name="sdk_video_connect_loading_text">加载数据中...</string>
+    <string name="sdk_video_more_state_string">手势说明</string>
+    <string name="sdk_video_more_gestures_open_string">手势开启</string>
+    <string name="sdk_video_more_gestures_ban_string">手势禁止</string>
+    <string name="sdk_video_invalid_address_string">视频地址无效</string>
+    <string name="sdk_video_scale_default_string">默认</string>
+    <string name="sdk_video_scale_16_9_string">16:9</string>
+    <string name="sdk_video_scale_4_3_string">4:3</string>
+
+</resources>
