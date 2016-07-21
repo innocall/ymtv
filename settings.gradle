@@ -1,1 +1,1 @@
-include ':app', ':tvwidget'
+include ':app', ':tvwidget', ':play'

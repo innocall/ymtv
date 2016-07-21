@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/play/play.iml" filepath="$PROJECT_DIR$/play/play.iml" />
       <module fileurl="file://$PROJECT_DIR$/tvwidget/tvwidget.iml" filepath="$PROJECT_DIR$/tvwidget/tvwidget.iml" />
       <module fileurl="file://$PROJECT_DIR$/ymtv.iml" filepath="$PROJECT_DIR$/ymtv.iml" />
     </modules>

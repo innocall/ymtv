@@ -248,6 +248,8 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
             switch (v.getId()) {
                 case R.id.details_play:
                     showToastShort("播放");
+
+
                     break;
                 case R.id.details_item1:
                     isKeyDown = true;
