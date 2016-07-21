@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context="com.lemon95.ymtv.view.activity.PlayActivity">
+
+    <cn.com.video.venvy.param.JjVideoRelativeLayout
+        android:id="@+id/jjlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <cn.com.video.venvy.param.JjVideoView
+            android:id="@+id/video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+
+        <include
+            android:id="@+id/sdk_ijk_progress_bar_layout"
+            layout="@layout/venvy_fragment_video_progress_bar_sdk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include
+            android:id="@+id/sdk_load_layout"
+            layout="@layout/venvy_video_ijk_load_sdk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+    </cn.com.video.venvy.param.JjVideoRelativeLayout>
+</RelativeLayout>

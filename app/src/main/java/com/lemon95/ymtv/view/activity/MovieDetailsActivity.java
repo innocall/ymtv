@@ -1,6 +1,7 @@
 package com.lemon95.ymtv.view.activity;
 
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -43,7 +44,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     private List<GenresMovie.Data> dataList; //相关影视
     private MovieDetailsPresenter movieDetailsActivity = new MovieDetailsPresenter(this);
     private boolean isKeyDown = false;
-    private SerialDitions.Data serialData; //点数据数据
+    private SerialDitions.Data serialData; //电视剧数据数据
     String videoType = "1";
     private String userId;
 
@@ -248,8 +249,13 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
             switch (v.getId()) {
                 case R.id.details_play:
                     showToastShort("播放");
-
-
+                    Bundle bundle = new Bundle();
+                    if (AppConstant.MOVICE.equals(videoType)) {
+                        bundle.putString("playUrl", data.getMovieSources().get(0).getSourceUrl());
+                    } else if(AppConstant.SERIALS.equals(videoType)) {
+                       // bundle.putString("playUrl", serialData.getId());
+                    }
+                    startActivity(PlayActivity.class,bundle);
                     break;
                 case R.id.details_item1:
                     isKeyDown = true;
