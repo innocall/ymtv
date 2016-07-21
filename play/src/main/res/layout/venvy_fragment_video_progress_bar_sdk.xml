@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BABABA"
+    android:background="#000000"
     android:clickable="true" >
 
     <ProgressBar
@@ -21,6 +21,7 @@
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:visibility="gone"
         android:src="@drawable/venvy_sdk_progress_bar_bg" />
 
     <TextView
@@ -33,7 +34,7 @@
         android:lineSpacingExtra="10dp"
         android:lineSpacingMultiplier="1.2"
         android:text="@string/sdk_video_connect_server_text"
-        android:textColor="#666666"
+        android:textColor="#fff"
         android:textSize="14dp" />
 
 </RelativeLayout>
