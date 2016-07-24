@@ -4,11 +4,14 @@ import com.lemon95.ymtv.api.ApiManager;
 import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
+import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.utils.LogUtils;
+
+import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -141,6 +144,29 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    /**
+     * 解析电影
+     * @param id
+     * @param onMovieAnalysisListener
+     */
+    @Override
+    public void getMovieAnalysis(String id, final OnMovieAnalysisListener onMovieAnalysisListener) {
+        ApiManager.getMovieAnalysis(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<MovieSources>>() {
+
+                    @Override
+                    public void call(List<MovieSources> movieSources) {
+                        onMovieAnalysisListener.onSuccess(movieSources);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onMovieAnalysisListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -164,5 +190,10 @@ public class MovieDao implements IMovieBean{
     public interface OnSerialDitionListener{
         void onSuccess(SerialDitions serialDitions);  //获取成功
         void onFailure(Throwable e);  //获取失败
+    }
+
+    public interface OnMovieAnalysisListener{
+        void onSuccess(List<MovieSources> movieSources);
+        void onFailure(Throwable e);
     }
 }

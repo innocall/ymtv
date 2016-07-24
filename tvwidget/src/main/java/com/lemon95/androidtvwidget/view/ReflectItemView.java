@@ -13,7 +13,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
-;import com.lemon95.androidtvwidget.R;
+import com.lemon95.androidtvwidget.R;
 import com.lemon95.androidtvwidget.cache.BitmapMemoryCache;
 import com.lemon95.androidtvwidget.utils.DrawUtils;
 import com.lemon95.androidtvwidget.utils.Utils;

@@ -45,6 +45,7 @@ public class MovieDetailsPresenter {
 
             @Override
             public void onFailure(Throwable e) {
+                e.printStackTrace();
                 movieDetailsActivity.showToastLong("数据获取失败");
                // movieDetailsActivity.finish();
             }

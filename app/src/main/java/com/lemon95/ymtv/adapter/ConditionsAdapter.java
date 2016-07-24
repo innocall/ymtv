@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.lemon95.androidtvwidget.view.TextViewWithTTF;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.bean.QueryConditions;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ public class ConditionsAdapter extends BaseAdapter {
 
     private ArrayList<QueryConditions> conditionsArrayList;
     private Context context;
+    private DisplayImageOptions options;
 
     public ConditionsAdapter(ArrayList<QueryConditions> conditionsArrayList,Context context) {
         this.conditionsArrayList = conditionsArrayList;

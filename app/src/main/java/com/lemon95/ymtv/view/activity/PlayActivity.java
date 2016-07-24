@@ -4,9 +4,12 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lemon95.ymtv.R;
+import com.lemon95.ymtv.common.AppConstant;
+import com.lemon95.ymtv.presenter.PlayMoviePresenter;
 import com.lemon95.ymtv.utils.LogUtils;
 
 import cn.com.video.venvy.param.JjVideoView;
@@ -20,12 +23,15 @@ import cn.com.video.venvy.param.VideoJjMediaContoller;
 
 public class PlayActivity extends BaseActivity {
 
-    private String url;
+    private String videoId;
+    private String videoType;
     private JjVideoView mVideoView;//
     private View mLoadBufferView;// //
     private TextView mLoadBufferTextView;// //
     private View mLoadView;// /
     private TextView mLoadText;//
+    private PlayMoviePresenter playMoviePresenter = new PlayMoviePresenter(this);
+    private ProgressBar sdk_ijk_progress_bar;
 
     @Override
     protected int getLayoutId() {
@@ -34,34 +40,18 @@ public class PlayActivity extends BaseActivity {
 
     @Override
     protected void setupViews() {
-        url = getIntent().getStringExtra("playUrl");
+        videoId = getIntent().getStringExtra("videoId");
+        videoType = getIntent().getStringExtra("videoType");
         mVideoView = (JjVideoView) findViewById(R.id.video);
         mLoadView = findViewById(R.id.sdk_ijk_progress_bar_layout);
         mLoadText = (TextView) findViewById(R.id.sdk_ijk_progress_bar_text);
+        sdk_ijk_progress_bar = (ProgressBar)findViewById(R.id.sdk_ijk_progress_bar);
         mLoadBufferView = findViewById(R.id.sdk_load_layout);
         mLoadBufferTextView = (TextView) findViewById(R.id.sdk_sdk_ijk_load_buffer_text);
         mVideoView.setMediaController(new VideoJjMediaContoller(this, true));
         mLoadBufferTextView.setTextColor(Color.RED);
-        /***
-         * 用户自定义的外链 可 获取外链点击时间
-         */
-        mVideoView.setOnJjOutsideLinkClickListener(new OnJjOutsideLinkClickListener() {
-
-            @Override
-            public void onJjOutsideLinkClick(String arg0) {
-            }
-
-            @Override
-            public void onJjOutsideLinkClose() {
-            }
-        });
-        /***
-         * 设置缓冲
-         */
-        mVideoView.setMediaBufferingView(mLoadBufferView);
-        /***
-         * 视频开始加载数据
-         */
+        mVideoView.setMediaBufferingView(mLoadBufferView);//设置缓冲
+        //视频开始加载数据
         mVideoView.setOnJjOpenStart(new OnJjOpenStartListener() {
 
             @Override
@@ -69,9 +59,7 @@ public class PlayActivity extends BaseActivity {
                 mLoadText.setText(arg0);
             }
         });
-        /***
-         * 视频开始播放
-         */
+        //视频开始播放
         mVideoView.setOnJjOpenSuccess(new OnJjOpenSuccessListener() {
 
             @Override
@@ -93,11 +81,8 @@ public class PlayActivity extends BaseActivity {
             public void onJjBufferingUpdate(int arg1) {
                 // TODO Auto-generated method stub
                 if (mLoadBufferView.getVisibility() == View.VISIBLE) {
-                    mLoadBufferTextView.setText(String
-                            .valueOf(mVideoView.getBufferPercentage())
-                            + "%");
-                    LogUtils.e("Video++", "====================缓冲值2====="
-                            + arg1);
+                    mLoadBufferTextView.setText(String.valueOf(mVideoView.getBufferPercentage()) + "%");
+                    LogUtils.e("Video++", "====================缓冲值2=====" + arg1);
                 }
             }
         });
@@ -116,20 +101,37 @@ public class PlayActivity extends BaseActivity {
         // mVideoView.setMediaCodecEnabled(true);// 是否开启 硬解 硬解对一些手机有限制
         // 判断是否源 0 代表 8大视频网站url 3代表自己服务器的视频源 2代表直播地址 1代表本地视频(手机上的视频源),4特殊需求
         mVideoView.setVideoJjType(3);
-        /***
-         * 视频标签显示的时间 默认显示5000毫秒 可设置 传入值 long类型 毫秒
-         */
-        // 参数代表是否记录视频播放位置 默认false不记录 true代表第二次或多次进入，直接跳转到上次退出的时间点开始播放
-        // mVideoView.setVideoJjSaveExitTime(false);
-        /***
-         * 指定时间开始播放 毫秒
-         */
-        mVideoView.setResourceVideo(url);
+       // mVideoView.setResourceVideo("http://movie.lemon95.com/201607231259/0d38483df67d4cf9a79a6d19294a580e/ty.rmvb");
     }
 
     @Override
     protected void initialized() {
+        //获取播放地址
+        if (AppConstant.MOVICE.equals(videoType)) {
+           playMoviePresenter.getPlayUrl(videoId);
+        } else if(AppConstant.SERIALS.equals(videoType)) {
 
+        }
+    }
+
+    /**
+     * 开始播放
+     * @param url
+     */
+    public void startPlay(String url) {
+        mVideoView.setVideoJjResetState();
+        mVideoView.setVideoJjType(3);
+        mVideoView.setResourceVideo(url);
+    }
+
+    /**
+     * 播放出错
+     */
+    public void showError(String msg) {
+        sdk_ijk_progress_bar.setVisibility(View.GONE);
+        mLoadText.setText(msg);
+        mLoadText.setVisibility(View.VISIBLE);
+        mLoadView.setVisibility(View.VISIBLE);
     }
 
     @Override
