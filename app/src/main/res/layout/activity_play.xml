@@ -18,6 +18,13 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
 
+        <ImageView
+            android:id="@+id/lemon_play_img"
+            android:layout_width="@dimen/px200"
+            android:layout_height="@dimen/px200"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
         <include
             android:id="@+id/sdk_ijk_progress_bar_layout"
             layout="@layout/venvy_fragment_video_progress_bar_sdk"
@@ -29,8 +36,9 @@
             layout="@layout/venvy_video_ijk_load_sdk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/px70"
+            android:layout_marginTop="@dimen/px170"
             android:visibility="gone" />
     </cn.com.video.venvy.param.JjVideoRelativeLayout>
 </RelativeLayout>

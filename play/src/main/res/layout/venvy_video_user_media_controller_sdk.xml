@@ -4,46 +4,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/venvy_video_sdk_media_controller_bg"
-    android:visibility="invisible" >
+    android:visibility="invisible">
 
     <!-- 控制器布局以及设置背景 -->
 
-
     <!-- 头部内容区 -->
-
     <LinearLayout
         android:id="@+id/sdk_media_controller_panel"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/venvy_video_sdk_panel_height"
+        android:layout_height="@dimen/px135"
+        android:background="#c9000000"
         android:gravity="center_horizontal|center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <!-- 返回按钮 -->
 
         <ImageButton
             android:id="@+id/sdk_media_controller_back"
-            style="@style/venvy_media_controller_back_style" />
+            style="@style/venvy_media_controller_back_style"
+            android:visibility="gone" />
 
         <!-- 视频标题 -->
 
         <TextView
             android:id="@+id/sdk_media_controller_video_name"
             style="@style/venvy_media_controller_title_style"
+            android:layout_marginLeft="@dimen/px60"
             android:visibility="visible" />
         <!-- 视频清晰度设置 -->
 
         <TextView
             android:id="@+id/sdk_media_controller_video_mass"
-            style="@style/venvy_media_controller_mass_style" />
+            style="@style/venvy_media_controller_mass_style"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/sdk_media_controller_scale"
+            style="@style/venvy_media_controller_mass_style"
+            android:text="默认"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/sdk_media_controller_video_lock"
-            style="@style/venvy_media_controller_lock_style" />
+            style="@style/venvy_media_controller_lock_style"
+            android:visibility="gone" />
         <!-- 设置更多 -->
 
         <ImageButton
             android:id="@+id/sdk_media_controller_video_set_more"
-            style="@style/venvy_media_controller_set_more_style" />
+            style="@style/venvy_media_controller_set_more_style"
+            android:visibility="gone" />
+
+        <TextClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:fontFamily="sans-serif-light"
+            android:format12Hour="hh:mm"
+            android:format24Hour="HH:mm"
+            android:paddingRight="@dimen/px60"
+            android:textColor="#757575"
+            android:textSize="@dimen/px39"
+            android:textStyle="bold" />
     </LinearLayout>
     <!-- 底部区域 -->
 
@@ -51,13 +73,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="#c9000000"
         android:orientation="vertical"
-        android:paddingTop="4dp" >
+        android:paddingBottom="@dimen/px36"
+        android:paddingTop="@dimen/px24">
 
         <RelativeLayout
             android:id="@+id/sdk_media_controller_control"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px60"
+            android:layout_marginRight="@dimen/px60"
+            android:background="#c9000000">
 
             <!-- 暂停播放按钮 -->
 
@@ -70,16 +97,13 @@
                 android:layout_marginLeft="-5dp"
                 android:background="@null"
                 android:gravity="center"
-                android:src="@drawable/venvy_sdk_media_controller_pause_bg" />
+                android:src="@drawable/venvy_sdk_media_controller_pause_bg"
+                android:visibility="gone" />
             <!-- 播放过去时间 -->
 
             <TextView
                 android:id="@+id/sdk_media_controller_time_current"
-                style="@style/venvy_media_controller_time_text_Style"
-                android:layout_marginLeft="-15dp"
-                android:layout_marginRight="5dp"
-                android:layout_toEndOf="@+id/sdk_media_controller_play_pause"
-                android:layout_toRightOf="@+id/sdk_media_controller_play_pause" />
+                style="@style/venvy_media_controller_time_text_Style" />
             <!-- seek进度条 -->
 
             <SeekBar
@@ -93,7 +117,8 @@
             <TextView
                 android:id="@+id/sdk_media_controller_time_total"
                 style="@style/venvy_media_controller_time_text_Style"
-                android:layout_toLeftOf="@+id/sdk_media_controller_direction" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
 
             <ImageButton
                 android:id="@+id/sdk_media_controller_direction"
@@ -102,29 +127,37 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:background="@null"
-                android:src="@drawable/venvy_sdk_media_controller_direction_bg" />
+                android:src="@drawable/venvy_sdk_media_controller_direction_bg"
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
-    <!-- 声音 亮度布局 -->
 
+    <ImageView
+        android:id="@+id/lemon_play_img"
+        android:layout_width="@dimen/px200"
+        android:layout_height="@dimen/px200"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+    
+    <!-- 声音 亮度布局 -->
     <include
         android:id="@+id/sdk_media_controller_operation_volume_brightness"
+        layout="@layout/venvy_video_media_controller_brightness_volumn_sdk"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_centerInParent="true"
-        layout="@layout/venvy_video_media_controller_brightness_volumn_sdk"
         android:visibility="gone" />
-    <!-- 手势快进 快退 -->
 
+    <!-- 手势快进 快退 -->
     <include
         android:id="@+id/sdk_media_controller_plan_layout"
+        layout="@layout/venvy_video_media_controller_plan_sdk"
         android:layout_width="120dp"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
-        layout="@layout/venvy_video_media_controller_plan_sdk"
         android:visibility="gone" />
-    <!-- 添加标签布局 -->
 
+    <!-- 添加标签布局 -->
     <TextView
         android:id="@+id/sdk_ijk_show_popup_view"
         style="@style/venvy_media_controller_popup_text_style" />

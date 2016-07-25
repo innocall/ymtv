@@ -20,7 +20,8 @@ import java.util.List;
  * 不过你需要处理下焦点问题. <p>
  * TextView 可能要设置下 android:focusable="true" <p> 
  * 可以使用 android:nextFocusRight 来控制焦点.<p>
- * 
+ *
+ *
  * @author hailongqiu
  *
  */

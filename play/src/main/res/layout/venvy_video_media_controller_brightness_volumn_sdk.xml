@@ -8,6 +8,7 @@
         android:id="@+id/sdk_media_controller_operation_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_centerHorizontal="true"
         android:src="@drawable/venvy_sdk_media_controller_volume" />
 
@@ -17,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sdk_media_controller_operation_bg"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         android:textColor="@color/venvy_video_buffer_text_color" />
 
 </RelativeLayout>

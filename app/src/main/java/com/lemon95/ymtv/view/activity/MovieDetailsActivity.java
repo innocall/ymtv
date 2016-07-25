@@ -258,8 +258,10 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                     Bundle bundle = new Bundle();
                     if (AppConstant.MOVICE.equals(videoType)) {
                         bundle.putString("videoId", data.getId());
+                        bundle.putString("videoName", data.getMovieName());
                     } else if(AppConstant.SERIALS.equals(videoType)) {
-                        bundle.putString("videoId", serialData.getId());
+                        bundle.putString("videoId", serialData.getSerialEpisodes().get(0).getId());  //剧集ID
+                        bundle.putString("videoName", serialData.getSerialName() + "(第" + 1 + "集)");
                     }
                     bundle.putString("videoType",videoType);
                     startActivity(PlayActivity.class,bundle);

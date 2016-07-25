@@ -167,6 +167,24 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    @Override
+    public void getSerialAnalysis(String id, final OnSerialAnalysisListener onMovieAnalysisListener) {
+        ApiManager.getSerialAnalysis(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+
+                    @Override
+                    public void call(String movieSources) {
+                        onMovieAnalysisListener.onSuccess(movieSources);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onMovieAnalysisListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -194,6 +212,11 @@ public class MovieDao implements IMovieBean{
 
     public interface OnMovieAnalysisListener{
         void onSuccess(List<MovieSources> movieSources);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnSerialAnalysisListener{
+        void onSuccess(String movieSources);
         void onFailure(Throwable e);
     }
 }

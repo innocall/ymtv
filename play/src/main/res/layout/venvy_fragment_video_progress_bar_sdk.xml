@@ -7,8 +7,8 @@
 
     <ProgressBar
         android:id="@+id/sdk_ijk_progress_bar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/px120"
+        android:layout_height="@dimen/px120"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:indeterminateBehavior="repeat"
@@ -21,8 +21,7 @@
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:visibility="gone"
-        android:src="@drawable/venvy_sdk_progress_bar_bg" />
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/sdk_ijk_progress_bar_text"
@@ -31,11 +30,11 @@
         android:layout_below="@+id/sdk_ijk_progress_bar"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/px30"
         android:lineSpacingExtra="10dp"
         android:lineSpacingMultiplier="1.2"
         android:text="@string/sdk_video_connect_server_text"
         android:textColor="#fff"
-        android:textSize="14dp" />
+        android:textSize="@dimen/px36" />
 
 </RelativeLayout>

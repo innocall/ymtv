@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="120dp"
     android:layout_height="120dp"
-    android:gravity="center" >
+    android:gravity="center">
 
     <ProgressBar
         android:id="@+id/sdk_sdk_ijk_load_buffer_load"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/px70"
+        android:layout_height="@dimen/px70"
         android:layout_centerHorizontal="true"
         android:indeterminateBehavior="repeat"
         android:indeterminateDrawable="@drawable/venvy_video_sdk_ijk_progress_bar_load_bg"
@@ -19,6 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sdk_sdk_ijk_load_buffer_load"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/venvy_video_buffer_text_color" />
+        android:layout_marginLeft="@dimen/px28"
+        android:textColor="#bfbebe"
+        android:textSize="@dimen/px36"/>
 
-</RelativeLayout>
+</LinearLayout>

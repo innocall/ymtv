@@ -1,6 +1,0 @@
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <!--控制器头部内容区高度-->
-    <dimen name="venvy_video_sdk_panel_height">56dp</dimen>
-    <dimen name="venvy_video_dg_padding">100dp</dimen>
-</resources>

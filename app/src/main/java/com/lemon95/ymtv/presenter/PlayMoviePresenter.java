@@ -7,6 +7,7 @@ import com.lemon95.ymtv.bean.RealSource;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.dao.MovieDao;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.lemon95.ymtv.utils.RandomSecquenceCreator;
 import com.lemon95.ymtv.utils.StringUtils;
 import com.lemon95.ymtv.view.activity.PlayActivity;
 
@@ -42,8 +43,9 @@ public class PlayMoviePresenter {
                         RealSource realSource = gson.fromJson(sources,RealSource.class);
                         List<RealSource.seg> seg = realSource.getSeg();
                         if (seg != null && seg.size() > 0) {
-                            LogUtils.i("播放地址：",seg.get(0).getFurl());
-                            playActivity.startPlay(seg.get(0).getFurl());
+                            RealSource.seg s = seg.get(RandomSecquenceCreator.getRandom(seg.size()));
+                            LogUtils.i("播放地址：",s.getFurl());
+                            playActivity.startPlay(s.getFurl());
                         }
                     }
                 } else {
@@ -58,4 +60,32 @@ public class PlayMoviePresenter {
             }
         });
     }
+
+    public void getPlaySerialUrl(String videoId) {
+        iMovieBean.getSerialAnalysis(videoId, new MovieDao.OnSerialAnalysisListener() {
+            @Override
+            public void onSuccess(String movieSources) {
+                if (StringUtils.isBlank(movieSources)) {
+                    playActivity.showError("播放失败，视频地址不存在");
+                } else {
+                    movieSources = movieSources.replace("\\", "");
+                    Gson gson = new Gson();
+                    RealSource realSource = gson.fromJson(movieSources, RealSource.class);
+                    List<RealSource.seg> seg = realSource.getSeg();
+                    if (seg != null && seg.size() > 0) {
+                        RealSource.seg s = seg.get(RandomSecquenceCreator.getRandom(seg.size()));
+                        LogUtils.i("播放地址：", s.getFurl());
+                        playActivity.startPlay(s.getFurl());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                e.printStackTrace();
+                playActivity.showError("播放失败，视频地址不存在");
+            }
+        });
+    }
+
 }

@@ -61,4 +61,11 @@ public interface IMovieBean {
      * @param onMovieAnalysisListener
      */
     public void getMovieAnalysis(String id,MovieDao.OnMovieAnalysisListener onMovieAnalysisListener);
+
+    /**
+     * 解析电视剧
+     * @param id
+     * @param onMovieAnalysisListener
+     */
+    public void getSerialAnalysis(String id,MovieDao.OnSerialAnalysisListener onMovieAnalysisListener);
 }

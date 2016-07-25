@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.lemon95.ymtv"
-        minSdkVersion 17
+        minSdkVersion 11
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"

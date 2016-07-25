@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         android:src="@drawable/venvy_sdk_media_controller_backward_bg" />
 
     <TextView
@@ -17,5 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sdk_sdk_media_controller_plan"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         android:textColor="@color/venvy_video_buffer_text_color" />
 </RelativeLayout>

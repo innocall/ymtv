@@ -14,8 +14,8 @@
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/venvy_video_title_text_size</item>
+        <item name="android:textColor">#E7E7E7</item>
+        <item name="android:textSize">@dimen/px36</item>
     </style>
 
     <style name="venvy_media_controller_panel_formal_style">
@@ -33,7 +33,7 @@
         <item name="android:clickable">true</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/venvy_video_title_text_size</item>
+        <item name="android:textSize">@dimen/px36</item>
     </style>
 
     <style name="venvy_media_controller_lock_style" parent="@style/venvy_media_controller_panel_formal_style">
@@ -62,18 +62,17 @@
     </style>
 
     <style name="venvy_media_controller_SeekBar_Style" parent="android:Widget.SeekBar">
-        <item name="android:progressDrawable">@drawable/venvy_video_sdk_seek_progress_bar_bg</item>
-        <item name="android:indeterminateDrawable">@drawable/venvy_video_sdk_seek_progress_bar_bg</item>
-        <item name="android:minHeight">5dp</item>
-        <item name="android:maxHeight">5dp</item>
-        <item name="android:thumb">@drawable/venvy_video_sdk_media_controller_drag_bg</item>
-        <item name="android:thumbOffset">16dp</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
+        <item name="android:progressDrawable">@drawable/venvy_seek_bg</item>
+       <!-- <item name="android:indeterminateDrawable">@drawable/venvy_video_sdk_seek_progress_bar_bg
+        </item>-->
+        <item name="android:thumb">@drawable/venvy_video_bg</item>
+        <item name="android:thumbOffset">@dimen/px2</item>
+        <item name="android:paddingLeft">@dimen/px36</item>
+        <item name="android:paddingRight">@dimen/px36</item>
         <item name="android:focusable">true</item>
         <item name="android:max">1000</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/px35</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
 
@@ -81,9 +80,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">#E7E7E7</item>
         <item name="android:text">00:00</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/px30</item>
     </style>
 
     <!-- 清晰度 -->

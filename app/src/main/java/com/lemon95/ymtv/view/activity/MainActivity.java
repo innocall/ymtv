@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     private View mOldFocus;
     private Button lemon_but_search;  //搜索
     private ReflectItemView page1_item1,page1_item2,page1_item3,page1_item4;
-    private ReflectItemView page2_item1,page2_item2,page2_item3,page2_item4;
+    private ReflectItemView page2_item1,page2_item2,page2_item3,page2_item4,page2_item5,page2_item6;
     private ReflectItemView page3_item1,page3_item2,page3_item3;
     private ImageView lemon_page2_img1,lemon_page2_img2,lemon_page2_img3,lemon_page2_img4,lemon_page2_img5,lemon_page2_img6;
     private ImageView lemon_page3_img1,lemon_page3_img2,lemon_page3_img3;
@@ -132,6 +132,11 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         page1_item3 = (ReflectItemView)view1.findViewById(R.id.page1_item3);
         page1_item4 = (ReflectItemView)view1.findViewById(R.id.page1_item4);
         page2_item1 = (ReflectItemView)view2.findViewById(R.id.page2_item1);
+        page2_item2 = (ReflectItemView)view2.findViewById(R.id.page2_item2);
+        page2_item3 = (ReflectItemView)view2.findViewById(R.id.page2_item3);
+        page2_item4 = (ReflectItemView)view2.findViewById(R.id.page2_item4);
+        page2_item5 = (ReflectItemView)view2.findViewById(R.id.page2_item5);
+        page2_item6 = (ReflectItemView)view2.findViewById(R.id.page2_item6);
         lemon_page2_img1 = (ImageView)view2.findViewById(R.id.lemon_page2_img1);
         lemon_page2_img2 = (ImageView)view2.findViewById(R.id.lemon_page2_img2);
         lemon_page2_img3 = (ImageView)view2.findViewById(R.id.lemon_page2_img3);
@@ -277,14 +282,15 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
 
     @Override
     protected void initialized() {
-        if (mOpenTabHost != null) {
+       /* if (mOpenTabHost != null) {
             List<View> viewList = mOpenTabHost.getAllTitleView();
             if (viewList != null && viewList.size() > 1) {
                 viewList.get(1).setFocusableInTouchMode(true);
                 viewList.get(1).setFocusable(true);
-                onTabSelect(mOpenTabHost, viewList.get(1),1);
+                viewList.get(1).setSelected(true);
+                onTabSelect(mOpenTabHost, viewList.get(1), 1);
             }
-        }
+        }*/
     }
 
     @Override
@@ -318,7 +324,6 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     /**
      * demo
      * 将标题栏的文字颜色改变. <br>
-     * 你可以写自己的东西，我这里只是DEMO.
      */
     public void switchTab(OpenTabHost openTabHost, int postion) {
         List<View> viewList = openTabHost.getAllTitleView();
@@ -518,6 +523,11 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
 
     private void initOnClick() {
         page2_item1.setOnClickListener(this);
+        page2_item2.setOnClickListener(this);
+        page2_item3.setOnClickListener(this);
+        page2_item4.setOnClickListener(this);
+        page2_item5.setOnClickListener(this);
+        page2_item6.setOnClickListener(this);
         lemon_page2_img2.setOnClickListener(this);
         lemon_page2_img3.setOnClickListener(this);
         lemon_page2_img4.setOnClickListener(this);
@@ -530,34 +540,41 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
+        Video video = null;
         switch (v.getId()) {
             case R.id.page2_item1:
                 MobclickAgent.onEvent(context, "page2_item1");
-                Video video = videoList.get(0);
-                Bundle bundle = new Bundle();
+                video = videoList.get(0);
                 bundle.putString("videoId",video.getVideoId());
                 bundle.putString("videoType",video.getVideoTypeId());
                 startActivity(MovieDetailsActivity.class,bundle);
                 break;
-            case R.id.lemon_page2_img2:
+            case R.id.page2_item2:
                 MobclickAgent.onEvent(context, "page2_item2");
 
                 break;
-            case R.id.lemon_page2_img3:
+            case R.id.page2_item3:
                 MobclickAgent.onEvent(context, "page2_item3");
 
                 break;
-            case R.id.lemon_page2_img4:
+            case R.id.page2_item4:
                 MobclickAgent.onEvent(context, "page2_item4");
 
                 break;
-            case R.id.lemon_page2_img5:
+            case R.id.page2_item5:
                 MobclickAgent.onEvent(context, "page2_item5");
-
+                video = videoList.get(4);
+                bundle.putString("videoId",video.getVideoId());
+                bundle.putString("videoType",video.getVideoTypeId());
+                startActivity(MovieDetailsActivity.class, bundle);
                 break;
-            case R.id.lemon_page2_img6:
+            case R.id.page2_item6:
                 MobclickAgent.onEvent(context, "page2_item6");
-
+                video = videoList.get(5);
+                bundle.putString("videoId",video.getVideoId());
+                bundle.putString("videoType",video.getVideoTypeId());
+                startActivity(MovieDetailsActivity.class, bundle);
                 break;
             case R.id.page3_item1:
                 MobclickAgent.onEvent(context, "page3_item1");

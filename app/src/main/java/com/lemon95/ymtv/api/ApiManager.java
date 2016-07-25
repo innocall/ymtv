@@ -180,4 +180,8 @@ public class ApiManager {
     public static Observable<List<MovieSources>> getMovieAnalysis(String movieId) {
         return apiManager.getMovieAnalysis(movieId);
     }
+
+    public static Observable<String> getSerialAnalysis(String episodeId) {
+        return apiManager.getSerialAnalysis(episodeId);
+    }
 }

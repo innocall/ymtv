@@ -117,4 +117,12 @@ public interface ApiManagerService {
      */
     @GET("/Media/Movies/MovieAnalysis")
     Observable<List<MovieSources>> getMovieAnalysis(@Query("movieId") String movieId);
+
+    /**
+     * 解析电视剧播放地址
+     * @param episodeId
+     * @return
+     */
+    @GET("/Media/Serials/SerialAnalysis")
+    Observable<String> getSerialAnalysis(@Query("episodeId") String episodeId);
 }
