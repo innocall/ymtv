@@ -3,11 +3,14 @@ package com.lemon95.ymtv.api;
 import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
+import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
@@ -106,4 +109,12 @@ public interface ApiManagerService {
      */
     @GET("/Media/Serials/GetSerialsByGenres")
     Observable<GenresMovie> getSerialsByGenres(@Query("genreIds") String genreIds,@Query("vipLevel") String vipLevel,@Query("currentPage") String currentPage,@Query("pageSize") String pageSize);
+
+    /**
+     * 通过电影ID获取电影播放地址
+     * @param movieId
+     * @return
+     */
+    @GET("/Media/Movies/MovieAnalysis")
+    Observable<List<MovieSources>> getMovieAnalysis(@Query("movieId") String movieId);
 }

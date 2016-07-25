@@ -25,6 +25,7 @@ import com.lemon95.ymtv.presenter.MovieDetailsPresenter;
 import com.lemon95.ymtv.utils.ImageUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.PreferenceUtils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -47,6 +48,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     private SerialDitions.Data serialData; //电视剧数据数据
     String videoType = "1";
     private String userId;
+    private DisplayImageOptions options;
 
     @Override
     protected int getLayoutId() {
@@ -61,6 +63,11 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initView() {
+        options = new DisplayImageOptions.Builder()
+                .showStubImage(R.drawable.lemon_details_small_def)          // 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.drawable.lemon_details_small_def)  // 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.drawable.lemon_details_small_def)       // 设置图片加载或解码过程中发生错误显示的图片
+                .build();
         details_play = (ReflectItemView)findViewById(R.id.details_play);
         lemon_movie_details_pro = (ProgressBar)findViewById(R.id.lemon_movie_details_pro);
         lemon_movie_details_main = (LinearLayout)findViewById(R.id.lemon_movie_details_main);
@@ -154,7 +161,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         ((TextView)findViewById(R.id.movie_details_descri)).setText(data.getDescription());
         ImageView imageView = (ImageView)findViewById(R.id.movie_details_img_id);
         LogUtils.e(TAG, ImageUtils.getBigImg(data.getPicturePath()));
-        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + ImageUtils.getBigImg(data.getPicturePath()), imageView);
+        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + ImageUtils.getBigImg(data.getPicturePath()), imageView,options);
     }
 
     public void showPro() {
@@ -248,13 +255,13 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         if (lemon_movie_details_pro.getVisibility() == View.GONE) {
             switch (v.getId()) {
                 case R.id.details_play:
-                    showToastShort("播放");
                     Bundle bundle = new Bundle();
                     if (AppConstant.MOVICE.equals(videoType)) {
-                        bundle.putString("playUrl", data.getMovieSources().get(0).getSourceUrl());
+                        bundle.putString("videoId", data.getId());
                     } else if(AppConstant.SERIALS.equals(videoType)) {
-                       // bundle.putString("playUrl", serialData.getId());
+                        bundle.putString("videoId", serialData.getId());
                     }
+                    bundle.putString("videoType",videoType);
                     startActivity(PlayActivity.class,bundle);
                     break;
                 case R.id.details_item1:
@@ -340,6 +347,6 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         ((TextView)findViewById(R.id.movie_details_descri)).setText(data.getDescription());
         ImageView imageView = (ImageView)findViewById(R.id.movie_details_img_id);
         LogUtils.e(TAG, ImageUtils.getBigImg(data.getPicturePath()));
-        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + ImageUtils.getBigImg(data.getPicturePath()), imageView);
+        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + ImageUtils.getBigImg(data.getPicturePath()), imageView,options);
     }
 }

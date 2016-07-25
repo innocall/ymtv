@@ -128,8 +128,8 @@ public class VideoListActivity extends BaseActivity {
         lemon_video_menu_id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                View view = ((ListView)v).getSelectedView();
-                TextView textView = (TextView)view.findViewById(R.id.lemon_video_tv);
+                //View view = ((ListView)v).getSelectedView();
+               // TextView textView = (TextView)view.findViewById(R.id.lemon_video_tv);
                 if (hasFocus) {
                     mOpenEffectBridge.setVisibleWidget(true);
                     lemon_video_menu_id.setSelector(R.drawable.lemon_liangguang_03);

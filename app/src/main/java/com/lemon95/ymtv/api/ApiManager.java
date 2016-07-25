@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
+import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.Version;
@@ -13,6 +14,8 @@ import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
 
 import java.io.IOException;
+import java.util.List;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -167,5 +170,14 @@ public class ApiManager {
      */
     public static Observable<SerialDitions> getSerialDetail(String id) {
         return apiManager.getSerialDetail(id);
+    }
+
+    /**
+     * 通过电影ID获取电影播放地址
+     * @param movieId
+     * @return
+     */
+    public static Observable<List<MovieSources>> getMovieAnalysis(String movieId) {
+        return apiManager.getMovieAnalysis(movieId);
     }
 }
