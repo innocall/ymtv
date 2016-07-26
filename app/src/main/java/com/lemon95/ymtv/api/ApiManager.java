@@ -3,6 +3,8 @@ package com.lemon95.ymtv.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lemon95.ymtv.bean.Conditions;
+import com.lemon95.ymtv.bean.Favorite;
+import com.lemon95.ymtv.bean.FavoritesBean;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
@@ -28,7 +30,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -54,8 +55,8 @@ public class ApiManager {
 
     public static OkHttpClient genericClient() {
         // Log信息
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -71,7 +72,7 @@ public class ApiManager {
                         return chain.proceed(request);
                     }
 
-                }).addInterceptor(loggingInterceptor)
+                })
                 .build();
 
         return httpClient;
@@ -215,10 +216,20 @@ public class ApiManager {
 
     /**
      * 上传收藏记录
-     * @param model
+     * @param favorite
      * @return
      */
-    public static  Observable<UploadResult> addFavorite(String model) {
-        return apiManager.addFavorite(model);
+    public static  Observable<UploadResult> addFavorite(Favorite favorite) {
+        return apiManager.addFavorite(favorite);
+    }
+
+    /**
+     * 获取收藏记录
+     * @param mac
+     * @param userId
+     * @return
+     */
+    public static Observable<FavoritesBean> getFavorites(String mac,String userId){
+        return apiManager.getFavorites(mac,userId);
     }
 }

@@ -2,6 +2,8 @@ package com.lemon95.ymtv.dao;
 
 import com.lemon95.ymtv.api.ApiManager;
 import com.lemon95.ymtv.bean.Conditions;
+import com.lemon95.ymtv.bean.Favorite;
+import com.lemon95.ymtv.bean.FavoritesBean;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
@@ -205,8 +207,8 @@ public class MovieDao implements IMovieBean{
     }
 
     @Override
-    public void addFavorite(String mobile, final OnUpdateListener onUpdateListener) {
-        ApiManager.addFavorite(mobile).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    public void addFavorite(Favorite favorite, final OnUpdateListener onUpdateListener) {
+        ApiManager.addFavorite(favorite).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<UploadResult>() {
 
                     @Override
@@ -218,6 +220,24 @@ public class MovieDao implements IMovieBean{
                     public void call(Throwable throwable) {
                         throwable.printStackTrace();
                         onUpdateListener.onFailure(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void getFavorites(String mac, String userId, final OnFavoritesBeanListener onFavoritesBeanListener) {
+        ApiManager.getFavorites(mac, userId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<FavoritesBean>() {
+
+                    @Override
+                    public void call(FavoritesBean favoritesBean) {
+                        onFavoritesBeanListener.onSuccess(favoritesBean);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onFavoritesBeanListener.onFailure(throwable);
                     }
                 });
     }
@@ -259,6 +279,11 @@ public class MovieDao implements IMovieBean{
 
     public interface OnUpdateListener{
         void onSuccess(UploadResult uploadResult);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnFavoritesBeanListener{
+        void onSuccess(FavoritesBean favoritesBean);
         void onFailure(Throwable e);
     }
 }

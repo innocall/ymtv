@@ -1,5 +1,6 @@
 package com.lemon95.ymtv.bean.impl;
 
+import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.dao.MovieDao;
 import com.lemon95.ymtv.dao.SplashDao;
 
@@ -78,8 +79,16 @@ public interface IMovieBean {
 
     /**
      * 收藏影视
-     * @param mobile
+     * @param favorite
      * @param onUpdateListener
      */
-    public void addFavorite(String mobile,MovieDao.OnUpdateListener onUpdateListener);
+    public void addFavorite(Favorite favorite,MovieDao.OnUpdateListener onUpdateListener);
+
+    /**
+     * 获取收藏记录
+     * @param mac
+     * @param userId
+     * @param onFavoritesBeanListener
+     */
+    public void getFavorites(String mac,String userId,MovieDao.OnFavoritesBeanListener onFavoritesBeanListener);
 }

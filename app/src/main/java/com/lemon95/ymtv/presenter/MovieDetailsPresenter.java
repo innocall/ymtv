@@ -2,6 +2,7 @@ package com.lemon95.ymtv.presenter;
 
 import android.widget.TextView;
 
+import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.Recommend;
@@ -10,6 +11,7 @@ import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.dao.MovieDao;
 import com.lemon95.ymtv.dao.SplashDao;
+import com.lemon95.ymtv.utils.StringUtils;
 import com.lemon95.ymtv.view.activity.MovieDetailsActivity;
 
 import java.util.List;
@@ -114,11 +116,15 @@ public class MovieDetailsPresenter {
         });
     }
 
-    public void addFavorite(String model) {
-        iMovieBean.addFavorite(model, new MovieDao.OnUpdateListener() {
+    public void addFavorite(Favorite favorite) {
+        iMovieBean.addFavorite(favorite, new MovieDao.OnUpdateListener() {
             @Override
             public void onSuccess(UploadResult uploadResult) {
-                movieDetailsActivity.showToastShort("收藏成功");
+                if (StringUtils.isBlank(uploadResult.getData())) {
+                    movieDetailsActivity.showToastShort("收藏失败");
+                } else {
+                    movieDetailsActivity.showToastShort("收藏成功");
+                }
                 movieDetailsActivity.hidePro();
             }
 

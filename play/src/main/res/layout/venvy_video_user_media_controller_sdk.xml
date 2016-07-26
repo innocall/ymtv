@@ -75,7 +75,6 @@
         android:layout_alignParentBottom="true"
         android:background="#c9000000"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/px36"
         android:paddingTop="@dimen/px24">
 
         <RelativeLayout
@@ -84,7 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px60"
             android:layout_marginRight="@dimen/px60"
-            android:background="#c9000000">
+            android:layout_marginBottom="@dimen/px36"
+            android:background="#00000000">
 
             <!-- 暂停播放按钮 -->
 

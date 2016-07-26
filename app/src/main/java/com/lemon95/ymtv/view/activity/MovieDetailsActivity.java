@@ -18,6 +18,7 @@ import com.lemon95.androidtvwidget.view.MainLayout;
 import com.lemon95.androidtvwidget.view.MainUpView;
 import com.lemon95.androidtvwidget.view.ReflectItemView;
 import com.lemon95.ymtv.R;
+import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.common.AppConstant;
@@ -127,6 +128,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         details_play.requestFocus();
         details_play.setFocusable(true);
         mOpenEffectBridge.setVisibleWidget(false);
+        mainUpView2.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
     }
 
     public void testTopDemo(View newView, float scale) {
@@ -289,8 +291,12 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     String deviceId = AppSystemUtils.getDeviceId();
                     String videoId = getIntent().getStringExtra("videoId");
-                    String model = "{\"MAC\":\"" + deviceId +"\",\"UserId\":\""+ userId +"\",\"VideoTypeId\":\"" + videoType +"\",\"VideoId\":\""+ videoId + "\"}";
-                    movieDetailsActivity.addFavorite(model);
+                    Favorite favorite = new Favorite();
+                    favorite.setMAC(deviceId);
+                    favorite.setUserId(userId);
+                    favorite.setVideoId(videoId);
+                    favorite.setVideoTypeId(videoType);
+                    movieDetailsActivity.addFavorite(favorite);
                     break;
                 case R.id.details_item1:
                     isKeyDown = true;

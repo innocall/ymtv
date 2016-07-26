@@ -6,7 +6,7 @@ package com.lemon95.ymtv.bean;
 public class UploadResult {
     private String ReturnCode;
     private String ReturnMsg;
-    private boolean Data;
+    private String Data;
 
     public String getReturnCode() {
         return ReturnCode;
@@ -24,11 +24,11 @@ public class UploadResult {
         ReturnMsg = returnMsg;
     }
 
-    public boolean isData() {
+    public String getData() {
         return Data;
     }
 
-    public void setData(boolean data) {
+    public void setData(String data) {
         Data = data;
     }
 }

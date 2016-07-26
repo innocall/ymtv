@@ -31,5 +31,9 @@
 
     <string name="nav_tab_normal_ttf">@string/fzlt_zhun_hei</string>
     <string name="nav_tab_focus_ttf">@string/fzlt_cu_hei</string>
+    <string name="title_activity_history">HistoryActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

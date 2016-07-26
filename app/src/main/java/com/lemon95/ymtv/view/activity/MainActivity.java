@@ -39,6 +39,7 @@ import com.lemon95.ymtv.utils.ImageUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.StringUtils;
+import com.lemon95.ymtv.utils.ToastUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -525,17 +526,18 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     }
 
     private void initOnClick() {
+        page1_item1.setOnClickListener(this);
+        page1_item2.setOnClickListener(this);
+        page1_item3.setOnClickListener(this);
+        page1_item4.setOnClickListener(this);
+
         page2_item1.setOnClickListener(this);
         page2_item2.setOnClickListener(this);
         page2_item3.setOnClickListener(this);
         page2_item4.setOnClickListener(this);
         page2_item5.setOnClickListener(this);
         page2_item6.setOnClickListener(this);
-        lemon_page2_img2.setOnClickListener(this);
-        lemon_page2_img3.setOnClickListener(this);
-        lemon_page2_img4.setOnClickListener(this);
-        lemon_page2_img5.setOnClickListener(this);
-        lemon_page2_img6.setOnClickListener(this);
+
         page3_item1.setOnClickListener(this);
         page3_item2.setOnClickListener(this);
         page3_item3.setOnClickListener(this);
@@ -546,6 +548,11 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         Bundle bundle = new Bundle();
         Video video = null;
         switch (v.getId()) {
+            case R.id.page1_item1:
+                MobclickAgent.onEvent(context, "page1_item1");
+               // ToastUtils.showBgToast("1",context);
+                startActivity(HistoryActivity.class);
+                break;
             case R.id.page2_item1:
                 MobclickAgent.onEvent(context, "page2_item1");
                 video = videoList.get(0);

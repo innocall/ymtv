@@ -1,6 +1,8 @@
 package com.lemon95.ymtv.api;
 
 import com.lemon95.ymtv.bean.Conditions;
+import com.lemon95.ymtv.bean.Favorite;
+import com.lemon95.ymtv.bean.FavoritesBean;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
@@ -140,18 +142,26 @@ public interface ApiManagerService {
 
     /**
      * 添加收藏
-     * @param model
+     * @param favorite
      * @return
      */
-    @Headers({
-        "Accept:*/*",
-        "Accept-Encoding:gzip, deflate",
-        "Accept-Language:zh-CN,zh;q=0.8",
-        "Connection:keep-alive",
-        "Content-Length:70",
-        "Content-Type:application/x-www-form-urlencoded; charset=UTF-8"
-    })
+//    @Headers({
+//        "Accept:*/*",
+//        "Accept-Encoding:gzip, deflate",
+//        "Accept-Language:zh-CN,zh;q=0.8",
+//        "Connection:keep-alive",
+//        "Content-Length:70",
+//        "Content-Type:application/json; charset=UTF-8"
+//    })
     @POST("/Media/TVs/AddFavorite")
-    Observable<UploadResult> addFavorite(@Body String model);
+    Observable<UploadResult> addFavorite(@Body Favorite favorite);
 
+    /**
+     * 获取收藏记录
+     * @param mac
+     * @param userId
+     * @return
+     */
+    @GET("/Media/TVs/Favorites")
+    Observable<FavoritesBean> getFavorites(@Query("mac")String mac,@Query("userId")String userId);
 }
