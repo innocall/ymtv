@@ -7,6 +7,7 @@ import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
+import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.utils.LogUtils;
@@ -185,6 +186,42 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    @Override
+    public void addVideoWatchHistory(String mobile, final OnUpdateListener onUpdateListener) {
+        ApiManager.addVideoWatchHistory(mobile).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<UploadResult>() {
+
+                    @Override
+                    public void call(UploadResult uploadResult) {
+                        onUpdateListener.onSuccess(uploadResult);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onUpdateListener.onFailure(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void addFavorite(String mobile, final OnUpdateListener onUpdateListener) {
+        ApiManager.addFavorite(mobile).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<UploadResult>() {
+
+                    @Override
+                    public void call(UploadResult uploadResult) {
+                        onUpdateListener.onSuccess(uploadResult);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onUpdateListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -217,6 +254,11 @@ public class MovieDao implements IMovieBean{
 
     public interface OnSerialAnalysisListener{
         void onSuccess(String movieSources);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnUpdateListener{
+        void onSuccess(UploadResult uploadResult);
         void onFailure(Throwable e);
     }
 }

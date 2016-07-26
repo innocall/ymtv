@@ -22,5 +22,6 @@
     <string name="sdk_video_scale_default_string">默认</string>
     <string name="sdk_video_scale_16_9_string">16:9</string>
     <string name="sdk_video_scale_4_3_string">4:3</string>
+    <string name="load">加载中...</string>
 
 </resources>

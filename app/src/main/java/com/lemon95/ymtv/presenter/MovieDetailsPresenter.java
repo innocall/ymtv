@@ -6,6 +6,7 @@ import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
+import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.dao.MovieDao;
 import com.lemon95.ymtv.dao.SplashDao;
@@ -89,7 +90,7 @@ public class MovieDetailsPresenter {
             @Override
             public void onFailure(Throwable e) {
                 movieDetailsActivity.showToastLong("数据获取失败");
-               // movieDetailsActivity.finish();
+                // movieDetailsActivity.finish();
             }
         });
     }
@@ -109,6 +110,22 @@ public class MovieDetailsPresenter {
             public void onFailure(Throwable e) {
                 movieDetailsActivity.showToastLong("相关影视获取失败");
                 movieDetailsActivity.finish();
+            }
+        });
+    }
+
+    public void addFavorite(String model) {
+        iMovieBean.addFavorite(model, new MovieDao.OnUpdateListener() {
+            @Override
+            public void onSuccess(UploadResult uploadResult) {
+                movieDetailsActivity.showToastShort("收藏成功");
+                movieDetailsActivity.hidePro();
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                movieDetailsActivity.showToastShort("收藏失败");
+                movieDetailsActivity.hidePro();
             }
         });
     }

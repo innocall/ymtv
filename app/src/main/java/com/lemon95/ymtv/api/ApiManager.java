@@ -8,19 +8,27 @@ import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
+import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.Video;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.List;
 
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,19 +53,25 @@ public class ApiManager {
     }
 
     public static OkHttpClient genericClient() {
+        // Log信息
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
+                        Request original = chain.request();
                         Request request = chain.request()
                                 .newBuilder()
                                 .addHeader("SecretKey", SecretKey)
                                 .addHeader("AppKey", AppKey)
+                                .method(original.method(), original.body())
                                 .build();
                         return chain.proceed(request);
                     }
 
-                })
+                }).addInterceptor(loggingInterceptor)
                 .build();
 
         return httpClient;
@@ -181,7 +195,30 @@ public class ApiManager {
         return apiManager.getMovieAnalysis(movieId);
     }
 
+    /**
+     * 解析电视剧
+     * @param episodeId
+     * @return
+     */
     public static Observable<String> getSerialAnalysis(String episodeId) {
         return apiManager.getSerialAnalysis(episodeId);
+    }
+
+    /**
+     * 上传播放记录
+     * @param model
+     * @return
+     */
+    public static  Observable<UploadResult> addVideoWatchHistory(String model) {
+        return apiManager.addVideoWatchHistory(model);
+    }
+
+    /**
+     * 上传收藏记录
+     * @param model
+     * @return
+     */
+    public static  Observable<UploadResult> addFavorite(String model) {
+        return apiManager.addFavorite(model);
     }
 }

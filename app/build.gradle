@@ -32,4 +32,5 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile project(':play')
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 }

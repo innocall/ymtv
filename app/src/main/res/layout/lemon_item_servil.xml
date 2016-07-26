@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    
+    <TextView
+        android:id="@+id/lemon_item_but"
+        android:layout_width="@dimen/px180"
+        android:layout_height="@dimen/px75"
+        android:textSize="@dimen/px36"
+        android:layout_gravity="center"
+        android:background="@drawable/servil_bg"
+        android:gravity="center"
+        android:textColor="#b3aeae"
+        android:focusable="false"/>
+
+
+</LinearLayout>

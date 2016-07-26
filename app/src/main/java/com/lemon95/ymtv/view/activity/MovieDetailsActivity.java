@@ -22,6 +22,7 @@ import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.presenter.MovieDetailsPresenter;
+import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.ImageUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.PreferenceUtils;
@@ -35,7 +36,7 @@ import java.util.List;
  */
 public class MovieDetailsActivity extends BaseActivity implements View.OnClickListener{
 
-    private ReflectItemView details_play,details_serial;
+    private ReflectItemView details_play,details_serial,details_sc;
     private MainUpView mainUpView2;
     View mOldFocus; // 4.3以下版本需要自己保存.
     OpenEffectBridge mOpenEffectBridge;
@@ -68,10 +69,10 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                 .showImageForEmptyUri(R.drawable.lemon_details_small_def)  // 设置图片Uri为空或是错误的时候显示的图片
                 .showImageOnFail(R.drawable.lemon_details_small_def)       // 设置图片加载或解码过程中发生错误显示的图片
                 .build();
-        details_play = (ReflectItemView)findViewById(R.id.details_play);
         lemon_movie_details_pro = (ProgressBar)findViewById(R.id.lemon_movie_details_pro);
         lemon_movie_details_main = (LinearLayout)findViewById(R.id.lemon_movie_details_main);
         details_serial = (ReflectItemView) findViewById(R.id.details_serial);
+        details_sc = (ReflectItemView) findViewById(R.id.details_sc);
     }
 
     @Override
@@ -118,11 +119,17 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                 }
             }
         });
-
+        //初始化焦点
+        details_play = (ReflectItemView)findViewById(R.id.details_play);
+        mainUpView2.setFocusView(details_play, mOldFocus, 1.1f);
+        mOldFocus = details_play;
+        details_play.setFocusableInTouchMode(true);
+        details_play.requestFocus();
+        details_play.setFocusable(true);
+        mOpenEffectBridge.setVisibleWidget(false);
     }
 
     public void testTopDemo(View newView, float scale) {
-        // 测试第一个小人放大的效果.
         if (newView.getId() == R.id.details_play || newView.getId() == R.id.details_sc || newView.getId() == R.id.details_serial) { // 小人在外面的测试.
             LogUtils.e(TAG,"隐藏");
             mOpenEffectBridge.setVisibleWidget(false);
@@ -248,6 +255,8 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void initOnclick() {
         details_play.setOnClickListener(this);
+        details_serial.setOnClickListener(this);
+        details_sc.setOnClickListener(this);
     }
 
     @Override
@@ -265,6 +274,23 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                     }
                     bundle.putString("videoType",videoType);
                     startActivity(PlayActivity.class,bundle);
+                    break;
+                case R.id.details_serial:
+                    //选择剧集
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putParcelableArrayList("SerialEpisodes",serialData.getSerialEpisodes());
+                    bundle1.putString("PicturePath", serialData.getPicturePath());
+                    bundle1.putString("videoName", serialData.getSerialName());
+                    startActivity(SerialActivity.class,bundle1);
+                    break;
+                case R.id.details_sc:
+                    //添加收藏
+                    isKeyDown = true;
+                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
+                    String deviceId = AppSystemUtils.getDeviceId();
+                    String videoId = getIntent().getStringExtra("videoId");
+                    String model = "{\"MAC\":\"" + deviceId +"\",\"UserId\":\""+ userId +"\",\"VideoTypeId\":\"" + videoType +"\",\"VideoId\":\""+ videoId + "\"}";
+                    movieDetailsActivity.addFavorite(model);
                     break;
                 case R.id.details_item1:
                     isKeyDown = true;

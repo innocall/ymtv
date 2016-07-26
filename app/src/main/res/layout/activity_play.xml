@@ -25,6 +25,35 @@
             android:layout_centerInParent="true"
             android:visibility="gone"/>
 
+        <LinearLayout
+            android:id="@+id/lemon_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/px12"
+            android:padding="@dimen/px24"
+            android:gravity="center"
+            android:visibility="gone"
+            android:background="#e0000000"
+            android:orientation="vertical">
+
+            <com.lemon95.ymtv.myview.VerticalProgressBar
+                android:id="@+id/lemon_volume_seek"
+                android:layout_width="@dimen/px24"
+                android:layout_height="@dimen/px400"
+                style="@style/venvy_media_controller_ProgressBar_Style"
+                android:scrollbarStyle="insideInset"
+                android:thumbOffset="@dimen/px2"/>
+
+            <ImageView
+                android:id="@+id/lemon_volume_img"
+                android:layout_width="@dimen/px40"
+                android:layout_height="@dimen/px40"
+                android:layout_marginTop="@dimen/px8"
+                android:src="@drawable/icon_volume"/>
+        </LinearLayout>
+
         <include
             android:id="@+id/sdk_ijk_progress_bar_layout"
             layout="@layout/venvy_fragment_video_progress_bar_sdk"
@@ -38,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/px70"
-            android:layout_marginTop="@dimen/px170"
+            android:layout_marginTop="@dimen/px150"
             android:visibility="gone" />
     </cn.com.video.venvy.param.JjVideoRelativeLayout>
 </RelativeLayout>

@@ -68,4 +68,18 @@ public interface IMovieBean {
      * @param onMovieAnalysisListener
      */
     public void getSerialAnalysis(String id,MovieDao.OnSerialAnalysisListener onMovieAnalysisListener);
+
+    /**
+     * 上传播放记录
+     * @param mobile
+     * @param onUpdateListener
+     */
+    public void addVideoWatchHistory(String mobile,MovieDao.OnUpdateListener onUpdateListener);
+
+    /**
+     * 收藏影视
+     * @param mobile
+     * @param onUpdateListener
+     */
+    public void addFavorite(String mobile,MovieDao.OnUpdateListener onUpdateListener);
 }

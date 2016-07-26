@@ -1,5 +1,9 @@
 package com.lemon95.ymtv.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +60,7 @@ public class SerialDitions {
         private String Score;
         private String VIPLevel;
         private String Comments;
-        private List<SerialEpisodes> SerialEpisodes;
+        private ArrayList<SerialEpisodes> SerialEpisodes;
 
         public String getId() {
             return Id;
@@ -218,20 +222,40 @@ public class SerialDitions {
             Comments = comments;
         }
 
-        public List<SerialDitions.Data.SerialEpisodes> getSerialEpisodes() {
+        public ArrayList<SerialDitions.Data.SerialEpisodes> getSerialEpisodes() {
             return SerialEpisodes;
         }
 
-        public void setSerialEpisodes(List<SerialDitions.Data.SerialEpisodes> serialEpisodes) {
+        public void setSerialEpisodes(ArrayList<SerialDitions.Data.SerialEpisodes> serialEpisodes) {
             SerialEpisodes = serialEpisodes;
         }
 
-        public static class SerialEpisodes {
+        public static class SerialEpisodes implements Parcelable {
             private String Id;
             private String SerialId;
             private String TagName;
             private String SerialIndex;
             private String Origin;
+
+            protected SerialEpisodes(Parcel in) {
+                Id = in.readString();
+                SerialId = in.readString();
+                TagName = in.readString();
+                SerialIndex = in.readString();
+                Origin = in.readString();
+            }
+
+            public static final Creator<SerialEpisodes> CREATOR = new Creator<SerialEpisodes>() {
+                @Override
+                public SerialEpisodes createFromParcel(Parcel in) {
+                    return new SerialEpisodes(in);
+                }
+
+                @Override
+                public SerialEpisodes[] newArray(int size) {
+                    return new SerialEpisodes[size];
+                }
+            };
 
             public String getId() {
                 return Id;
@@ -271,6 +295,21 @@ public class SerialDitions {
 
             public void setOrigin(String origin) {
                 Origin = origin;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+
+                dest.writeString(Id);
+                dest.writeString(SerialId);
+                dest.writeString(TagName);
+                dest.writeString(SerialIndex);
+                dest.writeString(Origin);
             }
         }
     }

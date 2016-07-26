@@ -1,14 +1,22 @@
 package com.lemon95.ymtv.view.activity;
 
+import android.app.Service;
+import android.content.Context;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.common.AppConstant;
+import com.lemon95.ymtv.myview.VerticalProgressBar;
 import com.lemon95.ymtv.presenter.PlayMoviePresenter;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.ToastUtils;
@@ -26,6 +34,7 @@ import cn.com.video.venvy.widget.UsetMediaContoller;
 
 public class PlayActivity extends BaseActivity {
 
+    private static final long DEFAULT_TIME_OUT = 5000; //显示时间
     private String videoId;
     private String videoType;
     private JjVideoView mVideoView;//
@@ -39,6 +48,25 @@ public class PlayActivity extends BaseActivity {
     private long waitTime = 2000;
     private long touchTime = 0;
     private ImageView lemon_play_img;
+    private VerticalProgressBar lemon_volume_seek;
+    private AudioManager mAM;
+    private int mMaxVolume;
+    private int mVolume = 0;
+    private ImageView lemon_volume_img;
+    private LinearLayout lemon_volume;
+    private final static int VOLUME_HIDE = 1;
+    private Handler mHandler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case VOLUME_HIDE:
+                    lemon_volume.setVisibility(View.GONE);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected int getLayoutId() {
@@ -55,11 +83,17 @@ public class PlayActivity extends BaseActivity {
         sdk_ijk_progress_bar = (ProgressBar)findViewById(R.id.sdk_ijk_progress_bar);
         mLoadBufferView = findViewById(R.id.sdk_load_layout);
         lemon_play_img = (ImageView)findViewById(R.id.lemon_play_img);
+        lemon_volume_img = (ImageView)findViewById(R.id.lemon_volume_img);
+        lemon_volume = (LinearLayout)findViewById(R.id.lemon_volume);
         mLoadBufferTextView = (TextView) findViewById(R.id.sdk_sdk_ijk_load_buffer_text);
-
+        lemon_volume_seek = (VerticalProgressBar) findViewById(R.id.lemon_volume_seek);
         videoJjMediaContoller = new VideoMediaContoller(this,true); //初始化媒体控制器
         mVideoView.setMediaController(videoJjMediaContoller);
-
+        mAM = (AudioManager) getSystemService(Service.AUDIO_SERVICE);
+        mMaxVolume = mAM.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        lemon_volume_seek.setMax(mMaxVolume);
+        mVolume = mAM.getStreamVolume(AudioManager.STREAM_MUSIC);
+        lemon_volume_seek.setProgress(mVolume);
         //videoJjMediaContoller = new VideoMediaContoller(this,this, true);
       //  mVideoView.setMediaController(videoJjMediaContoller);
 
@@ -171,6 +205,7 @@ public class PlayActivity extends BaseActivity {
         super.onDestroy();
         // 必须调用 要不直播有问题
         if (mVideoView != null)
+            //上传播放记录
             mVideoView.onDestroy();
     }
 
@@ -178,7 +213,9 @@ public class PlayActivity extends BaseActivity {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         try{
             if(keyCode==KeyEvent.KEYCODE_DPAD_UP){
-                lemon_play_img.setVisibility(View.GONE);
+                mHandler.removeMessages(VOLUME_HIDE);
+                mHandler.sendEmptyMessageDelayed(VOLUME_HIDE, DEFAULT_TIME_OUT);
+               // lemon_play_img.setVisibility(View.GONE);
             } else if (keyCode ==KeyEvent.KEYCODE_DPAD_LEFT) {
                 mLoadBufferView.setVisibility(View.VISIBLE);
                 lemon_play_img.setVisibility(View.GONE);
@@ -186,7 +223,9 @@ public class PlayActivity extends BaseActivity {
                 mLoadBufferView.setVisibility(View.VISIBLE);
                 lemon_play_img.setVisibility(View.GONE);
             } else if (keyCode==KeyEvent.KEYCODE_DPAD_DOWN) {
-                lemon_play_img.setVisibility(View.GONE);
+                mHandler.removeMessages(VOLUME_HIDE);
+                mHandler.sendEmptyMessageDelayed(VOLUME_HIDE, DEFAULT_TIME_OUT);
+                //lemon_play_img.setVisibility(View.GONE);
             }
         } catch (Exception e) {
         }
@@ -197,8 +236,15 @@ public class PlayActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         try{
             if(keyCode==KeyEvent.KEYCODE_DPAD_UP){
-                videoJjMediaContoller.show();
-
+                //加声音
+                lemon_volume.setVisibility(View.VISIBLE);
+                mVolume = mVolume + 1;
+                if (mVolume >= mMaxVolume) {
+                    mVolume = mMaxVolume;
+                }
+                lemon_volume_seek.setProgress(mVolume);
+                lemon_volume_img.setImageResource(R.drawable.icon_volume);
+                mAM.setStreamVolume(AudioManager.STREAM_MUSIC, mVolume, 0);
             } else if (keyCode ==KeyEvent.KEYCODE_DPAD_LEFT) {
                 videoJjMediaContoller.show();
                 mLoadBufferView.setVisibility(View.GONE);
@@ -208,7 +254,14 @@ public class PlayActivity extends BaseActivity {
                 videoJjMediaContoller.show();
                 videoJjMediaContoller.toRight(mVideoView,lemon_play_img);
             } else if (keyCode==KeyEvent.KEYCODE_DPAD_DOWN) {
-                videoJjMediaContoller.show();
+                lemon_volume.setVisibility(View.VISIBLE);
+                mVolume = mVolume - 1;
+                if (mVolume <= 0) {
+                    mVolume = 0;
+                    lemon_volume_img.setImageResource(R.drawable.icon_novolume);
+                }
+                lemon_volume_seek.setProgress(mVolume);
+                mAM.setStreamVolume(AudioManager.STREAM_MUSIC, mVolume, 0);
             } else if (keyCode==KeyEvent.KEYCODE_DPAD_CENTER||keyCode==KeyEvent.KEYCODE_ENTER) {
                 videoJjMediaContoller.enter(mVideoView,lemon_play_img);
             } else if (keyCode == KeyEvent.KEYCODE_BACK) {

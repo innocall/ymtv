@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiManager;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -61,5 +63,19 @@ public class AppSystemUtils {
 		return resultData;
 	}
 
+	public static String getDeviceId() {
+		return android.os.Build.SERIAL;
+	}
+
+	/**
+	 * 无线MAC
+	 * @param context
+	 * @return
+	 */
+	public static String getMacAddress(Context context) {
+		WifiManager wm = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+		String m_szWLANMAC = wm.getConnectionInfo().getMacAddress();
+		return m_szWLANMAC;
+	}
 
 }

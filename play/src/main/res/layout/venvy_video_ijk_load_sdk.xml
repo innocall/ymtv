@@ -20,6 +20,7 @@
         android:layout_below="@id/sdk_sdk_ijk_load_buffer_load"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/px28"
+        android:text="@string/load"
         android:textColor="#bfbebe"
         android:textSize="@dimen/px36"/>
 

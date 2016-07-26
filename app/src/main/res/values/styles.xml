@@ -17,4 +17,8 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="venvy_media_controller_ProgressBar_Style" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/venvy_seek_bg2</item>
+    </style>
+
 </resources>

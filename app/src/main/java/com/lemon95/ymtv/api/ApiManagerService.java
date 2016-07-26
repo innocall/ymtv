@@ -6,6 +6,7 @@ import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
+import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
@@ -13,7 +14,10 @@ import com.lemon95.ymtv.bean.VideoType;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 import rx.Observable;
@@ -125,4 +129,29 @@ public interface ApiManagerService {
      */
     @GET("/Media/Serials/SerialAnalysis")
     Observable<String> getSerialAnalysis(@Query("episodeId") String episodeId);
+
+    /**
+     * 上传播放记录
+     * @param model
+     * @return
+     */
+    @POST("/Media/Videos/AddVideoWatchHistory")
+    Observable<UploadResult> addVideoWatchHistory(@Query("model") String model);
+
+    /**
+     * 添加收藏
+     * @param model
+     * @return
+     */
+    @Headers({
+        "Accept:*/*",
+        "Accept-Encoding:gzip, deflate",
+        "Accept-Language:zh-CN,zh;q=0.8",
+        "Connection:keep-alive",
+        "Content-Length:70",
+        "Content-Type:application/x-www-form-urlencoded; charset=UTF-8"
+    })
+    @POST("/Media/TVs/AddFavorite")
+    Observable<UploadResult> addFavorite(@Body String model);
+
 }

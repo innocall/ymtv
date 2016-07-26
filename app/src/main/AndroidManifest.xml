@@ -58,8 +58,11 @@
         <activity
             android:name=".view.activity.VideoListActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".view.activity.PlayActivity"
+        <activity
+            android:name=".view.activity.PlayActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:screenOrientation="landscape" />
+        <activity android:name=".view.activity.SerialActivity"
             android:screenOrientation="landscape"></activity>
     </application>
 
