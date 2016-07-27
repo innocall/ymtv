@@ -91,4 +91,11 @@ public interface IMovieBean {
      * @param onFavoritesBeanListener
      */
     public void getFavorites(String mac,String userId,MovieDao.OnFavoritesBeanListener onFavoritesBeanListener);
+
+    /**
+     * 根据ID删除收藏夹内容
+     * @param id
+     * @param onUpdateListener
+     */
+    public void deleteFavorite(String id[],MovieDao.OnUpdateListener onUpdateListener);
 }

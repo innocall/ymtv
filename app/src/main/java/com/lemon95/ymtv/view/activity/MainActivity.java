@@ -1,6 +1,7 @@
 package com.lemon95.ymtv.view.activity;
 
 import android.animation.Animator;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -10,6 +11,7 @@ import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,7 @@ import com.lemon95.ymtv.bean.Video;
 import com.lemon95.ymtv.bean.VideoType;
 import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.db.DataBaseDao;
+import com.lemon95.ymtv.myview.ConfirmDialog;
 import com.lemon95.ymtv.presenter.MainPresenter;
 import com.lemon95.ymtv.presenter.SplashPresenter;
 import com.lemon95.ymtv.utils.ImageUtils;
@@ -66,6 +69,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     private ReflectItemView page1_item1,page1_item2,page1_item3,page1_item4;
     private ReflectItemView page2_item1,page2_item2,page2_item3,page2_item4,page2_item5,page2_item6;
     private ReflectItemView page3_item1,page3_item2,page3_item3;
+    private ReflectItemView page4_item1;
     private ImageView lemon_page2_img1,lemon_page2_img2,lemon_page2_img3,lemon_page2_img4,lemon_page2_img5,lemon_page2_img6;
     private ImageView lemon_page3_img1,lemon_page3_img2,lemon_page3_img3;
     private TextView lemon_page3_name1,lemon_page3_name2,lemon_page3_name3;
@@ -153,6 +157,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         page3_item1 = (ReflectItemView)view3.findViewById(R.id.page3_item1);
         page3_item2 = (ReflectItemView)view3.findViewById(R.id.page3_item2);
         page3_item3 = (ReflectItemView)view3.findViewById(R.id.page3_item3);
+        page4_item1 = (ReflectItemView)view4.findViewById(R.id.page4_item1);
         lemon_but_search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -541,6 +546,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         page3_item1.setOnClickListener(this);
         page3_item2.setOnClickListener(this);
         page3_item3.setOnClickListener(this);
+        page4_item1.setOnClickListener(this);
     }
 
     @Override
@@ -550,6 +556,11 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         switch (v.getId()) {
             case R.id.page1_item1:
                 MobclickAgent.onEvent(context, "page1_item1");
+               // ToastUtils.showBgToast("1",context);
+                startActivity(HistoryActivity.class);
+                break;
+            case R.id.page1_item3:
+                MobclickAgent.onEvent(context, "page1_item3");
                // ToastUtils.showBgToast("1",context);
                 startActivity(HistoryActivity.class);
                 break;
@@ -604,6 +615,10 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                 bundle3.putString("videoType",AppConstant.FUNNY);
                 startActivity(VideoListActivity.class, bundle3);
                 break;
+            case R.id.page4_item1:
+                MobclickAgent.onEvent(context, "page4_item1");
+                startActivity(MyActivity.class);
+                break;
         }
     }
 
@@ -631,4 +646,26 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            ConfirmDialog.Builder dialog = new ConfirmDialog.Builder(MainActivity.this);
+            dialog.setMessage("您确定退出应用？");
+            dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).setPositiveButton("退出", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    dialog.dismiss();
+                }
+            });
+            dialog.create().show();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

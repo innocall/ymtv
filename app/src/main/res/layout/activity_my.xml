@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/lemon95_main_bg"
+    android:clipChildren="false"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/px195"
+    android:paddingRight="@dimen/px195">
+
+    <LinearLayout
+        android:id="@+id/lemon_movie_details_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px150"
+            android:focusable="false">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lemon95_movie_title_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px63"
+                    android:focusable="false"
+                    android:text="@string/app_name"
+                    android:textColor="@color/lemon_b3aeae"
+                    android:textSize="@dimen/px39"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:focusable="false"
+                android:fontFamily="sans-serif-light"
+                android:format12Hour="hh:mm"
+                android:format24Hour="HH:mm"
+                android:paddingTop="@dimen/px63"
+                android:textColor="@color/lemon_b3aeae"
+                android:textSize="@dimen/px39"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px680"
+            android:layout_marginLeft="@dimen/px100"
+            android:layout_marginRight="@dimen/px100"
+            android:layout_marginTop="@dimen/px81"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/px800"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lemon95_mz"
+                    android:textColor="@color/lemon_3df1ed"
+                    android:textSize="@dimen/px36"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lemon95_gycon"
+                    android:layout_marginTop="@dimen/px24"
+                    android:textColor="@color/lemon_dcdcdc"
+                    android:lineSpacingMultiplier="1.2"
+                    android:textSize="@dimen/px36"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lemon95_lxfs"
+                    android:layout_marginTop="@dimen/px60"
+                    android:textColor="@color/lemon_3df1ed"
+                    android:textSize="@dimen/px36"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px24"
+                    android:text="@string/lemon95_email"
+                    android:textColor="@color/lemon_dcdcdc"
+                    android:lineSpacingMultiplier="1.2"
+                    android:textSize="@dimen/px36"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px24"
+                    android:text="@string/lemon95_tel"
+                    android:textColor="@color/lemon_dcdcdc"
+                    android:lineSpacingMultiplier="1.2"
+                    android:textSize="@dimen/px36"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/px330"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px100"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/px330"
+                    android:layout_height="@dimen/px330"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/lemon_details_def"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px24"
+                    android:text="@string/lemon95_msg"
+                    android:textColor="@color/lemon_dcdcdc"
+                    android:lineSpacingMultiplier="1.2"
+                    android:textSize="@dimen/px36"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/px246"
+                android:layout_height="@dimen/px84"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/lemon_logo" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

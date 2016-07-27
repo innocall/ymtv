@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/px650"
+    android:layout_height="@dimen/px250"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minWidth="@dimen/px650"
+        android:paddingTop="@dimen/px50"
+        android:paddingRight="@dimen/px70"
+        android:maxWidth="@dimen/px1050"
+        android:paddingLeft="@dimen/px70"
+        android:paddingBottom="@dimen/px50"
+        android:gravity="center"
+        android:textColor="#EDEDED"
+        android:textSize="@dimen/px39" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/px50"
+        android:layout_marginLeft="@dimen/px70"
+        android:layout_marginRight="@dimen/px70">
+
+        <Button
+            android:id="@+id/positiveButton"
+            android:layout_width="@dimen/px200"
+            android:layout_height="@dimen/px70"
+            android:layout_weight="1"
+            android:background="@drawable/btn_confirm_selector"
+            android:gravity="center"
+            android:textColor="#EDEDED"
+            android:textSize="@dimen/px36" />
+
+        <Button
+            android:id="@+id/negativeButton"
+            android:layout_width="@dimen/px200"
+            android:layout_height="@dimen/px70"
+            android:layout_marginLeft="@dimen/px24"
+            android:layout_weight="1"
+            android:background="@drawable/btn_confirm_selector"
+            android:gravity="center"
+            android:textColor="#EDEDED"
+            android:textSize="@dimen/px36" />
+    </LinearLayout>
+
+</LinearLayout>

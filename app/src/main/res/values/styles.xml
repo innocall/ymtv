@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AlertDialog" parent="AlertDialog.AppCompat.Light">
+        <item name="android:background">#dc000000</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -19,6 +23,13 @@
 
     <style name="venvy_media_controller_ProgressBar_Style" parent="android:Widget.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/venvy_seek_bg2</item>
+    </style>
+
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
     </style>
 
 </resources>

@@ -51,6 +51,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     String videoType = "1";
     private String userId;
     private DisplayImageOptions options;
+    private String videoId;
 
     @Override
     protected int getLayoutId() {
@@ -78,7 +79,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initialized() {
-        String videoId = getIntent().getStringExtra("videoId");
+        videoId = getIntent().getStringExtra("videoId");
         userId = PreferenceUtils.getString(context, AppConstant.USERID, ""); //获取用户ID
         videoType = getIntent().getStringExtra("videoType");
         TextView textView = (TextView)findViewById(R.id.lemon95_movie_title_id);
@@ -290,7 +291,6 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                     isKeyDown = true;
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     String deviceId = AppSystemUtils.getDeviceId();
-                    String videoId = getIntent().getStringExtra("videoId");
                     Favorite favorite = new Favorite();
                     favorite.setMAC(deviceId);
                     favorite.setUserId(userId);
@@ -300,44 +300,44 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                     break;
                 case R.id.details_item1:
                     isKeyDown = true;
-                    String videoId1 = dataList.get(0).getVideoId();
-                    face(dataList.get(0),videoId1);
+                    videoId = dataList.get(0).getVideoId();
+                    face(dataList.get(0),videoId);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item2:
                     isKeyDown = true;
-                    String videoId2 = dataList.get(1).getVideoId();
-                    face(dataList.get(1),videoId2);
+                    videoId = dataList.get(1).getVideoId();
+                    face(dataList.get(1),videoId);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item3:
                     isKeyDown = true;
-                    String videoId3 = dataList.get(2).getVideoId();
-                    face(dataList.get(2), videoId3);
+                    videoId = dataList.get(2).getVideoId();
+                    face(dataList.get(2), videoId);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item4:
                     isKeyDown = true;
-                    String videoId4 = dataList.get(3).getVideoId();
-                    face(dataList.get(3), videoId4);
+                    videoId = dataList.get(3).getVideoId();
+                    face(dataList.get(3), videoId);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item5:
                     isKeyDown = true;
-                    String videoId5 = dataList.get(4).getVideoId();
-                    face(dataList.get(4), videoId5);
+                    videoId = dataList.get(4).getVideoId();
+                    face(dataList.get(4), videoId);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item6:
                     isKeyDown = true;
-                    String videoId6 = dataList.get(5).getVideoId();
-                    face(dataList.get(5), videoId6);
+                    videoId = dataList.get(5).getVideoId();
+                    face(dataList.get(5), videoId);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
                 case R.id.details_item7:
                     isKeyDown = true;
-                    String videoId7 = dataList.get(6).getVideoId();
-                    face(dataList.get(6), videoId7);
+                    videoId = dataList.get(6).getVideoId();
+                    face(dataList.get(6), videoId);
                     lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
             }

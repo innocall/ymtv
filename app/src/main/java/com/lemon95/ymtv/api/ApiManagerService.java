@@ -164,4 +164,7 @@ public interface ApiManagerService {
      */
     @GET("/Media/TVs/Favorites")
     Observable<FavoritesBean> getFavorites(@Query("mac")String mac,@Query("userId")String userId);
+
+    @POST("/Media/TVs/DeleteFavorites")
+    Observable<UploadResult> deleteFavorite(@Body String favoriteId[]);
 }

@@ -24,6 +24,13 @@
     <string name="lemon_serial">选择剧集</string>
     <string name="lemon95_serial_all">全部剧集</string>
     <string name="load">加载中...</string>
+    <string name="lemon95_ts">长按确认键删除选项</string>
+    <string name="lemon95_mz">免责申明</string>
+    <string name="lemon95_lxfs">联系方式</string>
+    <string name="lemon95_email">企业邮箱：1237823782173821</string>
+    <string name="lemon95_tel">客户电话：4008931993</string>
+    <string name="lemon95_msg">扫描二维码下载柠檬视频手机APP，实现手机与电视娱乐互动</string>
+    <string name="lemon95_gycon">柠檬视频专心为你打造最好的观影服务，影片资源全部来自第三方合作伙伴和互联网资源，如果有侵害你的版权或其他利益，请与我们联系，我们将在第一时间做下架处理。</string>
 
     <!-- viewpager 标题栏字体-->
     <string name="fzlt_zhun_hei">FZLTZHUNHEI_GBK.ttf</string>
@@ -35,5 +42,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_my">MyActivity</string>
 
 </resources>

@@ -23,6 +23,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile project(':tvwidget')
+    compile project(':play')
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -31,6 +32,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-scalars:2.0.2'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile project(':play')
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.android.support:design:22.2.1'
 }

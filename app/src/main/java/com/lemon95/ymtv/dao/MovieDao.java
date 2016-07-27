@@ -242,6 +242,24 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    @Override
+    public void deleteFavorite(String id[], final OnUpdateListener onUpdateListener) {
+        ApiManager.deleteFavorite(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<UploadResult>() {
+
+                    @Override
+                    public void call(UploadResult uploadResult) {
+                        onUpdateListener.onSuccess(uploadResult);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onUpdateListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
