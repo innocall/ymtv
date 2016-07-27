@@ -15,10 +15,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.lemon95.ymtv.R;
+import com.lemon95.ymtv.bean.VideoWatchHistory;
 import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.myview.VerticalProgressBar;
 import com.lemon95.ymtv.presenter.PlayMoviePresenter;
+import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.ToastUtils;
 
 import com.lemon95.ymtv.myview.VideoMediaContoller;
@@ -37,6 +40,7 @@ public class PlayActivity extends BaseActivity {
     private static final long DEFAULT_TIME_OUT = 5000; //显示时间
     private String videoId;
     private String videoType;
+    private String SerialEpisodeId;
     private JjVideoView mVideoView;//
     private View mLoadBufferView;// //
     private TextView mLoadBufferTextView;// //
@@ -54,7 +58,9 @@ public class PlayActivity extends BaseActivity {
     private int mVolume = 0;
     private ImageView lemon_volume_img;
     private LinearLayout lemon_volume;
+    private boolean isPersonal = false;
     private final static int VOLUME_HIDE = 1;
+    private long playTime = 0;
     private Handler mHandler = new Handler(){
 
         @Override
@@ -75,8 +81,10 @@ public class PlayActivity extends BaseActivity {
 
     @Override
     protected void setupViews() {
+        isPersonal = getIntent().getBooleanExtra("isPersonal",false);
         videoId = getIntent().getStringExtra("videoId");
         videoType = getIntent().getStringExtra("videoType");
+        SerialEpisodeId = getIntent().getStringExtra("SerialEpisodeId");
         mVideoView = (JjVideoView) findViewById(R.id.video);
         mLoadView = findViewById(R.id.sdk_ijk_progress_bar_layout);
         mLoadText = (TextView) findViewById(R.id.sdk_ijk_progress_bar_text);
@@ -173,7 +181,16 @@ public class PlayActivity extends BaseActivity {
         if (AppConstant.MOVICE.equals(videoType)) {
             playMoviePresenter.getPlayUrl(videoId);
         } else if(AppConstant.SERIALS.equals(videoType)) {
-            playMoviePresenter.getPlaySerialUrl(videoId);
+            playMoviePresenter.getPlaySerialUrl(SerialEpisodeId);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mVideoView != null && playTime > 0) {
+            mVideoView.seekTo(playTime);
+            lemon_play_img.setVisibility(View.GONE);
         }
     }
 
@@ -187,6 +204,15 @@ public class PlayActivity extends BaseActivity {
         mVideoView.setVideoJjType(3);
         mVideoView.setVideoJjTitle(name);
         mVideoView.setResourceVideo(url);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mVideoView != null) {
+            playTime = mVideoView.getCurrentPosition();
+            videoJjMediaContoller.pausePlay(mVideoView,lemon_play_img);
+        }
     }
 
     /**
@@ -203,29 +229,44 @@ public class PlayActivity extends BaseActivity {
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
+        //上传播放记录
+        VideoWatchHistory videoWatchHistory = new VideoWatchHistory();
+        String userId = PreferenceUtils.getString(context, AppConstant.USERID, ""); //获取用户ID;
+        String mac = AppSystemUtils.getDeviceId();
+        videoWatchHistory.setUserId(userId);
+        videoWatchHistory.setMAC(mac);
+        videoWatchHistory.setVideoId(videoId);
+        videoWatchHistory.setVideoTypeId(videoType);
+        videoWatchHistory.setIsPersonal(isPersonal);
+        videoWatchHistory.setSerialEpisodeId(SerialEpisodeId);
+        videoWatchHistory.setUserIP("");
         // 必须调用 要不直播有问题
         if (mVideoView != null)
             //上传播放记录
+            videoWatchHistory.setWatchTime(mVideoView.getCurrentPosition() + "");
+            playMoviePresenter.addVideoHistory(videoWatchHistory);
             mVideoView.onDestroy();
     }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         try{
-            if(keyCode==KeyEvent.KEYCODE_DPAD_UP){
-                mHandler.removeMessages(VOLUME_HIDE);
-                mHandler.sendEmptyMessageDelayed(VOLUME_HIDE, DEFAULT_TIME_OUT);
-               // lemon_play_img.setVisibility(View.GONE);
-            } else if (keyCode ==KeyEvent.KEYCODE_DPAD_LEFT) {
-                mLoadBufferView.setVisibility(View.VISIBLE);
-                lemon_play_img.setVisibility(View.GONE);
-            } else if (keyCode==KeyEvent.KEYCODE_DPAD_RIGHT) {
-                mLoadBufferView.setVisibility(View.VISIBLE);
-                lemon_play_img.setVisibility(View.GONE);
-            } else if (keyCode==KeyEvent.KEYCODE_DPAD_DOWN) {
-                mHandler.removeMessages(VOLUME_HIDE);
-                mHandler.sendEmptyMessageDelayed(VOLUME_HIDE, DEFAULT_TIME_OUT);
-                //lemon_play_img.setVisibility(View.GONE);
+            if (mLoadView.getVisibility() == View.GONE) {
+                if(keyCode==KeyEvent.KEYCODE_DPAD_UP){
+                    mHandler.removeMessages(VOLUME_HIDE);
+                    mHandler.sendEmptyMessageDelayed(VOLUME_HIDE, DEFAULT_TIME_OUT);
+                    // lemon_play_img.setVisibility(View.GONE);
+                } else if (keyCode ==KeyEvent.KEYCODE_DPAD_LEFT) {
+                    mLoadBufferView.setVisibility(View.VISIBLE);
+                    lemon_play_img.setVisibility(View.GONE);
+                } else if (keyCode==KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    mLoadBufferView.setVisibility(View.VISIBLE);
+                    lemon_play_img.setVisibility(View.GONE);
+                } else if (keyCode==KeyEvent.KEYCODE_DPAD_DOWN) {
+                    mHandler.removeMessages(VOLUME_HIDE);
+                    mHandler.sendEmptyMessageDelayed(VOLUME_HIDE, DEFAULT_TIME_OUT);
+                    //lemon_play_img.setVisibility(View.GONE);
+                }
             }
         } catch (Exception e) {
         }
@@ -235,44 +276,46 @@ public class PlayActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         try{
-            if(keyCode==KeyEvent.KEYCODE_DPAD_UP){
-                //加声音
-                lemon_volume.setVisibility(View.VISIBLE);
-                mVolume = mVolume + 1;
-                if (mVolume >= mMaxVolume) {
-                    mVolume = mMaxVolume;
+            if (mLoadView.getVisibility() == View.GONE) {
+                if(keyCode==KeyEvent.KEYCODE_DPAD_UP){
+                    //加声音
+                    lemon_volume.setVisibility(View.VISIBLE);
+                    mVolume = mVolume + 1;
+                    if (mVolume >= mMaxVolume) {
+                        mVolume = mMaxVolume;
+                    }
+                    lemon_volume_seek.setProgress(mVolume);
+                    lemon_volume_img.setImageResource(R.drawable.icon_volume);
+                    mAM.setStreamVolume(AudioManager.STREAM_MUSIC, mVolume, 0);
+                } else if (keyCode ==KeyEvent.KEYCODE_DPAD_LEFT) {
+                    videoJjMediaContoller.show();
+                    mLoadBufferView.setVisibility(View.GONE);
+                    videoJjMediaContoller.toLeft(mVideoView, lemon_play_img);
+                } else if (keyCode==KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    mLoadBufferView.setVisibility(View.GONE);
+                    videoJjMediaContoller.show();
+                    videoJjMediaContoller.toRight(mVideoView, lemon_play_img);
+                } else if (keyCode==KeyEvent.KEYCODE_DPAD_DOWN) {
+                    lemon_volume.setVisibility(View.VISIBLE);
+                    mVolume = mVolume - 1;
+                    if (mVolume <= 0) {
+                        mVolume = 0;
+                        lemon_volume_img.setImageResource(R.drawable.icon_novolume);
+                    }
+                    lemon_volume_seek.setProgress(mVolume);
+                    mAM.setStreamVolume(AudioManager.STREAM_MUSIC, mVolume, 0);
+                } else if (keyCode==KeyEvent.KEYCODE_DPAD_CENTER||keyCode==KeyEvent.KEYCODE_ENTER) {
+                    videoJjMediaContoller.enter(mVideoView,lemon_play_img);
+                } else if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    long currentTime = System.currentTimeMillis();
+                    if ((currentTime - touchTime) >= waitTime) {
+                        showMsg("再按一次退出播放");
+                        touchTime = currentTime;
+                    } else {
+                        this.finish();
+                    }
+                    return false;
                 }
-                lemon_volume_seek.setProgress(mVolume);
-                lemon_volume_img.setImageResource(R.drawable.icon_volume);
-                mAM.setStreamVolume(AudioManager.STREAM_MUSIC, mVolume, 0);
-            } else if (keyCode ==KeyEvent.KEYCODE_DPAD_LEFT) {
-                videoJjMediaContoller.show();
-                mLoadBufferView.setVisibility(View.GONE);
-                videoJjMediaContoller.toLeft(mVideoView,lemon_play_img);
-            } else if (keyCode==KeyEvent.KEYCODE_DPAD_RIGHT) {
-                mLoadBufferView.setVisibility(View.GONE);
-                videoJjMediaContoller.show();
-                videoJjMediaContoller.toRight(mVideoView,lemon_play_img);
-            } else if (keyCode==KeyEvent.KEYCODE_DPAD_DOWN) {
-                lemon_volume.setVisibility(View.VISIBLE);
-                mVolume = mVolume - 1;
-                if (mVolume <= 0) {
-                    mVolume = 0;
-                    lemon_volume_img.setImageResource(R.drawable.icon_novolume);
-                }
-                lemon_volume_seek.setProgress(mVolume);
-                mAM.setStreamVolume(AudioManager.STREAM_MUSIC, mVolume, 0);
-            } else if (keyCode==KeyEvent.KEYCODE_DPAD_CENTER||keyCode==KeyEvent.KEYCODE_ENTER) {
-                videoJjMediaContoller.enter(mVideoView,lemon_play_img);
-            } else if (keyCode == KeyEvent.KEYCODE_BACK) {
-                long currentTime = System.currentTimeMillis();
-                if ((currentTime - touchTime) >= waitTime) {
-                    showMsg("再按一次退出播放");
-                    touchTime = currentTime;
-                } else {
-                    this.finish();
-                }
-                return false;
             }
         } catch (Exception e) {
         }

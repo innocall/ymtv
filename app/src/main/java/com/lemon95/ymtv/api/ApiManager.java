@@ -15,6 +15,8 @@ import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.Video;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
+import com.lemon95.ymtv.bean.VideoWatchHistory;
+import com.lemon95.ymtv.bean.WatchHistories;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +36,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 import rx.Observable;
@@ -208,11 +211,11 @@ public class ApiManager {
 
     /**
      * 上传播放记录
-     * @param model
+     * @param videoWatchHistory
      * @return
      */
-    public static  Observable<UploadResult> addVideoWatchHistory(String model) {
-        return apiManager.addVideoWatchHistory(model);
+    public static  Observable<UploadResult> addVideoWatchHistory(VideoWatchHistory videoWatchHistory) {
+        return apiManager.addVideoWatchHistory(videoWatchHistory);
     }
 
     /**
@@ -241,5 +244,26 @@ public class ApiManager {
      */
     public static  Observable<UploadResult> deleteFavorite(String favoriteId[]){
         return apiManager.deleteFavorite(favoriteId);
+    }
+
+    /**
+     * 获取观看记录
+     * @param currentPage
+     * @param pageSize
+     * @param mac
+     * @param userId
+     * @return
+     */
+    public static Observable<WatchHistories> getWatchHistories(String currentPage,String pageSize,String mac,String userId) {
+        return apiManager.getWatchHistories(currentPage,pageSize,mac,userId);
+    }
+
+    /**
+     * 更加ID删除播放记录
+     * @param historyIds
+     * @return
+     */
+    public static Observable<UploadResult> deletePersonalHistories(String historyIds[]) {
+        return apiManager.deletePersonalHistories(historyIds);
     }
 }

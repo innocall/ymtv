@@ -1,6 +1,7 @@
 package com.lemon95.ymtv.bean.impl;
 
 import com.lemon95.ymtv.bean.Favorite;
+import com.lemon95.ymtv.bean.VideoWatchHistory;
 import com.lemon95.ymtv.dao.MovieDao;
 import com.lemon95.ymtv.dao.SplashDao;
 
@@ -72,10 +73,10 @@ public interface IMovieBean {
 
     /**
      * 上传播放记录
-     * @param mobile
+     * @param videoWatchHistory
      * @param onUpdateListener
      */
-    public void addVideoWatchHistory(String mobile,MovieDao.OnUpdateListener onUpdateListener);
+    public void addVideoWatchHistory(VideoWatchHistory videoWatchHistory,MovieDao.OnUpdateListener onUpdateListener);
 
     /**
      * 收藏影视
@@ -98,4 +99,17 @@ public interface IMovieBean {
      * @param onUpdateListener
      */
     public void deleteFavorite(String id[],MovieDao.OnUpdateListener onUpdateListener);
+
+    /**
+     * 获取观看记录
+     * @param currentPage
+     * @param pageSize
+     * @param mac
+     * @param userId
+     * @param onWatchHistoriesListener
+     */
+    public void getWatchHistories(String currentPage,String pageSize,String mac,String userId,MovieDao.OnWatchHistoriesListener onWatchHistoriesListener);
+
+    public void deletePersonalHistories(String historyIds[],MovieDao.OnUpdateListener onUpdateListener);
+
 }

@@ -12,6 +12,8 @@ import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
+import com.lemon95.ymtv.bean.VideoWatchHistory;
+import com.lemon95.ymtv.bean.WatchHistories;
 
 import java.util.List;
 
@@ -134,11 +136,11 @@ public interface ApiManagerService {
 
     /**
      * 上传播放记录
-     * @param model
+     * @param videoWatchHistory
      * @return
      */
     @POST("/Media/Videos/AddVideoWatchHistory")
-    Observable<UploadResult> addVideoWatchHistory(@Query("model") String model);
+    Observable<UploadResult> addVideoWatchHistory(@Body VideoWatchHistory videoWatchHistory);
 
     /**
      * 添加收藏
@@ -167,4 +169,15 @@ public interface ApiManagerService {
 
     @POST("/Media/TVs/DeleteFavorites")
     Observable<UploadResult> deleteFavorite(@Body String favoriteId[]);
+
+    @GET("/Media/Videos/PersonalWatchHistories")
+    Observable<WatchHistories> getWatchHistories(@Query("currentPage")String currentPage,@Query("pageSize")String pageSize,@Query("mac")String mac,@Query("userId")String userId);
+
+    /**
+     * 删除播放记录
+     * @param historyIds
+     * @return
+     */
+    @POST("/Media/Videos/DeletePersonalHistories")
+    Observable<UploadResult> deletePersonalHistories(@Body String historyIds[]);
 }

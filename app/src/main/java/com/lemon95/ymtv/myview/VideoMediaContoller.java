@@ -29,13 +29,12 @@ public class VideoMediaContoller extends VideoJjMediaContoller {
      * 按下OK键
      */
     public void enter(JjVideoView mVideoView,ImageView lemon_play_img) {
-        this.lemon_play_img = lemon_play_img;
         if (mVideoView.isPlaying()) {
             isView = false;
-            pausePlay(mVideoView);
+            pausePlay(mVideoView,lemon_play_img);
         } else {
             isView = true;
-            startPlay(mVideoView);
+            startPlay(mVideoView,lemon_play_img);
         }
     }
 
@@ -43,18 +42,20 @@ public class VideoMediaContoller extends VideoJjMediaContoller {
      * 暂停播放
      * @param mVideoView
      */
-    private void pausePlay(JjVideoView mVideoView) {
-        lemon_play_img.setImageResource(cn.com.video.venvy.R.drawable.icon_pause);
-        lemon_play_img.setVisibility(View.VISIBLE);
-        mVideoView.pause();
-        show();
+    public void pausePlay(JjVideoView mVideoView,ImageView lemon_play_img) {
+        try {
+            lemon_play_img.setImageResource(cn.com.video.venvy.R.drawable.icon_pause);
+            lemon_play_img.setVisibility(View.VISIBLE);
+            mVideoView.pause();
+            show();
+        } catch (Exception e){}
     }
 
     /**
      * 开始播放
      * @param mVideoView
      */
-    public void startPlay(JjVideoView mVideoView) {
+    public void startPlay(JjVideoView mVideoView,ImageView lemon_play_img) {
         mVideoView.start();
         lemon_play_img.setImageResource(cn.com.video.venvy.R.drawable.icon_play);
         hide();

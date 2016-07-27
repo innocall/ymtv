@@ -11,6 +11,8 @@ import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.VideoSearchList;
+import com.lemon95.ymtv.bean.VideoWatchHistory;
+import com.lemon95.ymtv.bean.WatchHistories;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.utils.LogUtils;
 
@@ -189,8 +191,8 @@ public class MovieDao implements IMovieBean{
     }
 
     @Override
-    public void addVideoWatchHistory(String mobile, final OnUpdateListener onUpdateListener) {
-        ApiManager.addVideoWatchHistory(mobile).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    public void addVideoWatchHistory(VideoWatchHistory videoWatchHistory, final OnUpdateListener onUpdateListener) {
+        ApiManager.addVideoWatchHistory(videoWatchHistory).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<UploadResult>() {
 
                     @Override
@@ -260,6 +262,42 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    @Override
+    public void getWatchHistories(String currentPage, String pageSize, String mac, String userId, final OnWatchHistoriesListener onWatchHistoriesListener) {
+        ApiManager.getWatchHistories(currentPage,pageSize,mac,userId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<WatchHistories>() {
+
+                    @Override
+                    public void call(WatchHistories watchHistories) {
+                        onWatchHistoriesListener.onSuccess(watchHistories);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onWatchHistoriesListener.onFailure(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void deletePersonalHistories(String[] historyIds, final OnUpdateListener onUpdateListener) {
+        ApiManager.deletePersonalHistories(historyIds).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<UploadResult>() {
+
+                    @Override
+                    public void call(UploadResult uploadResult) {
+                        onUpdateListener.onSuccess(uploadResult);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onUpdateListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -302,6 +340,11 @@ public class MovieDao implements IMovieBean{
 
     public interface OnFavoritesBeanListener{
         void onSuccess(FavoritesBean favoritesBean);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnWatchHistoriesListener{
+        void onSuccess(WatchHistories watchHistories);
         void onFailure(Throwable e);
     }
 }

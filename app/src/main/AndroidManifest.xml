@@ -66,11 +66,13 @@
             android:name=".view.activity.SerialActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.activity.HistoryActivity"
+            android:name=".view.activity.FavoritesActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.activity.MyActivity"
-            android:screenOrientation="landscape" ></activity>
+            android:screenOrientation="landscape" />
+        <activity android:name=".view.activity.HistoryActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

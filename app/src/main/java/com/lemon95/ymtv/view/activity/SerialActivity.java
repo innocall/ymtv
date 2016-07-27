@@ -61,6 +61,7 @@ public class SerialActivity extends BaseActivity {
                 bundle.putString("videoId", ser.getId());  //剧集ID
                 bundle.putString("videoName", getIntent().getStringExtra("videoName") + "(第" + ser.getSerialIndex() + "集)");
                 bundle.putString("videoType", AppConstant.SERIALS);
+                bundle.putString("SerialEpisodeId", ser.getSerialId());
                 startActivity(PlayActivity.class, bundle);
             }
         });

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.RealSource;
+import com.lemon95.ymtv.bean.UploadResult;
+import com.lemon95.ymtv.bean.VideoWatchHistory;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.dao.MovieDao;
 import com.lemon95.ymtv.utils.LogUtils;
@@ -84,6 +86,21 @@ public class PlayMoviePresenter {
             public void onFailure(Throwable e) {
                 e.printStackTrace();
                 playActivity.showError("播放失败，视频地址不存在");
+            }
+        });
+    }
+
+    public void addVideoHistory(VideoWatchHistory videoWatchHistory) {
+        iMovieBean.addVideoWatchHistory(videoWatchHistory, new MovieDao.OnUpdateListener(){
+
+            @Override
+            public void onSuccess(UploadResult uploadResult) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+
             }
         });
     }

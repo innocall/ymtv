@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,25 +29,19 @@ import com.lemon95.androidtvwidget.view.ReflectItemView;
 import com.lemon95.androidtvwidget.view.TextViewWithTTF;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.adapter.OpenTabTitleAdapter;
-import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Video;
 import com.lemon95.ymtv.bean.VideoType;
 import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.db.DataBaseDao;
 import com.lemon95.ymtv.myview.ConfirmDialog;
 import com.lemon95.ymtv.presenter.MainPresenter;
-import com.lemon95.ymtv.presenter.SplashPresenter;
 import com.lemon95.ymtv.utils.ImageUtils;
 import com.lemon95.ymtv.utils.LogUtils;
-import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.StringUtils;
-import com.lemon95.ymtv.utils.ToastUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -562,13 +555,14 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
             case R.id.page1_item3:
                 MobclickAgent.onEvent(context, "page1_item3");
                // ToastUtils.showBgToast("1",context);
-                startActivity(HistoryActivity.class);
+                startActivity(FavoritesActivity.class);
                 break;
             case R.id.page2_item1:
                 MobclickAgent.onEvent(context, "page2_item1");
                 video = videoList.get(0);
                 bundle.putString("videoId",video.getVideoId());
                 bundle.putString("videoType",video.getVideoTypeId());
+                bundle.putString("SerialEpisodeId", "");
                 startActivity(MovieDetailsActivity.class,bundle);
                 break;
             case R.id.page2_item2:

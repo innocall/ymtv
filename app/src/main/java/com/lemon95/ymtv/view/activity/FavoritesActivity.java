@@ -16,42 +16,29 @@ import com.lemon95.androidtvwidget.bridge.OpenEffectBridge;
 import com.lemon95.androidtvwidget.view.MainUpView;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.adapter.FavoritesAdapter;
-import com.lemon95.ymtv.adapter.HistoryAdapter;
 import com.lemon95.ymtv.bean.FavoritesBean;
-import com.lemon95.ymtv.bean.QueryConditions;
-import com.lemon95.ymtv.bean.WatchHistories;
-import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.myview.ConfirmDialog;
 import com.lemon95.ymtv.presenter.FavoritesPresenter;
-import com.lemon95.ymtv.presenter.HistoryPresenter;
-import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
-import com.lemon95.ymtv.utils.PreferenceUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryActivity extends BaseActivity{
+public class FavoritesActivity extends BaseActivity{
 
     private GridView lemon_gridview;
     private MainUpView mainUpView1;
     private TextView lemon_msg;
-    private HistoryPresenter favoritesPresenter = new HistoryPresenter(this);
+    private FavoritesPresenter favoritesPresenter = new FavoritesPresenter(this);
     private ProgressBar lemon_movie_details_pro;
-    private HistoryAdapter favoritesAdapter;
+    private FavoritesAdapter favoritesAdapter;
     private View mOldView;
-    public List<WatchHistories.Data> videoList = new ArrayList<>();
-    private boolean isDelete = true;
+    private List<FavoritesBean.Data> listData;
+    private boolean isDelete = false;
     OpenEffectBridge mOpenEffectBridge;
-    public int page = 1;
-    private boolean isPage = true; //是否在翻页
-    public String mac;
-    public String userId;
-    List<WatchHistories.Data> dataList;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_history2;
+        return R.layout.activity_history;
     }
 
     @Override
@@ -63,13 +50,12 @@ public class HistoryActivity extends BaseActivity{
         // 建议使用 NoDraw.
         mainUpView1.setEffectBridge(new EffectNoDrawBridge());
         mOpenEffectBridge = (EffectNoDrawBridge) mainUpView1.getEffectBridge();
-        mOpenEffectBridge.setTranDurAnimTime(20);
+        //mOpenEffectBridge.setTranDurAnimTime(20);
+        // 设置移动边框的图片.
+        mainUpView1.setUpRectResource(R.drawable.health_focus_border);
         // 移动方框缩小的距离.
         mainUpView1.setDrawUpRectPadding(new Rect(10, -10, 4, -43));
         lemon_gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        favoritesAdapter = new HistoryAdapter(videoList,context);
-        lemon_gridview.setAdapter(favoritesAdapter);
-        mainUpView1.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
         lemon_gridview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -83,16 +69,6 @@ public class HistoryActivity extends BaseActivity{
                     mainUpView1.setFocusView(view, mOldView, 1.1f);
                 }
                 mOldView = view;
-                int size = videoList.size();
-                if (size - 15 < position && dataList != null && dataList.size() == Integer.parseInt(AppConstant.PAGESIZE)) {
-                    if (isPage) {
-                        //翻页
-                        LogUtils.i(TAG,"翻页");
-                        page = page + 1;
-                        favoritesPresenter.getFavorites(mac, userId, page);
-                        isPage = false;
-                    }
-                }
             }
 
             @Override
@@ -102,7 +78,7 @@ public class HistoryActivity extends BaseActivity{
         lemon_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                WatchHistories.Data video = videoList.get(position);
+                FavoritesBean.Data video = listData.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putString("videoId", video.getVideoId());
                 bundle.putString("videoType", video.getVideoTypeId());
@@ -112,9 +88,9 @@ public class HistoryActivity extends BaseActivity{
         lemon_gridview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final WatchHistories.Data video = videoList.get(position);
-                ConfirmDialog.Builder dialog = new ConfirmDialog.Builder(HistoryActivity.this);
-                dialog.setMessage(video.getTitle());
+                final FavoritesBean.Data video = listData.get(position);
+                ConfirmDialog.Builder dialog = new ConfirmDialog.Builder(FavoritesActivity.this);
+                dialog.setMessage(video.getVideoName());
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -123,7 +99,7 @@ public class HistoryActivity extends BaseActivity{
                 }).setPositiveButton("删除该片", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        favoritesPresenter.deleteVideo(video.getId());
+                        favoritesPresenter.deleteVideo(listData, video);
                         dialog.dismiss();
                     }
                 });
@@ -154,8 +130,6 @@ public class HistoryActivity extends BaseActivity{
                 if (hasFocus) {
                     if (lemon_gridview.getChildCount() > 0) {
                         // int v1 = lemon_gridview.getSelectedItemPosition();
-                        // 设置移动边框的图片.
-                        mainUpView1.setUpRectResource(R.drawable.health_focus_border);
                         lemon_gridview.setSelection(0);
                         View newView = lemon_gridview.getChildAt(0);
                         newView.bringToFront();
@@ -180,9 +154,7 @@ public class HistoryActivity extends BaseActivity{
     protected void initialized() {
         //获取收藏数据
         showPro();
-        mac = AppSystemUtils.getDeviceId();
-        userId = PreferenceUtils.getString(context, AppConstant.USERID, "");
-        favoritesPresenter.getFavorites(mac,userId,page);
+        favoritesPresenter.getFavorites();
     }
 
     public void showPro() {
@@ -205,15 +177,13 @@ public class HistoryActivity extends BaseActivity{
         lemon_movie_details_pro.setVisibility(View.GONE);
     }
 
-    //初始化观看记录数据
-    public void showFavoriteData(List<WatchHistories.Data> dataList) {
-        isPage = true;
-        this.dataList = dataList;
-        if (dataList != null) {
-            videoList.addAll(dataList);
-            favoritesAdapter.notifyDataSetChanged();
-            hidePro();
-        }
+    //初始化收藏数据
+    public void showFavoriteData(List<FavoritesBean.Data> listData) {
+        this.listData = listData;
+        favoritesAdapter = new FavoritesAdapter(listData,context);
+        lemon_gridview.setAdapter(favoritesAdapter);
+        favoritesAdapter.notifyDataSetChanged();
+        hidePro();
     }
 
 
