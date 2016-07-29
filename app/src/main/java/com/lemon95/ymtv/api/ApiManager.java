@@ -233,8 +233,8 @@ public class ApiManager {
      * @param userId
      * @return
      */
-    public static Observable<FavoritesBean> getFavorites(String mac,String userId){
-        return apiManager.getFavorites(mac, userId);
+    public static Observable<FavoritesBean> getFavorites(String mac,String userId,String currentPage,String pageSize){
+        return apiManager.getFavorites(mac, userId,currentPage,pageSize);
     }
 
     /**

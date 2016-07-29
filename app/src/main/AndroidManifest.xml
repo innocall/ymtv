@@ -71,7 +71,10 @@
         <activity
             android:name=".view.activity.MyActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".view.activity.HistoryActivity"
+        <activity
+            android:name=".view.activity.HistoryActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".view.activity.LoginActivity"
             android:screenOrientation="landscape"></activity>
     </application>
 

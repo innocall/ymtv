@@ -37,6 +37,7 @@ import com.lemon95.ymtv.myview.ConfirmDialog;
 import com.lemon95.ymtv.presenter.MainPresenter;
 import com.lemon95.ymtv.utils.ImageUtils;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -68,6 +69,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     private TextView lemon_page3_name1,lemon_page3_name2,lemon_page3_name3;
     private  List<VideoType.Data> videoTypeList; //影视分类
     private List<Video> videoList;  //每日推荐
+    private String userId;
 
     @Override
     protected int getLayoutId() {
@@ -93,6 +95,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
      * 初始化影视类型
      */
     private void initVideoType() {
+        userId = PreferenceUtils.getString(context,AppConstant.USERID,"");
         //从数据库获取数据
         dataBaseDao = new DataBaseDao(context);
         videoTypeList = dataBaseDao.getAllVideoTypeList();
@@ -552,6 +555,24 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                // ToastUtils.showBgToast("1",context);
                 startActivity(HistoryActivity.class);
                 break;
+            case R.id.page1_item2:
+                MobclickAgent.onEvent(context, "page1_item2");
+                if(StringUtils.isBlank(userId)) {
+                    //去登录界面
+                    startActivity(LoginActivity.class);
+                } else {
+
+                }
+                break;
+            case R.id.page1_item4:
+                MobclickAgent.onEvent(context, "page1_item4");
+                if(StringUtils.isBlank(userId)) {
+                    //去登录界面
+                    startActivity(LoginActivity.class);
+                } else {
+
+                }
+                break;
             case R.id.page1_item3:
                 MobclickAgent.onEvent(context, "page1_item3");
                // ToastUtils.showBgToast("1",context);
@@ -566,7 +587,6 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                 startActivity(MovieDetailsActivity.class,bundle);
                 break;
             case R.id.page2_item2:
-                MobclickAgent.onEvent(context, "page2_item2");
 
                 break;
             case R.id.page2_item3:

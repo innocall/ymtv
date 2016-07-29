@@ -27,10 +27,10 @@ public class FavoritesPresenter {
     /**
      * 获取收藏数据
      */
-    public void getFavorites() {
+    public void getFavorites(String currentPage) {
         String mac = AppSystemUtils.getDeviceId();
         String userId = PreferenceUtils.getString(favoritesActivity, AppConstant.USERID,"");
-        iMovieBean.getFavorites(mac, userId, new MovieDao.OnFavoritesBeanListener() {
+        iMovieBean.getFavorites(mac, userId,currentPage,AppConstant.PAGESIZE, new MovieDao.OnFavoritesBeanListener() {
             @Override
             public void onSuccess(FavoritesBean favoritesBean) {
                 List<FavoritesBean.Data> listData = favoritesBean.getData();
@@ -56,9 +56,9 @@ public class FavoritesPresenter {
             public void onSuccess(UploadResult uploadResult) {
                 String d = uploadResult.getData();
                 if ("true".equals(d)) {
-                    getFavorites();
-//                    data.remove(video);
-//                    favoritesActivity.showFavoriteData(data);
+                    getFavorites("1");
+                    favoritesActivity.page = 1;
+                    favoritesActivity.videoList.clear();
                     favoritesActivity.showToastLong("删除成功");
                     favoritesActivity.setIsDelete(true);
                 } else {

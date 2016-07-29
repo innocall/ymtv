@@ -155,7 +155,7 @@ public interface ApiManagerService {
 //        "Content-Length:70",
 //        "Content-Type:application/json; charset=UTF-8"
 //    })
-    @POST("/Media/TVs/AddFavorite")
+    @POST("/Media/Videos/AddFavorite")
     Observable<UploadResult> addFavorite(@Body Favorite favorite);
 
     /**
@@ -164,10 +164,10 @@ public interface ApiManagerService {
      * @param userId
      * @return
      */
-    @GET("/Media/TVs/Favorites")
-    Observable<FavoritesBean> getFavorites(@Query("mac")String mac,@Query("userId")String userId);
+    @GET("/Media/Videos/Favorites")
+    Observable<FavoritesBean> getFavorites(@Query("mac")String mac,@Query("userId")String userId,@Query("currentPage")String currentPage,@Query("pageSize")String pageSize);
 
-    @POST("/Media/TVs/DeleteFavorites")
+    @POST("/Media/Videos/DeleteFavorites")
     Observable<UploadResult> deleteFavorite(@Body String favoriteId[]);
 
     @GET("/Media/Videos/PersonalWatchHistories")

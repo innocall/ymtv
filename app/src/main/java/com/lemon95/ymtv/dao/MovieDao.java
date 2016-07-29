@@ -227,8 +227,8 @@ public class MovieDao implements IMovieBean{
     }
 
     @Override
-    public void getFavorites(String mac, String userId, final OnFavoritesBeanListener onFavoritesBeanListener) {
-        ApiManager.getFavorites(mac, userId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    public void getFavorites(String mac, String userId,String currentPage,String pageSize, final OnFavoritesBeanListener onFavoritesBeanListener) {
+        ApiManager.getFavorites(mac, userId,currentPage,pageSize).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<FavoritesBean>() {
 
                     @Override
