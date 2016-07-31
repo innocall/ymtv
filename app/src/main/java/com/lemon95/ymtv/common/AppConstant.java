@@ -18,4 +18,7 @@ public interface AppConstant {
     String USERID = "USERID";
 
     String PAGESIZE = "30";
+
+    String DIRS = "/myImage/ymtv/qr/"; //登陆二维码保存路径
+    String QRNAME = "qr.png";  //登陆二维码名称
 }

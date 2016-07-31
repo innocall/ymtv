@@ -7,9 +7,12 @@ package com.lemon95.ymtv.application;
 import android.app.Activity;
 import android.app.Application;
 
+import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.view.activity.BaseActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,7 @@ import java.util.ArrayList;
  */
 public class BaseApplication extends Application {
 
+    private static final String TAG = "BaseApplication";
     private static BaseApplication instance;
     /**
      * Activity集合
@@ -32,6 +36,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
         ImageLoader.getInstance().init(configuration);
+
     }
 
     /**

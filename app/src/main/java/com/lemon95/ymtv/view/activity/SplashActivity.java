@@ -1,6 +1,7 @@
 package com.lemon95.ymtv.view.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -17,6 +18,9 @@ import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.view.impl.ISplashActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 
 /**
  * 启动页,
@@ -28,11 +32,34 @@ public class SplashActivity extends BaseActivity implements ISplashActivity{
 
     private SplashPresenter splashPresenter = new SplashPresenter(this);
     private ImageView lemon_splash_id;
+    private PushAgent mPushAgent;
+    public Handler handler = new Handler();
 
     @Override
     protected int getLayoutId() {
+        //开始推送服务
+        mPushAgent = PushAgent.getInstance(getApplicationContext());
+        mPushAgent.setDebugMode(true); //开启日志
+        mPushAgent.enable(mRegisterCallback);
         return R.layout.activity_splash;
     }
+
+    public IUmengRegisterCallback mRegisterCallback = new IUmengRegisterCallback() {
+
+        @Override
+        public void onRegistered(final String registrationId) {
+            // TODO Auto-generated method stub
+            handler.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    LogUtils.i(TAG,"推送设备ID：" + registrationId);
+                }
+            });
+        }
+
+    };
 
 
     @Override

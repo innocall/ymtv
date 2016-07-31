@@ -12,6 +12,7 @@ import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.Video;
 import com.lemon95.ymtv.bean.VideoType;
 import com.lemon95.ymtv.bean.impl.ISplashBean;
+import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.dao.SplashDao;
 import com.lemon95.ymtv.db.DataBaseDao;
 import com.lemon95.ymtv.utils.AppSystemUtils;
@@ -171,18 +172,28 @@ public class SplashPresenter {
      * 生成二维码
      */
     private void createOr() {
+        String sdPath = Environment.getExternalStorageDirectory().getPath();
         String sdStatus = Environment.getExternalStorageState();
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
             LogUtils.v("TestFile", "SD card is not avaiable/writeable right now.");
             return;
         }
         String PATH = "";
-        File file2 = new File("/sdcard/myImage/ymtv/qr");
+        File file2 = new File(sdPath + AppConstant.DIRS);
         if (!file2.exists()) {
             file2.mkdirs();
         }
+        File dir = new File(sdPath + AppConstant.DIRS + AppConstant.QRNAME);
+        if (!dir.exists()) {
+            try {
+                //在指定的文件夹中创建文件
+                dir.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         LogUtils.e(TAG,"生成二维码");
         Bitmap bitmap = BitmapFactory.decodeResource(splashActivity.getResources(), R.drawable.ic_launcher);
-        boolean is = QRUtils.createQRImage(AppSystemUtils.getDeviceId(),220,220,bitmap,"/sdcard/myImage/ymtv/qr/qr.png");
+        boolean is = QRUtils.createQRImage(AppSystemUtils.getDeviceId(),220,220,bitmap,sdPath + AppConstant.DIRS + AppConstant.QRNAME);
     }
 }

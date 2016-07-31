@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.lemon95.ymtv"
-        minSdkVersion 11
+        minSdkVersion 17
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile project(':tvwidget')
     compile project(':play')
@@ -35,4 +35,5 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.android.support:design:22.2.1'
     compile 'com.google.zxing:core:3.2.1'
+    compile project(':PushSDK')
 }
