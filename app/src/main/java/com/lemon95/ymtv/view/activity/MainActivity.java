@@ -1,7 +1,9 @@
 package com.lemon95.ymtv.view.activity;
 
 import android.animation.Animator;
+import android.content.ComponentName;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -527,6 +529,8 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     }
 
     private void initOnClick() {
+        lemon_but_search.setOnClickListener(this);
+
         page1_item1.setOnClickListener(this);
         page1_item2.setOnClickListener(this);
         page1_item3.setOnClickListener(this);
@@ -550,6 +554,10 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
         Bundle bundle = new Bundle();
         Video video = null;
         switch (v.getId()) {
+            case R.id.lemon_but_search:
+                MobclickAgent.onEvent(context, "lemon_but_search");
+                startActivity(SearchActivity.class);
+                break;
             case R.id.page1_item1:
                 MobclickAgent.onEvent(context, "page1_item1");
                // ToastUtils.showBgToast("1",context);
@@ -566,12 +574,13 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                 break;
             case R.id.page1_item4:
                 MobclickAgent.onEvent(context, "page1_item4");
-                if(StringUtils.isBlank(userId)) {
+                startActivity(UserActivity.class);
+               /* if(StringUtils.isBlank(userId)) {
                     //去登录界面
                     startActivity(LoginActivity.class);
                 } else {
-
-                }
+                    startActivity(UserActivity.class);
+                }*/
                 break;
             case R.id.page1_item3:
                 MobclickAgent.onEvent(context, "page1_item3");

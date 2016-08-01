@@ -29,7 +29,7 @@
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -45,6 +45,10 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="ymtv" />
+
+        <service
+            android:name=".service.MyPushIntentService"
+            android:process=":push" />
 
         <activity
             android:name=".view.activity.SplashActivity"
@@ -81,6 +85,10 @@
             android:name=".view.activity.HistoryActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".view.activity.LoginActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".view.activity.UserActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".view.activity.SearchActivity"
             android:screenOrientation="landscape"></activity>
     </application>
 

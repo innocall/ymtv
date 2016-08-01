@@ -14,11 +14,15 @@ import android.widget.RelativeLayout;
 
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.presenter.SplashPresenter;
+import com.lemon95.ymtv.service.MyPushIntentService;
 import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.view.impl.ISplashActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.common.message.UmengMessageDeviceConfig;
+import com.umeng.message.ALIAS_TYPE;
 import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.MsgConstant;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengRegistrar;
 
@@ -33,34 +37,17 @@ public class SplashActivity extends BaseActivity implements ISplashActivity{
     private SplashPresenter splashPresenter = new SplashPresenter(this);
     private ImageView lemon_splash_id;
     private PushAgent mPushAgent;
-    public Handler handler = new Handler();
 
     @Override
     protected int getLayoutId() {
         //开始推送服务
         mPushAgent = PushAgent.getInstance(getApplicationContext());
-        mPushAgent.setDebugMode(true); //开启日志
-        mPushAgent.enable(mRegisterCallback);
+        mPushAgent.setPushCheck(true);    //默认不检查集成配置文件
+        LogUtils.i(TAG,"别名：" + AppSystemUtils.getDeviceId());
+        mPushAgent.setExclusiveAlias(AppSystemUtils.getDeviceId(), ALIAS_TYPE.SINA_WEIBO);
+        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
         return R.layout.activity_splash;
     }
-
-    public IUmengRegisterCallback mRegisterCallback = new IUmengRegisterCallback() {
-
-        @Override
-        public void onRegistered(final String registrationId) {
-            // TODO Auto-generated method stub
-            handler.post(new Runnable() {
-
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    LogUtils.i(TAG,"推送设备ID：" + registrationId);
-                }
-            });
-        }
-
-    };
-
 
     @Override
     protected void setupViews() {

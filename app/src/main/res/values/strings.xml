@@ -8,6 +8,7 @@
 
     <string name="title_activity_main">MainActivity</string>
     <string name="lemon95_search">搜索</string>
+    <string name="lemon95_hot_search">热门搜索</string>
     <string name="lemon95_menu1">用户</string>
     <string name="lemon95_menu2">每日推荐</string>
     <string name="lemon95_menu3">影视分类</string>
