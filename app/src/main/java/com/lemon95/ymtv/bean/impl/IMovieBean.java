@@ -112,4 +112,5 @@ public interface IMovieBean {
 
     public void deletePersonalHistories(String historyIds[],MovieDao.OnUpdateListener onUpdateListener);
 
+    public void getPersonalMovies(String userId,String vipLevel,String currentPage,String pageSize,MovieDao.OnPersonalMoviesListener onPersonalMoviesListener);
 }

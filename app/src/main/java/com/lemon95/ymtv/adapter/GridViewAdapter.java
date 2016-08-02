@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.common.AppConstant;
+import com.lemon95.ymtv.utils.StringUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -64,14 +65,23 @@ public class GridViewAdapter extends BaseAdapter {
         VideoSearchList.Data.VideoBriefs videoBriefs = videoBriefsList.get(position);
         ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + videoBriefs.getPicturePath(),holder.lemon_grid_img,options);
         holder.lemon_grid_textView.setText(videoBriefs.getVideoName());
+        String title = videoBriefs.getTitle();
+        if (StringUtils.isNotBlank(title)) {
+            holder.lemon_title.setText(title);
+            holder.lemon_title.setVisibility(View.VISIBLE);
+        } else {
+            holder.lemon_title.setVisibility(View.GONE);
+        }
         return view;
     }
 
     private static class ViewHolder {
         TextView lemon_grid_textView;
+        TextView lemon_title;
         ImageView lemon_grid_img;
         public ViewHolder(View view) {
             lemon_grid_textView = (TextView) view.findViewById(R.id.lemon_grid_textView);
+            lemon_title = (TextView) view.findViewById(R.id.lemon_title);
             lemon_grid_img = (ImageView) view.findViewById(R.id.lemon_grid_img);
         }
     }

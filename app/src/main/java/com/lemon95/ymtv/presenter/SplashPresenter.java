@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.lemon95.ymtv.R;
+import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.Video;
@@ -17,7 +18,9 @@ import com.lemon95.ymtv.dao.SplashDao;
 import com.lemon95.ymtv.db.DataBaseDao;
 import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.QRUtils;
+import com.lemon95.ymtv.utils.StringUtils;
 import com.lemon95.ymtv.view.activity.SplashActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -166,6 +169,36 @@ public class SplashPresenter {
         checkVersion(splashActivity.getVersion());
         //生成登录二维码
         createOr();
+        //登录
+        String userId = PreferenceUtils.getString(splashActivity,AppConstant.USERID);
+        if (StringUtils.isNotBlank(userId)) {
+            loginUser(userId,AppSystemUtils.getDeviceId());
+        }
+    }
+
+    /**
+     * 登录用户
+     * @param userId
+     * @param deviceId
+     */
+    private void loginUser(String userId, String deviceId) {
+        iSplashBean.deviceLogin(userId, deviceId, new SplashDao.OnDeviceLoginListener() {
+            @Override
+            public void onSuccess(DeviceLogin deviceLogin) {
+                if (deviceLogin != null && deviceLogin.getData() != null) {
+                    com.lemon95.ymtv.bean.DeviceLogin.Data user = deviceLogin.getData();
+                    PreferenceUtils.putString(splashActivity, AppConstant.USERID,user.getId());
+                    PreferenceUtils.putString(splashActivity, AppConstant.USERNAME,user.getNickName());
+                    PreferenceUtils.putString(splashActivity, AppConstant.USERIMG,user.getHeadImgUrl());
+                    PreferenceUtils.putString(splashActivity, AppConstant.USERMOBILE,user.getMobile());
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+
+            }
+        });
     }
 
     /**

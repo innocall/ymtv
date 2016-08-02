@@ -16,9 +16,13 @@ public interface AppConstant {
     //本地保存的用户信息key
     String USERNAME = "USERNAME";
     String USERID = "USERID";
+    String USERIMG = "USERIMG";
+    String USERMOBILE = "USERMOBILE";
 
     String PAGESIZE = "30";
 
     String DIRS = "/myImage/ymtv/qr/"; //登陆二维码保存路径
     String QRNAME = "qr.png";  //登陆二维码名称
+
+    String PAGETYPE = "PAGETYPE";
 }

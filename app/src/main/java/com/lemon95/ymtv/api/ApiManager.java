@@ -3,11 +3,13 @@ package com.lemon95.ymtv.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lemon95.ymtv.bean.Conditions;
+import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.FavoritesBean;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
+import com.lemon95.ymtv.bean.PersonalMovies;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.UploadResult;
@@ -266,4 +268,27 @@ public class ApiManager {
     public static Observable<UploadResult> deletePersonalHistories(String historyIds[]) {
         return apiManager.deletePersonalHistories(historyIds);
     }
+
+    /**
+     * 设备登录
+     * @param userId
+     * @param mac
+     * @return
+     */
+    public static Observable<DeviceLogin> deviceLogin(String userId,String mac) {
+        return apiManager.deviceLogin(userId,mac);
+    }
+
+    /**
+     * 获取求片影视
+     * @param userId
+     * @param vipLevel
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static Observable<PersonalMovies> getPersonalMovies(String userId,String vipLevel,String currentPage,String pageSize) {
+        return apiManager.getPersonalMovies(userId, vipLevel, currentPage, pageSize);
+    }
+
 }

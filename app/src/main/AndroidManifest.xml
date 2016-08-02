@@ -33,12 +33,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="dc31b90924b50d3ce576c3bbb8bd7d78" >
-        </meta-data>
-
+            android:value="dc31b90924b50d3ce576c3bbb8bd7d78"></meta-data>
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5786f45ee0f55ae7b3002254" />
@@ -84,11 +81,16 @@
         <activity
             android:name=".view.activity.HistoryActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".view.activity.LoginActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".view.activity.UserActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".view.activity.SearchActivity"
+        <activity
+            android:name=".view.activity.LoginActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.activity.UserActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.activity.SearchActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".view.activity.NeedMovieActivity"
             android:screenOrientation="landscape"></activity>
     </application>
 

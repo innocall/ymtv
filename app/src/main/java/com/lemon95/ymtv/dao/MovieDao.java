@@ -7,6 +7,7 @@ import com.lemon95.ymtv.bean.FavoritesBean;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
+import com.lemon95.ymtv.bean.PersonalMovies;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.UploadResult;
@@ -298,6 +299,24 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    @Override
+    public void getPersonalMovies(String userId, String vipLevel, String currentPage, String pageSize, final OnPersonalMoviesListener onPersonalMoviesListener) {
+        ApiManager.getPersonalMovies(userId, vipLevel, currentPage, pageSize).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<PersonalMovies>() {
+
+                    @Override
+                    public void call(PersonalMovies uploadResult) {
+                        onPersonalMoviesListener.onSuccess(uploadResult);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onPersonalMoviesListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -345,6 +364,11 @@ public class MovieDao implements IMovieBean{
 
     public interface OnWatchHistoriesListener{
         void onSuccess(WatchHistories watchHistories);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnPersonalMoviesListener{
+        void onSuccess(PersonalMovies personalMovies);
         void onFailure(Throwable e);
     }
 }

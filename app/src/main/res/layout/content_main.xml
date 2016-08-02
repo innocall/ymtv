@@ -22,11 +22,13 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/lemon_main_img"
                 android:layout_width="@dimen/px75"
                 android:layout_height="@dimen/px75"
                 android:src="@drawable/lemon_user_logo" />
 
             <TextView
+                android:id="@+id/lemon_main_nick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px12"

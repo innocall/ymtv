@@ -286,6 +286,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
 
     @Override
     protected void initialized() {
+        ((TextView)findViewById(R.id.lemon_main_nick)).setText(PreferenceUtils.getString(context,AppConstant.USERNAME,"未登录"));
         if (mOpenTabHost != null) {
             List<View> viewList = mOpenTabHost.getAllTitleView();
             if (viewList != null && viewList.size() > 1) {
@@ -567,20 +568,21 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                 MobclickAgent.onEvent(context, "page1_item2");
                 if(StringUtils.isBlank(userId)) {
                     //去登录界面
+                    PreferenceUtils.putString(context,AppConstant.PAGETYPE,"1");
                     startActivity(LoginActivity.class);
                 } else {
-
+                    startActivity(NeedMovieActivity.class);
                 }
                 break;
             case R.id.page1_item4:
                 MobclickAgent.onEvent(context, "page1_item4");
-                startActivity(UserActivity.class);
-               /* if(StringUtils.isBlank(userId)) {
+                if(StringUtils.isBlank(userId)) {
                     //去登录界面
+                    PreferenceUtils.putString(context,AppConstant.PAGETYPE,"2");
                     startActivity(LoginActivity.class);
                 } else {
                     startActivity(UserActivity.class);
-                }*/
+                }
                 break;
             case R.id.page1_item3:
                 MobclickAgent.onEvent(context, "page1_item3");

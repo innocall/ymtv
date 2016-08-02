@@ -3,6 +3,7 @@ package com.lemon95.ymtv.dao;
 import android.graphics.Bitmap;
 
 import com.lemon95.ymtv.api.ApiManager;
+import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.VideoType;
@@ -116,6 +117,29 @@ public class SplashDao implements ISplashBean {
                 });
     }
 
+    /**
+     * 设备登录
+     * @param userId
+     * @param mac
+     * @param onDeviceLoginListener
+     */
+    @Override
+    public void deviceLogin(String userId, String mac, final OnDeviceLoginListener onDeviceLoginListener) {
+        ApiManager.deviceLogin(userId, mac).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<DeviceLogin>() {
+
+                    @Override
+                    public void call(DeviceLogin deviceLogin) {
+                        onDeviceLoginListener.onSuccess(deviceLogin);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        onDeviceLoginListener.onFailure(throwable);
+                    }
+                });
+    }
+
 
     /**
      * Created by WXT on 2016/7/14.
@@ -141,6 +165,11 @@ public class SplashDao implements ISplashBean {
 
     public interface OnVideoTypeListener {
         void onSuccess(VideoType videoType);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnDeviceLoginListener {
+        void onSuccess(DeviceLogin deviceLogin);
         void onFailure(Throwable e);
     }
 }

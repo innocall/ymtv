@@ -35,7 +35,6 @@ public class BaseApplication extends Application {
 
     private static final String TAG = "BaseApplication";
     private static BaseApplication instance;
-    private PushAgent mPushAgent;
 
     /**
      * Activity集合
@@ -47,8 +46,6 @@ public class BaseApplication extends Application {
         super.onCreate();
         ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
         ImageLoader.getInstance().init(configuration);
-        mPushAgent = PushAgent.getInstance(this);
-        mPushAgent.setDebugMode(true);
     }
 
     /**

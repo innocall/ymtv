@@ -5,13 +5,32 @@
     android:paddingTop="@dimen/px24"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/lemon_grid_img"
+    <RelativeLayout
         android:layout_width="@dimen/px249"
-        android:layout_height="@dimen/px336"
-        android:scaleType="fitXY"
-        android:src="@drawable/lemon_details_small_def" >
-    </ImageView>
+        android:layout_height="@dimen/px336">
+
+        <ImageView
+            android:id="@+id/lemon_grid_img"
+            android:layout_width="@dimen/px249"
+            android:layout_height="@dimen/px336"
+            android:scaleType="fitXY"
+            android:src="@drawable/lemon_details_small_def" >
+        </ImageView>
+
+        <TextView
+            android:id="@+id/lemon_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px50"
+            android:background="#b00b0505"
+            android:textColor="@color/lemon_dcdcdc"
+            android:paddingLeft="@dimen/px10"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/px36"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+
 
     <TextView
         android:id="@+id/lemon_grid_textView"

@@ -31,7 +31,6 @@ public class LoginActivity extends BaseActivity {
     private ImageView lemon_qr;
     private PushAgent mPushAgent;
     public Handler handler = new Handler();
-    public static LoginActivity loginActivity;
 
     @Override
     protected int getLayoutId() {
@@ -40,11 +39,11 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void setupViews() {
-        loginActivity = this;
         lemon_qr = (ImageView) findViewById(R.id.lemon_qr);
         //初始化推送服务
         mPushAgent = PushAgent.getInstance(getApplicationContext());
         mPushAgent.enable(mRegisterCallback);
+        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
     }
 
     public IUmengRegisterCallback mRegisterCallback = new IUmengRegisterCallback() {

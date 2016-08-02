@@ -1,11 +1,13 @@
 package com.lemon95.ymtv.api;
 
 import com.lemon95.ymtv.bean.Conditions;
+import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.FavoritesBean;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
+import com.lemon95.ymtv.bean.PersonalMovies;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.UploadResult;
@@ -180,4 +182,24 @@ public interface ApiManagerService {
      */
     @POST("/Media/Videos/DeletePersonalHistories")
     Observable<UploadResult> deletePersonalHistories(@Body String historyIds[]);
+
+    /**
+     * 设备登录
+     * @param userId
+     * @param mac
+     * @return
+     */
+    @GET("/Media/TVs/DeviceLogin")
+    Observable<DeviceLogin> deviceLogin(@Query("userId") String userId,@Query("mac")String mac);
+
+    /**
+     * 获取求片影视
+     * @param userId
+     * @param vipLevel
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("/Media/Movies/PersonalMovies")
+    Observable<PersonalMovies> getPersonalMovies(@Query("userId")String userId,@Query("vipLevel")String vipLevel,@Query("currentPage")String currentPage,@Query("pageSize")String pageSize);
 }
