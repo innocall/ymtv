@@ -86,13 +86,19 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:layout_width="@dimen/px500"
+                    android:id="@+id/lemon_search_msg"
+                    android:layout_width="@dimen/px580"
                     android:layout_height="@dimen/px80"
+                    android:focusable="false"
+                    android:textColor="@color/lemon_color3"
+                    android:paddingLeft="@dimen/px10"
+                    android:textSize="@dimen/px36"
+                    android:lines="1"
                     android:background="@drawable/lemon_search_bg"/>
 
                 <com.lemon95.androidtvwidget.keyboard.SkbContainer
                     android:id="@+id/skbContainer"
-                    android:layout_width="@dimen/px500"
+                    android:layout_width="@dimen/px600"
                     android:layout_marginTop="@dimen/px18"
                     android:layout_height="@dimen/px822" >
                 </com.lemon95.androidtvwidget.keyboard.SkbContainer>

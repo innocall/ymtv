@@ -52,6 +52,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     private String userId;
     private DisplayImageOptions options;
     private String videoId;
+    private Boolean isPersonal = false;
 
     @Override
     protected int getLayoutId() {
@@ -79,6 +80,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initialized() {
+        isPersonal = getIntent().getBooleanExtra("isPersonal",false);
         videoId = getIntent().getStringExtra("videoId");
         userId = PreferenceUtils.getString(context, AppConstant.USERID, ""); //获取用户ID
         videoType = getIntent().getStringExtra("videoType");
@@ -86,7 +88,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         LogUtils.i(TAG, videoId + ";" + userId);
         if (AppConstant.MOVICE.equals(videoType)) {
             textView.setText(getString(R.string.lemon95_movie));
-            movieDetailsActivity.initPageData(videoId, userId, false);
+            movieDetailsActivity.initPageData(videoId, userId,isPersonal);
             details_serial.setVisibility(View.GONE);
         } else if(AppConstant.SERIALS.equals(videoType)) {
             textView.setText("电视剧");
@@ -271,6 +273,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                     if (AppConstant.MOVICE.equals(videoType)) {
                         bundle.putString("videoId", data.getId());
                         bundle.putString("SerialEpisodeId", "");
+                        bundle.putString("isPersonal", data.getEnable());
                         bundle.putString("videoName", data.getMovieName());
                     } else if(AppConstant.SERIALS.equals(videoType)) {
                         bundle.putString("SerialEpisodeId", serialData.getSerialEpisodes().get(0).getId());  //剧集ID

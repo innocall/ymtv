@@ -4,6 +4,7 @@ import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.FavoritesBean;
+import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
@@ -202,4 +203,14 @@ public interface ApiManagerService {
      */
     @GET("/Media/Movies/PersonalMovies")
     Observable<PersonalMovies> getPersonalMovies(@Query("userId")String userId,@Query("vipLevel")String vipLevel,@Query("currentPage")String currentPage,@Query("pageSize")String pageSize);
+
+    /**
+     * 生成微信扫码订单
+     * @param userId
+     * @param chargemethod
+     * @param videoId
+     * @return
+     */
+    @GET("/Media/Pay/ForWechat")
+    Observable<ForWechat> getForWechat(@Query("userId")String userId,@Query("chargemethod")String chargemethod,@Query("videoId")String videoId);
 }

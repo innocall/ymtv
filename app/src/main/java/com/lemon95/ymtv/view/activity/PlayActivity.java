@@ -58,7 +58,7 @@ public class PlayActivity extends BaseActivity {
     private int mVolume = 0;
     private ImageView lemon_volume_img;
     private LinearLayout lemon_volume;
-    private boolean isPersonal = false;
+    private String isPersonal;
     private final static int VOLUME_HIDE = 1;
     private long playTime = 0;
     private Handler mHandler = new Handler(){
@@ -81,7 +81,11 @@ public class PlayActivity extends BaseActivity {
 
     @Override
     protected void setupViews() {
-        isPersonal = getIntent().getBooleanExtra("isPersonal",false);
+        isPersonal = getIntent().getStringExtra("isPersonal");
+        if("false".equals(isPersonal)) {
+            //私人定制影视
+
+        }
         videoId = getIntent().getStringExtra("videoId");
         videoType = getIntent().getStringExtra("videoType");
         SerialEpisodeId = getIntent().getStringExtra("SerialEpisodeId");
@@ -237,7 +241,7 @@ public class PlayActivity extends BaseActivity {
         videoWatchHistory.setMAC(mac);
         videoWatchHistory.setVideoId(videoId);
         videoWatchHistory.setVideoTypeId(videoType);
-        videoWatchHistory.setIsPersonal(isPersonal);
+        videoWatchHistory.setIsPersonal(Boolean.parseBoolean(isPersonal));
         videoWatchHistory.setSerialEpisodeId(SerialEpisodeId);
         videoWatchHistory.setUserIP("");
         // 必须调用 要不直播有问题

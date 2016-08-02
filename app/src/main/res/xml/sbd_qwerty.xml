@@ -2,13 +2,13 @@
 <Keyboard
     bg_res="@drawable/lemon_null"
     key_bg_res="@drawable/key_bg_rectangle"
-    key_height="@dimen/px66"
-    key_width="@dimen/px66"
-    key_left_padding="@dimen/px27"
+    key_height="@dimen/px77"
+    key_width="@dimen/px77"
+    key_left_padding="@dimen/px20"
     key_select_res="@drawable/white_light_10"
     key_text_color="#b3eaea"
     key_text_size="@dimen/px37"
-    key_top_padding="@dimen/px27"
+    key_top_padding="@dimen/px20"
     left_right_move="true"
     qwerty="true"
     qwerty_uppercase="false"
@@ -19,57 +19,65 @@
     <!-- 第一行 -->
     <row>
         <keys
-            codes="29|30|31|32|33"
-            labels="A|B|C|D|E"
+            codes="29|30|31|32|33|34"
+            labels="A|B|C|D|E|F"
             splitter="|" />
     </row>
 
     <!-- 第二行 -->
     <row>
         <keys
-            codes="34|35|36|37|38"
-            labels="F|G|H|I|J"
+            codes="35|36|37|38|39|40"
+            labels="G|H|I|J|K|L"
             splitter="|" />
     </row>
 
     <!-- 第三行 -->
     <row>
         <keys
-            codes="39|40|41|42|43"
-            labels="K|L|M|N|O"
+            codes="41|42|43|44|45|46"
+            labels="M|N|O|P|Q|R"
             splitter="|" />
     </row>
 
     <!-- 第四行 -->
     <row>
         <keys
-            codes="44|45|46|47|48"
-            labels="P|Q|R|S|T"
+            codes="47|48|49|50|51|52"
+            labels="S|T|U|V|W|X"
             splitter="|" />
     </row>
 
     <!-- 第五行 -->
     <row>
         <keys
-            codes="49|50|51|52|53"
-            labels="U|V|W|X|Y"
+            codes="53|54|8|9|10|11"
+            labels="Y|Z|1|2|3|4"
             splitter="|" />
     </row>
 
     <!-- 第六行 -->
     <row>
         <keys
-            codes="54|8|9|10|11"
-            labels="Z|1|2|3|4"
+            codes="12|13|14|15|16|0"
+            labels="5|6|7|8|9|0"
             splitter="|" />
     </row>
 
-    <!-- 第七行 -->
     <row>
-        <keys
-            codes="12|13|14|15|16"
-            labels="5|6|7|8|9"
-            splitter="|" />
+
+        <key
+            key_code="67"
+            key_label="退 格"
+            key_text_size="@dimen/px30"
+            key_width="@dimen/px250" />
+
+        <key
+            key_code="260"
+            key_label="清 空"
+            key_text_size="@dimen/px30"
+            key_width="@dimen/px250" />
+
     </row>
 
 

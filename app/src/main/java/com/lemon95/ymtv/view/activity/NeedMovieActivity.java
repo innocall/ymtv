@@ -108,6 +108,7 @@ public class NeedMovieActivity extends BaseActivity {
                 PersonalMovies.Data video = videoList.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putString("videoId", video.getId());
+                bundle.putBoolean("isPersonal",true);
                 bundle.putString("videoType", video.getVideoTypeId());
                 startActivity(MovieDetailsActivity.class, bundle);
             }

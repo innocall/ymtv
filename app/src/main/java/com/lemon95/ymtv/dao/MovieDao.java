@@ -4,6 +4,7 @@ import com.lemon95.ymtv.api.ApiManager;
 import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.FavoritesBean;
+import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
@@ -317,6 +318,24 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    @Override
+    public void getForWechat(String userId, String chargemethod, String videoId, final OnForWechatListener onForWechatListener) {
+        ApiManager.getForWechat(userId, chargemethod, videoId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ForWechat>() {
+
+                    @Override
+                    public void call(ForWechat forWechat) {
+                        onForWechatListener.onSuccess(forWechat);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onForWechatListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -369,6 +388,11 @@ public class MovieDao implements IMovieBean{
 
     public interface OnPersonalMoviesListener{
         void onSuccess(PersonalMovies personalMovies);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnForWechatListener{
+        void onSuccess(ForWechat forWechat);
         void onFailure(Throwable e);
     }
 }

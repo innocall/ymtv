@@ -6,6 +6,7 @@ import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.FavoritesBean;
+import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
@@ -289,6 +290,17 @@ public class ApiManager {
      */
     public static Observable<PersonalMovies> getPersonalMovies(String userId,String vipLevel,String currentPage,String pageSize) {
         return apiManager.getPersonalMovies(userId, vipLevel, currentPage, pageSize);
+    }
+
+    /**
+     * 生成微信扫描支付订单
+     * @param userId
+     * @param chargemethod
+     * @param videoId
+     * @return
+     */
+    public static Observable<ForWechat> getForWechat(String userId,String chargemethod,String videoId) {
+        return apiManager.getForWechat(userId, chargemethod, videoId);
     }
 
 }
