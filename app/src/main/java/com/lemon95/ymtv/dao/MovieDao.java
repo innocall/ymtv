@@ -1,6 +1,7 @@
 package com.lemon95.ymtv.dao;
 
 import com.lemon95.ymtv.api.ApiManager;
+import com.lemon95.ymtv.api.WXApiManager;
 import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.FavoritesBean;
@@ -11,6 +12,7 @@ import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.PersonalMovies;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
+import com.lemon95.ymtv.bean.Unifiedorder;
 import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoWatchHistory;
@@ -20,6 +22,8 @@ import com.lemon95.ymtv.utils.LogUtils;
 
 import java.util.List;
 
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -336,6 +340,24 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    @Override
+    public void unifiedorder(String xml, final OnUnifiedorderListener onUnifiedorderListener) {
+       WXApiManager.unifiedorder(xml).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Action1<ResponseBody>() {
+
+            @Override
+            public void call(ResponseBody unifiedorder) {
+                onUnifiedorderListener.onSuccess(unifiedorder);
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                throwable.printStackTrace();
+                onUnifiedorderListener.onFailure(throwable);
+            }
+        });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -393,6 +415,11 @@ public class MovieDao implements IMovieBean{
 
     public interface OnForWechatListener{
         void onSuccess(ForWechat forWechat);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnUnifiedorderListener{
+        void onSuccess(ResponseBody unifiedorder);
         void onFailure(Throwable e);
     }
 }

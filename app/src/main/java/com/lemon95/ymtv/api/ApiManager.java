@@ -15,33 +15,22 @@ import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.Version;
-import com.lemon95.ymtv.bean.Video;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
 import com.lemon95.ymtv.bean.VideoWatchHistory;
 import com.lemon95.ymtv.bean.WatchHistories;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.List;
 
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.Query;
-import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -91,7 +80,6 @@ public class ApiManager {
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) // 使用RxJava作为回调适配器
             .client(genericClient())
             .build();
-
 
     private static final ApiManagerService apiManager = sRetrofit.create(ApiManagerService.class);
 

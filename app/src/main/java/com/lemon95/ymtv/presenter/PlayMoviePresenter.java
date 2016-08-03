@@ -1,19 +1,30 @@
 package com.lemon95.ymtv.presenter;
 
+
 import com.google.gson.Gson;
-import com.lemon95.ymtv.bean.Movie;
+import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.RealSource;
+import com.lemon95.ymtv.bean.Unifiedorder;
 import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.VideoWatchHistory;
+import com.lemon95.ymtv.bean.WxPayDto;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
+import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.dao.MovieDao;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.RandomSecquenceCreator;
 import com.lemon95.ymtv.utils.StringUtils;
+import com.lemon95.ymtv.utils.WeixinUtil;
+import com.lemon95.ymtv.utils.XmlUtils;
 import com.lemon95.ymtv.view.activity.PlayActivity;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+
 
 /**
  * Created by wuxiaotie on 16/7/23.
@@ -21,8 +32,10 @@ import java.util.List;
  */
 public class PlayMoviePresenter {
 
+    private static final String TAG = "PlayMoviePresenter";
     private PlayActivity playActivity;
     private IMovieBean iMovieBean;
+    private boolean isParam = true;
 
     public PlayMoviePresenter(PlayActivity playActivity) {
         this.playActivity = playActivity;
@@ -42,11 +55,11 @@ public class PlayMoviePresenter {
                     } else {
                         sources = sources.replace("\\", "");
                         Gson gson = new Gson();
-                        RealSource realSource = gson.fromJson(sources,RealSource.class);
+                        RealSource realSource = gson.fromJson(sources, RealSource.class);
                         List<RealSource.seg> seg = realSource.getSeg();
                         if (seg != null && seg.size() > 0) {
                             RealSource.seg s = seg.get(RandomSecquenceCreator.getRandom(seg.size()));
-                            LogUtils.i("播放地址：",s.getFurl());
+                            LogUtils.i("播放地址：", s.getFurl());
                             playActivity.startPlay(s.getFurl());
                         }
                     }
@@ -90,8 +103,37 @@ public class PlayMoviePresenter {
         });
     }
 
+    public void createUrl(final String xml) {
+       iMovieBean.unifiedorder(xml, new MovieDao.OnUnifiedorderListener(){
+
+            @Override
+            public void onSuccess(ResponseBody responseBody) {
+                try {
+                    LogUtils.e(TAG,responseBody.string());
+                    Unifiedorder unifiedorder = XmlUtils.fiedorder(responseBody.string());
+                    if (unifiedorder != null && unifiedorder.getReturn_code().equals("SUCCESS")) {
+                        playActivity.showPay(AppConstant.QR_TOP + unifiedorder.getCode_url());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    if (isParam) {
+                        createUrl(xml);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                if (isParam) {
+                    createUrl(xml);
+                }
+                e.printStackTrace();
+            }
+        });
+    }
+
     public void addVideoHistory(VideoWatchHistory videoWatchHistory) {
-        iMovieBean.addVideoWatchHistory(videoWatchHistory, new MovieDao.OnUpdateListener(){
+        iMovieBean.addVideoWatchHistory(videoWatchHistory, new MovieDao.OnUpdateListener() {
 
             @Override
             public void onSuccess(UploadResult uploadResult) {
@@ -105,4 +147,47 @@ public class PlayMoviePresenter {
         });
     }
 
+    public void createOrder(final String userId, final String s, final String videoId) {
+        iMovieBean.getForWechat(userId, s, videoId, new MovieDao.OnForWechatListener() {
+            @Override
+            public void onSuccess(ForWechat forWechat) {
+                ForWechat.Data data = forWechat.getData();
+                if (data != null) {
+                    // 统一下单
+                    WxPayDto dto = new WxPayDto();
+                    dto.setAppid(AppConstant.appid);
+                    dto.setMch_id(AppConstant.mch_id);
+                    dto.setNonce_str(WeixinUtil.getNonceStr());
+                    dto.setSpbillCreateIp(AppConstant.spbillCreateIp);
+                    dto.setPartnerkey(AppConstant.partnerKey);
+                    dto.setNotifyUrl(data.getNotifyUrl()); //支付完回调
+                    dto.setOrderId(data.getOutTradeNo());
+                    dto.setBody(data.getSubject());
+                    dto.setTotalFee(WeixinUtil.getMoney(data.getTotalFee()));
+                    // 生成订单签名
+                    String sign = WeixinUtil.getmSign(dto);
+                    dto.setSign(sign);
+                    // 获取微信扫码支付二维码连接参数
+                    String xml = WeixinUtil.getCodeUrl(dto);
+                    createUrl(xml);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                if (isParam) {
+                    createOrder(userId,s,videoId);
+                }
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public boolean isParam() {
+        return isParam;
+    }
+
+    public void setIsParam(boolean isParam) {
+        this.isParam = isParam;
+    }
 }

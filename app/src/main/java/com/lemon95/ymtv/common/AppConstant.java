@@ -25,4 +25,11 @@ public interface AppConstant {
     String QRNAME = "qr.png";  //登陆二维码名称
 
     String PAGETYPE = "PAGETYPE";
+
+    String partnerKey = "fL6GK1VAJ2OJtG7E5SKHWyfQ1GGsvdwD";
+    String appid = "wx427eb35b163fb705";
+    String mch_id = "1264108101";
+    String spbillCreateIp = "121.40.187.98";
+    String QR_TOP = "https://paya.swiftpass.cn/pay/qrcode?uuid=";
+    //String spbillCreateIp = "120.76.76.120";
 }

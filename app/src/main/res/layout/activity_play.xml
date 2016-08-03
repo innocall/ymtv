@@ -18,6 +18,64 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
 
+        
+        <LinearLayout
+            android:id="@+id/lemon_pay"
+            android:layout_width="@dimen/px1260"
+            android:layout_height="@dimen/px465"
+            android:orientation="horizontal"
+            android:background="#d1000000"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:padding="@dimen/px30">
+
+            <ImageView
+                android:id="@+id/lemon_pay_img"
+                android:layout_width="@dimen/px405"
+                android:layout_height="@dimen/px405" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px30"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px80"
+                    android:textColor="@color/lemon_3df1ed"
+                    android:textSize="@dimen/px57"
+                    android:text="@string/lemon95_pay_title"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px45"
+                    android:textColor="#ff4040"
+                    android:textSize="@dimen/px39"
+                    android:text="@string/lemon95_pay"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px24"
+                    android:textColor="@color/lemon_3df1ed"
+                    android:textSize="@dimen/px39"
+                    android:text="@string/lemon95_pay1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px24"
+                    android:textColor="@color/lemon_3df1ed"
+                    android:textSize="@dimen/px39"
+                    android:text="@string/lemon95_pay2"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/lemon_play_img"
             android:layout_width="@dimen/px200"
