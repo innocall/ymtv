@@ -248,8 +248,17 @@ public class SearchActivity extends BaseActivity{
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (skbContainer.onSoftKeyUp(keyCode, event))
-            return true;
+        if (skbContainer.onSoftKeyUp(keyCode, event)){
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                finish();
+            } else {
+                return true;
+            }
+        } else {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                finish();
+            }
+        }
         return super.onKeyDown(keyCode, event);
     }
 
