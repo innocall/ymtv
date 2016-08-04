@@ -18,13 +18,35 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
 
+        <LinearLayout
+            android:id="@+id/lemon_ll_pro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#df000000"
+            android:layout_alignParentTop="true"
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px15"
+                android:layout_marginTop="@dimen/px12"
+                android:layout_marginBottom="@dimen/px12"
+                android:textColor="#FFF"
+                android:textSize="@dimen/px39"
+                android:text="@string/lemon_pay_per"/>
+
+        </LinearLayout>
+
         
         <LinearLayout
             android:id="@+id/lemon_pay"
             android:layout_width="@dimen/px1260"
             android:layout_height="@dimen/px465"
             android:orientation="horizontal"
-            android:background="#d1000000"
+            android:background="#df000000"
             android:layout_centerInParent="true"
             android:visibility="gone"
             android:padding="@dimen/px30">
@@ -41,17 +63,17 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/lemon_pay_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/px80"
+                    android:layout_marginTop="@dimen/px45"
                     android:textColor="@color/lemon_3df1ed"
-                    android:textSize="@dimen/px57"
-                    android:text="@string/lemon95_pay_title"/>
+                    android:textSize="@dimen/px57"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/px45"
+                    android:layout_marginTop="@dimen/px40"
                     android:textColor="#ff4040"
                     android:textSize="@dimen/px39"
                     android:text="@string/lemon95_pay"/>

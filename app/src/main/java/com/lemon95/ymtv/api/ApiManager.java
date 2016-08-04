@@ -6,6 +6,7 @@ import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.FavoritesBean;
+import com.lemon95.ymtv.bean.FirstLettersSearch;
 import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
@@ -31,6 +32,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -289,6 +291,17 @@ public class ApiManager {
      */
     public static Observable<ForWechat> getForWechat(String userId,String chargemethod,String videoId) {
         return apiManager.getForWechat(userId, chargemethod, videoId);
+    }
+
+    /**
+     * 首字母搜索
+     * @param firstLetters
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static Observable<FirstLettersSearch> getFirstLettersSearch(String firstLetters,String currentPage,String pageSize){
+        return apiManager.getFirstLettersSearch(firstLetters, currentPage, pageSize);
     }
 
 }

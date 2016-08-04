@@ -33,10 +33,10 @@
     <string name="lemon95_tel">客户电话：4008931993</string>
     <string name="lemon95_msg">扫描二维码下载柠檬视频手机APP，实现手机与电视娱乐互动</string>
     <string name="lemon95_gycon">柠檬视频专心为你打造最好的观影服务，影片资源全部来自第三方合作伙伴和互联网资源，如果有侵害你的版权或其他利益，请与我们联系，我们将在第一时间做下架处理。</string>
-    <string name="lemon95_pay_title">试看结束，请打赏<span style="color:#ff4040">2元</span>看全片</string>
     <string name="lemon95_pay">支付方式：</string>
     <string name="lemon95_pay1">1、直接用微信扫描屏幕二维码完成支付。</string>
-    <string name="lemon95_pay2">1、直接在影檬APP点击影片完成支付。</string>
+    <string name="lemon95_pay2">2、直接在影檬APP点击影片完成支付。</string>
+    <string name="lemon_pay_per">该影片为私人定制影片，试看5分钟，打赏2元看全片</string>
 
 
     <!-- viewpager 标题栏字体-->

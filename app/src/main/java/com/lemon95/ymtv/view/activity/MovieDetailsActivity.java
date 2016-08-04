@@ -273,7 +273,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                     if (AppConstant.MOVICE.equals(videoType)) {
                         bundle.putString("videoId", data.getId());
                         bundle.putString("SerialEpisodeId", "");
-                        bundle.putString("isPersonal", data.getEnable());
+                        bundle.putBoolean("isPersonal", isPersonal);
                         bundle.putString("videoName", data.getMovieName());
                     } else if(AppConstant.SERIALS.equals(videoType)) {
                         bundle.putString("SerialEpisodeId", serialData.getSerialEpisodes().get(0).getId());  //剧集ID

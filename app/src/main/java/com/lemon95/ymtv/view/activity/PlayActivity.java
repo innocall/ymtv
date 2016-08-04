@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,6 +41,7 @@ import cn.com.video.venvy.widget.UsetMediaContoller;
 public class PlayActivity extends BaseActivity {
 
     private static final long DEFAULT_TIME_OUT = 5000; //显示时间
+    private static final long show_time = 5 * 60 * 1000;
     private String videoId;
     private String videoType;
     private String SerialEpisodeId;
@@ -59,12 +61,14 @@ public class PlayActivity extends BaseActivity {
     private int mMaxVolume;
     private int mVolume = 0;
     private ImageView lemon_volume_img;
-    private LinearLayout lemon_volume;
-    private String isPersonal;
+    private LinearLayout lemon_volume,lemon_ll_pro;
+    private Boolean isPersonal;
+    private TextView lemon_pay_title;
     private final static int VOLUME_HIDE = 1;
     private long playTime = 0;
     private LinearLayout lemon_pay;
     private boolean isTop = true; //是否能够点击
+    public boolean isPro = false;
     private Handler mHandler = new Handler(){
 
         @Override
@@ -85,25 +89,22 @@ public class PlayActivity extends BaseActivity {
 
     @Override
     protected void setupViews() {
-        isPersonal = getIntent().getStringExtra("isPersonal");
+        isPersonal = getIntent().getBooleanExtra("isPersonal", false);
         videoId = getIntent().getStringExtra("videoId");
         videoType = getIntent().getStringExtra("videoType");
         SerialEpisodeId = getIntent().getStringExtra("SerialEpisodeId");
-        if("false".equals(isPersonal)) {
-            //私人定制影视
-            playMoviePresenter.setIsParam(true);
-            String userId = PreferenceUtils.getString(context, AppConstant.USERID, ""); //获取用户ID;
-            playMoviePresenter.createOrder(userId,"13",videoId);  //生产订单
-        }
         mVideoView = (JjVideoView) findViewById(R.id.video);
         mLoadView = findViewById(R.id.sdk_ijk_progress_bar_layout);
         mLoadText = (TextView) findViewById(R.id.sdk_ijk_progress_bar_text);
+        lemon_pay_title = (TextView) findViewById(R.id.lemon_pay_title);
+        lemon_pay_title.setText(Html.fromHtml("试看结束，请打赏<font color=\"#ff4040\">2元</font>看全片"));
         sdk_ijk_progress_bar = (ProgressBar)findViewById(R.id.sdk_ijk_progress_bar);
         mLoadBufferView = findViewById(R.id.sdk_load_layout);
         lemon_play_img = (ImageView)findViewById(R.id.lemon_play_img);
         lemon_volume_img = (ImageView)findViewById(R.id.lemon_volume_img);
         lemon_pay_img = (ImageView)findViewById(R.id.lemon_pay_img);
         lemon_volume = (LinearLayout)findViewById(R.id.lemon_volume);
+        lemon_ll_pro = (LinearLayout)findViewById(R.id.lemon_ll_pro);
         lemon_pay = (LinearLayout)findViewById(R.id.lemon_pay);
         mLoadBufferTextView = (TextView) findViewById(R.id.sdk_sdk_ijk_load_buffer_text);
         lemon_volume_seek = (VerticalProgressBar) findViewById(R.id.lemon_volume_seek);
@@ -132,6 +133,10 @@ public class PlayActivity extends BaseActivity {
             @Override
             public void onJjOpenSuccess() {
                 mLoadView.setVisibility(View.GONE);
+                if (isPro) {
+                    showLL();
+                    handler.sendEmptyMessageDelayed(PAY_LIS,1000);
+                }
             }
         });
         // 缓冲开始
@@ -170,7 +175,9 @@ public class PlayActivity extends BaseActivity {
             public boolean onJjOpenFailed(int i, int i1) {
                // showError("播放出错");
                 if (AppConstant.MOVICE.equals(videoType)) {
-                    playMoviePresenter.getPlayUrl(videoId);
+                    //playMoviePresenter.getPlayUrl(videoId);
+                    String userId = PreferenceUtils.getString(context,AppConstant.USERID,"");
+                    playMoviePresenter.initPageData(videoId, userId, isPersonal);
                 } else if(AppConstant.SERIALS.equals(videoType)) {
                     playMoviePresenter.getPlaySerialUrl(videoId);
                 }
@@ -191,7 +198,9 @@ public class PlayActivity extends BaseActivity {
     protected void initialized() {
         //获取播放地址
         if (AppConstant.MOVICE.equals(videoType)) {
-            playMoviePresenter.getPlayUrl(videoId);
+            //playMoviePresenter.getPlayUrl(videoId);
+            String userId = PreferenceUtils.getString(context,AppConstant.USERID,"");
+            playMoviePresenter.initPageData(videoId, userId, isPersonal);
         } else if(AppConstant.SERIALS.equals(videoType)) {
             playMoviePresenter.getPlaySerialUrl(SerialEpisodeId);
         }
@@ -250,7 +259,7 @@ public class PlayActivity extends BaseActivity {
         videoWatchHistory.setMAC(mac);
         videoWatchHistory.setVideoId(videoId);
         videoWatchHistory.setVideoTypeId(videoType);
-        videoWatchHistory.setIsPersonal(Boolean.parseBoolean(isPersonal));
+        videoWatchHistory.setIsPersonal(isPersonal);
         videoWatchHistory.setSerialEpisodeId(SerialEpisodeId);
         videoWatchHistory.setUserIP("");
         // 必须调用 要不直播有问题
@@ -339,11 +348,53 @@ public class PlayActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void showPay(String url) {
-        ImageLoader.getInstance().displayImage(url,lemon_pay_img);
-        lemon_pay.setVisibility(View.GONE);
+    public void showPay() {
+        lemon_pay.setVisibility(View.VISIBLE);
         mVideoView.pause(); //暂停播放
         isTop = false;
+    }
+
+    public void initPay(String url) {
+        ImageLoader.getInstance().displayImage(url,lemon_pay_img);
+    }
+
+    public void hidePay() {
+        lemon_ll_pro.setVisibility(View.GONE);
+        lemon_pay.setVisibility(View.GONE);
+        mVideoView.start();
+        isTop = true;
+        isPro = false;
+    }
+
+    private final static int HIDE_LL = 0;
+    private final static int PAY_LIS = 1;
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case HIDE_LL:
+                    lemon_ll_pro.setVisibility(View.GONE);
+                    isPro = false;
+                    break;
+                case PAY_LIS:
+                    if (mVideoView != null) {
+                        long pos = mVideoView.getCurrentPosition();
+                        if (pos > show_time) {
+                            showPay();
+                        } else  {
+                            handler.sendEmptyMessageDelayed(PAY_LIS,1000);
+                        }
+                    }
+                    break;
+            }
+        }
+    };
+
+    public void showLL() {
+        lemon_ll_pro.setVisibility(View.VISIBLE);
+        handler.sendEmptyMessageDelayed(HIDE_LL,10000);
     }
 
     public void showMsg(String msg) {

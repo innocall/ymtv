@@ -17,29 +17,30 @@ import java.io.StringReader;
  */
 public class XmlUtils {
 
-    public static Unifiedorder fiedorder(String xmlStr) throws XmlPullParserException, IOException {
+    /**
+     * <xml><return_code><![CDATA[SUCCESS]]></return_code>
+     <return_msg><![CDATA[OK]]></return_msg>
+     <appid><![CDATA[wx427eb35b163fb705]]></appid>
+     <mch_id><![CDATA[1264108101]]></mch_id>
+     <nonce_str><![CDATA[qX4e9TmWohr9DTJY]]></nonce_str>
+     <sign><![CDATA[A72927E3FC734F8F72B612BA72A7FEA6]]></sign>
+     <result_code><![CDATA[SUCCESS]]></result_code>
+     <prepay_id><![CDATA[wx20160804085840a9227e85a50392528560]]></prepay_id>
+     <trade_type><![CDATA[NATIVE]]></trade_type>
+     <code_url><![CDATA[weixin://wxpay/bizpayurl?pr=w2iazEs]]></code_url>
+     </xml>
+     * @param xmlStr
+     * @return
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
+    public static Unifiedorder fiedorder(String xmlStr) {
         Unifiedorder unifiedorder = new Unifiedorder();
-        XmlPullParser xpp = Xml.newPullParser();
-        // 设置输入流 并指明编码方式
-        InputStream is = new ByteArrayInputStream(xmlStr.getBytes());
-        xpp.setInput(is, "UTF-8");
-        // 产生第一个事件
-        int eventType = xpp.getEventType();
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            switch (eventType) {
-                // 判断当前事件是否为标签元素开始事件
-                case XmlPullParser.START_TAG:
-                    if (xpp.getName().equals("return_code")) { // 判断开始标签元素是否是book
-                        unifiedorder.setResult_code(xpp.getText());
-                    } else if (xpp.getName().equals("return_msg")) {
-                        unifiedorder.setReturn_msg(xpp.getText());
-                    } else if (xpp.getName().equals("code_url")) { // 判断开始标签元素是否是book
-                        unifiedorder.setCode_url(xpp.getText());
-                    }
-                    break;
-            }
-            // 进入下一个元素并触发相应事件
-            eventType = xpp.next();
+        if (StringUtils.isNotBlank(xmlStr)) {
+            String return_code = xmlStr.substring(xmlStr.indexOf("<return_code><![CDATA[") + 22,xmlStr.indexOf("]]></return_code>"));
+            String code_url = xmlStr.substring(xmlStr.indexOf("<code_url><![CDATA[") + 19,xmlStr.indexOf("]]></code_url>"));
+            unifiedorder.setReturn_code(return_code);
+            unifiedorder.setCode_url(code_url);
         }
         return unifiedorder;
     }

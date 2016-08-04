@@ -4,6 +4,7 @@ import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.FavoritesBean;
+import com.lemon95.ymtv.bean.FirstLettersSearch;
 import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
@@ -213,4 +214,15 @@ public interface ApiManagerService {
      */
     @GET("/Media/Pay/ForWechat")
     Observable<ForWechat> getForWechat(@Query("userId")String userId,@Query("chargemethod")String chargemethod,@Query("videoId")String videoId);
+
+    /**
+     * 首字母搜索
+     * @param firstLetters
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("/Media/TVs/FirstLettersSearch")
+    Observable<FirstLettersSearch> getFirstLettersSearch(@Query("firstLetters") String firstLetters,@Query("currentPage")String currentPage,@Query("pageSize")String pageSize);
+
 }

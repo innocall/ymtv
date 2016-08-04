@@ -117,4 +117,6 @@ public interface IMovieBean {
     public void getForWechat(String userId,String chargemethod,String videoId,MovieDao.OnForWechatListener onForWechatListener);
 
     public void unifiedorder(String xml,MovieDao.OnUnifiedorderListener onUnifiedorderListener);
+
+    public void getFirstLettersSearch(String firstLetters,String currentPage,String pageSize,MovieDao.OnFirstLettersSearchListener onFirstLettersSearchListener);
 }

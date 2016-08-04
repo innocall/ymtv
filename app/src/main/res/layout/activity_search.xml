@@ -18,7 +18,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px150"
+            android:layout_height="@dimen/px130"
             android:focusable="false">
 
             <LinearLayout
@@ -31,7 +31,7 @@
                     android:id="@+id/lemon95_movie_title_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/px63"
+                    android:layout_marginTop="@dimen/px53"
                     android:focusable="false"
                     android:text="@string/lemon95_hot_search"
                     android:textColor="@color/lemon_b3aeae"
@@ -47,7 +47,7 @@
                 android:fontFamily="sans-serif-light"
                 android:format12Hour="hh:mm"
                 android:format24Hour="HH:mm"
-                android:paddingTop="@dimen/px63"
+                android:paddingTop="@dimen/px53"
                 android:textColor="@color/lemon_b3aeae"
                 android:textSize="@dimen/px39"
                 android:textStyle="bold" />
@@ -55,56 +55,86 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px822"
-            android:layout_marginTop="@dimen/px36"
+            android:layout_height="@dimen/px869"
+            android:layout_marginTop="@dimen/px16"
             android:gravity="center"
             android:orientation="horizontal">
 
             <com.lemon95.androidtvwidget.view.GridViewTV
                 android:id="@+id/lemon_gridview"
                 android:layout_width="@dimen/px937"
-                android:layout_height="@dimen/px822"
+                android:layout_height="@dimen/px869"
                 android:layout_gravity="center"
                 android:clipChildren="false"
                 android:columnWidth="@dimen/px249"
                 android:descendantFocusability="afterDescendants"
                 android:gravity="center_vertical"
                 android:horizontalSpacing="@dimen/px48"
-                android:focusable="false"
                 android:nextFocusLeft="@+id/lemon_video_menu_id"
+                android:nextFocusRight="@+id/skbContainer"
                 android:nextFocusUp="@+id/lemon_but_search"
                 android:numColumns="auto_fit"
-                android:paddingLeft="@dimen/px34"
+                android:paddingLeft="@dimen/px24"
                 android:paddingRight="@dimen/px20"
-                android:scrollbars="none" />
+                android:scrollbars="none"
+                android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/lemon95_movie_msg_id"
+                    android:layout_width="@dimen/px937"
+                    android:layout_height="@dimen/px869"
+                    android:focusable="false"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="请输入您要搜索影片的首字母"
+                    android:textColor="@color/lemon_b3aeae"
+                    android:textSize="@dimen/px39"
+                    android:textStyle="bold" />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/px10"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/px10">
 
                 <EditText
                     android:id="@+id/lemon_search_msg"
                     android:layout_width="@dimen/px580"
-                    android:layout_height="@dimen/px80"
+                    android:layout_height="@dimen/px70"
+                    android:background="@drawable/lemon_search_bg"
+                    android:editable="false"
                     android:focusable="false"
-                    android:textColor="@color/lemon_color3"
+                    android:maxLines="1"
                     android:paddingLeft="@dimen/px10"
-                    android:textSize="@dimen/px36"
-                    android:lines="1"
-                    android:background="@drawable/lemon_search_bg"/>
+                    android:singleLine="true"
+                    android:textColor="@color/lemon_color3"
+                    android:textSize="@dimen/px36" />
 
                 <com.lemon95.androidtvwidget.keyboard.SkbContainer
                     android:id="@+id/skbContainer"
                     android:layout_width="@dimen/px600"
+                    android:layout_height="@dimen/px700"
                     android:layout_marginTop="@dimen/px18"
-                    android:layout_height="@dimen/px822" >
-                </com.lemon95.androidtvwidget.keyboard.SkbContainer>
+                    android:nextFocusLeft="@+id/lemon_gridview"></com.lemon95.androidtvwidget.keyboard.SkbContainer>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px13"
+                    android:focusable="false"
+                    android:text="搜索魔兽：输入MS"
+                    android:textColor="#58FFF8"
+                    android:textSize="@dimen/px39"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
 
+    <com.lemon95.androidtvwidget.view.MainUpView
+        android:id="@+id/mainUpView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </FrameLayout>

@@ -5,6 +5,7 @@ import com.lemon95.ymtv.api.WXApiManager;
 import com.lemon95.ymtv.bean.Conditions;
 import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.FavoritesBean;
+import com.lemon95.ymtv.bean.FirstLettersSearch;
 import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
@@ -358,6 +359,24 @@ public class MovieDao implements IMovieBean{
         });
     }
 
+    @Override
+    public void getFirstLettersSearch(String firstLetters, String currentPage, String pageSize, final OnFirstLettersSearchListener onFirstLettersSearchListener) {
+        ApiManager.getFirstLettersSearch(firstLetters, currentPage, pageSize).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<FirstLettersSearch>() {
+
+                    @Override
+                    public void call(FirstLettersSearch firstLettersSearch) {
+                        onFirstLettersSearchListener.onSuccess(firstLettersSearch);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onFirstLettersSearchListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -420,6 +439,11 @@ public class MovieDao implements IMovieBean{
 
     public interface OnUnifiedorderListener{
         void onSuccess(ResponseBody unifiedorder);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnFirstLettersSearchListener{
+        void onSuccess(FirstLettersSearch firstLettersSearch);
         void onFailure(Throwable e);
     }
 }

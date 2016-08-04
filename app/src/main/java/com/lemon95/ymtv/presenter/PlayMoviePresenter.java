@@ -3,6 +3,7 @@ package com.lemon95.ymtv.presenter;
 
 import com.google.gson.Gson;
 import com.lemon95.ymtv.bean.ForWechat;
+import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.RealSource;
 import com.lemon95.ymtv.bean.Unifiedorder;
@@ -13,6 +14,7 @@ import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.dao.MovieDao;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.RandomSecquenceCreator;
 import com.lemon95.ymtv.utils.StringUtils;
 import com.lemon95.ymtv.utils.WeixinUtil;
@@ -42,6 +44,55 @@ public class PlayMoviePresenter {
         iMovieBean = new MovieDao();
     }
 
+    /**
+     * 获取电影详情
+     * @param id
+     * @param userId
+     * @param isPre
+     */
+    public void initPageData(final String id, final String userId,boolean isPre) {
+        iMovieBean.getMovieDetails(id,userId,isPre, new MovieDao.OnMovieDetailsListener(){
+
+            @Override
+            public void onSuccess(Movie movie) {
+                com.lemon95.ymtv.bean.Movie.Data data = movie.getData();
+                if (data != null) {
+                    List<Movie.Data.MovieSources> movieSources = data.getMovieSources();
+                    if (movieSources != null && movieSources.size() > 0) {
+                        String sources = movieSources.get(0).getRealSource();
+                        if (StringUtils.isBlank(sources)) {
+                            playActivity.showError("播放失败，视频地址不存在");
+                        } else {
+                            sources = sources.replace("\\", "");
+                            Gson gson = new Gson();
+                            RealSource realSource = gson.fromJson(sources, RealSource.class);
+                            List<RealSource.seg> seg = realSource.getSeg();
+                            if (seg != null && seg.size() > 0) {
+                                RealSource.seg s = seg.get(RandomSecquenceCreator.getRandom(seg.size()));
+                                LogUtils.i("播放地址：", s.getFurl());
+                                playActivity.startPlay(s.getFurl());
+                                if ("false".equals(data.getEnable())) {
+                                    playActivity.isPro = true;
+                                    setIsParam(true);
+                                    createOrder(userId, "13", id);  //生产订单
+                                }
+                            }
+                        }
+                    } else {
+                        playActivity.showError("播放失败，视频地址不存在");
+                    }
+                } else {
+                    playActivity.showError("播放失败，视频地址不存在");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                e.printStackTrace();
+                playActivity.showError("播放失败，视频地址不存在");
+            }
+        });
+    }
 
     public void getPlayUrl(String videoId) {
         iMovieBean.getMovieAnalysis(videoId, new MovieDao.OnMovieAnalysisListener() {
@@ -109,10 +160,11 @@ public class PlayMoviePresenter {
             @Override
             public void onSuccess(ResponseBody responseBody) {
                 try {
-                    LogUtils.e(TAG,responseBody.string());
-                    Unifiedorder unifiedorder = XmlUtils.fiedorder(responseBody.string());
-                    if (unifiedorder != null && unifiedorder.getReturn_code().equals("SUCCESS")) {
-                        playActivity.showPay(AppConstant.QR_TOP + unifiedorder.getCode_url());
+                    String str = responseBody.string();
+                    LogUtils.e(TAG,str);
+                    Unifiedorder unifiedorder = XmlUtils.fiedorder(str);
+                    if (unifiedorder != null && "SUCCESS".equals(unifiedorder.getReturn_code())) {
+                        playActivity.initPay(AppConstant.QR_TOP + unifiedorder.getCode_url());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

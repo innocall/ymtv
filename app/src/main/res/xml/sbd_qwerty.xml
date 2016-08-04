@@ -9,12 +9,12 @@
     key_text_color="#b3eaea"
     key_text_size="@dimen/px37"
     key_top_padding="@dimen/px20"
-    left_right_move="true"
     qwerty="true"
     qwerty_uppercase="false"
     start_pos_x="@dimen/px2"
     start_pos_y="@dimen/px2"
-    top_bottom_move="false">
+    top_bottom_move="false"
+    left_right_move="false">
 
     <!-- 第一行 -->
     <row>
