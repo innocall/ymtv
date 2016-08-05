@@ -15,7 +15,6 @@ import com.lemon95.ymtv.bean.PersonalMovies;
 import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.UploadResult;
-import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoType;
 import com.lemon95.ymtv.bean.VideoWatchHistory;
@@ -32,7 +31,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -97,8 +96,8 @@ public class ApiManager {
      * 获取服务器版本
      * @return
      */
-    public static Observable<Version> getVersion() {
-        return apiManager.getVersion();
+    public static Observable<ResponseBody> getVersion(String url) {
+        return apiManager.getVersion(url);
     }
 
     public static Observable<VideoType> getVideoType() {
@@ -304,4 +303,12 @@ public class ApiManager {
         return apiManager.getFirstLettersSearch(firstLetters, currentPage, pageSize);
     }
 
+    /**
+     * 下载更新包
+     * @param url
+     * @return
+     */
+    public static Observable<ResponseBody> downLoadFile(String url) {
+        return apiManager.downLoadFile(url);
+    }
 }

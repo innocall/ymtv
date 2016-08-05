@@ -53,8 +53,16 @@ public interface ApiManagerService {
      * 检测app版本
      * @return
      */
-    @GET("/Media/TVs/Version")
-    Observable<Version> getVersion();
+    @GET
+    Observable<ResponseBody> getVersion(@Url String url);
+
+    /**
+     * 下载更新包
+     * @param url
+     * @return
+     */
+    @GET
+    Observable<ResponseBody> downLoadFile(@Url String url);
 
     @GET("/Media/Movies/Detail")
     Observable<Movie> getDetail(@Query("id") String id,@Query("userId") String userId,@Query("isPersonal") boolean isPersonal);

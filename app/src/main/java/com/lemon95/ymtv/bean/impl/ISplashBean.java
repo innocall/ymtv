@@ -14,10 +14,10 @@ public interface ISplashBean {
 
     /**
      * 检测版本
-     * @param version
+     * @param url
      * @param onVersionLisener
      */
-    public void checkVersion(String version,SplashDao.OnVersionLisener onVersionLisener);
+    public void checkVersion(String url,SplashDao.OnVersionLisener onVersionLisener);
 
     /**
      * 获取每日推荐影片

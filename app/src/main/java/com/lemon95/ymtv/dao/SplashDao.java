@@ -28,18 +28,12 @@ public class SplashDao implements ISplashBean {
     private final String TAG = "SplashDao";
 
     @Override
-    public void checkVersion(final String version,final OnVersionLisener onVersionLisener) {
-        ApiManager.getVersion().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Version>() {
+    public void checkVersion(String url,final OnVersionLisener onVersionLisener) {
+        ApiManager.getVersion(url).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
                     @Override
-                    public void call(Version v) {
-                        if (version.equals(v.getVersionId())) {
-                            LogUtils.i(TAG, "版本号相同");
-                            onVersionLisener.noUpdateVersion();
-                        } else {
-                            LogUtils.i(TAG, "版本号不同");
-                            onVersionLisener.updateVersion(v);
-                        }
+                    public void call(ResponseBody v) {
+                        onVersionLisener.updateVersion(v);
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -148,7 +142,7 @@ public class SplashDao implements ISplashBean {
      */
     public interface OnVersionLisener {
         //升级版本
-        void updateVersion(Version version);
+        void updateVersion(ResponseBody version);
         //版本相同不升级
         void noUpdateVersion();
     }

@@ -491,10 +491,10 @@ public class SoftKeyboardView extends View {
 		scaleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 			@Override
 			public void onAnimationUpdate(ValueAnimator animation) {
-				float left = (float) animation.getAnimatedValue("Left");
-				float top = (float) animation.getAnimatedValue("Top");
-				float right = (float) animation.getAnimatedValue("Right");
-				float bottom = (float) animation.getAnimatedValue("Bottom");
+				float left = (Float) animation.getAnimatedValue("Left") ;
+				float top = (Float) animation.getAnimatedValue("Top");
+				float right = (Float) animation.getAnimatedValue("Right");
+				float bottom = (Float) animation.getAnimatedValue("Bottom");
 				SoftKey softKey = (SoftKey) scaleAnimator.getTarget();
 				softKey.setMoveLeft(left);
 				softKey.setMoveTop(top);

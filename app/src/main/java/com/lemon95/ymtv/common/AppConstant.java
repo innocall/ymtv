@@ -6,12 +6,13 @@ package com.lemon95.ymtv.common;
 public interface AppConstant {
 
     String RESOURCE = "http://app.lemon95.com:8011/"; //资源地址前部分
+    String VERSIONURL = "http://app.lemon95.com:8011/app/android/tv/Upgrade.xml"; //版本更新地址
     //String RESOURCE = "http://tupian.lemon95.com:8088/"; //资源地址前部分
 
     //影视类型
     String MOVICE = "1";
     String SERIALS = "2";
-    String FUNNY = "8";  //搞笑
+    String FUNNY = "14";  //搞笑
 
     //本地保存的用户信息key
     String USERNAME = "USERNAME";
@@ -31,5 +32,6 @@ public interface AppConstant {
     String mch_id = "1264108101";
     String spbillCreateIp = "121.40.187.98";
     String QR_TOP = "https://paya.swiftpass.cn/pay/qrcode?uuid=";
+
     //String spbillCreateIp = "120.76.76.120";
 }

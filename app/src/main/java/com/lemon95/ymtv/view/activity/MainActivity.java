@@ -1,9 +1,12 @@
 package com.lemon95.ymtv.view.activity;
 
 import android.animation.Animator;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -22,6 +25,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.lemon95.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.lemon95.androidtvwidget.bridge.OpenEffectBridge;
 import com.lemon95.androidtvwidget.utils.OPENLOG;
@@ -31,6 +35,7 @@ import com.lemon95.androidtvwidget.view.ReflectItemView;
 import com.lemon95.androidtvwidget.view.TextViewWithTTF;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.adapter.OpenTabTitleAdapter;
+import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Video;
 import com.lemon95.ymtv.bean.VideoType;
 import com.lemon95.ymtv.common.AppConstant;
@@ -71,10 +76,14 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     private TextView lemon_page3_name1,lemon_page3_name2,lemon_page3_name3;
     private  List<VideoType.Data> videoTypeList; //影视分类
     private List<Video> videoList;  //每日推荐
-    private String userId;
+    private MsgReceiver msgReceiver;
 
     @Override
     protected int getLayoutId() {
+        msgReceiver = new MsgReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.lemon.Main.RECEIVER");
+        registerReceiver(msgReceiver, intentFilter);
         return R.layout.content_main;
     }
 
@@ -97,7 +106,6 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
      * 初始化影视类型
      */
     private void initVideoType() {
-        userId = PreferenceUtils.getString(context,AppConstant.USERID,"");
         //从数据库获取数据
         dataBaseDao = new DataBaseDao(context);
         videoTypeList = dataBaseDao.getAllVideoTypeList();
@@ -554,6 +562,7 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
     public void onClick(View v) {
         Bundle bundle = new Bundle();
         Video video = null;
+        String userId = PreferenceUtils.getString(context,AppConstant.USERID,"");
         switch (v.getId()) {
             case R.id.lemon_but_search:
                 MobclickAgent.onEvent(context, "lemon_but_search");
@@ -598,15 +607,28 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                 startActivity(MovieDetailsActivity.class,bundle);
                 break;
             case R.id.page2_item2:
-
+                MobclickAgent.onEvent(context, "page2_item2");
+                bundle.putString("videoId", video.getVideoId());
+                bundle.putString("SerialEpisodeId", "");
+                bundle.putString("videoName", video.getTitle());
+                bundle.putString("videoType",video.getVideoTypeId());
+                startActivity(PlayActivity.class,bundle);
                 break;
             case R.id.page2_item3:
                 MobclickAgent.onEvent(context, "page2_item3");
-
+                bundle.putString("videoId", video.getVideoId());
+                bundle.putString("SerialEpisodeId", "");
+                bundle.putString("videoName", video.getTitle());
+                bundle.putString("videoType",video.getVideoTypeId());
+                startActivity(PlayActivity.class, bundle);
                 break;
             case R.id.page2_item4:
                 MobclickAgent.onEvent(context, "page2_item4");
-
+                bundle.putString("videoId", video.getVideoId());
+                bundle.putString("SerialEpisodeId", "");
+                bundle.putString("videoName", video.getTitle());
+                bundle.putString("videoType",video.getVideoTypeId());
+                startActivity(PlayActivity.class, bundle);
                 break;
             case R.id.page2_item5:
                 MobclickAgent.onEvent(context, "page2_item5");
@@ -692,5 +714,31 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
             return false;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(msgReceiver);
+    }
+
+    /**
+     * 自定义广播接收器，用于接收服务发出的信息
+     */
+    class MsgReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String state = intent.getStringExtra("state");
+            Gson gson = new Gson();
+            DeviceLogin.Data user = gson.fromJson(state, DeviceLogin.Data.class);
+            if (user != null) {
+                PreferenceUtils.putString(context, AppConstant.USERID, user.getId());
+                PreferenceUtils.putString(context, AppConstant.USERNAME, user.getNickName());
+                PreferenceUtils.putString(context, AppConstant.USERIMG, user.getHeadImgUrl());
+                PreferenceUtils.putString(context, AppConstant.USERMOBILE, user.getMobile());
+                ((TextView)findViewById(R.id.lemon_main_nick)).setText(PreferenceUtils.getString(context, AppConstant.USERNAME, "未登录"));
+            }
+        }
     }
 }

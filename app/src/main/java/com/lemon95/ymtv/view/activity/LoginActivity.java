@@ -1,5 +1,9 @@
 package com.lemon95.ymtv.view.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
@@ -11,12 +15,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.lemon95.ymtv.R;
+import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.service.MyPushIntentService;
 import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
+import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.QRUtils;
+import com.lemon95.ymtv.utils.ToastUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.common.message.UmengMessageDeviceConfig;
 import com.umeng.message.IUmengRegisterCallback;
@@ -31,9 +39,14 @@ public class LoginActivity extends BaseActivity {
     private ImageView lemon_qr;
     private PushAgent mPushAgent;
     public Handler handler = new Handler();
+    private MsgReceiver msgReceiver;
 
     @Override
     protected int getLayoutId() {
+        msgReceiver = new MsgReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.lemon.login.RECEIVER");
+        registerReceiver(msgReceiver, intentFilter);
         return R.layout.activity_login;
     }
 
@@ -109,6 +122,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(msgReceiver);
         //离开后关闭推送服务
        // mPushAgent.disable(iUmengUnregisterCallback);
     }
@@ -120,5 +134,38 @@ public class LoginActivity extends BaseActivity {
             updateStatus(1);
         }
     };
+
+    /**
+     * 自定义广播接收器，用于接收服务发出的信息
+     */
+    class MsgReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String state = intent.getStringExtra("state");
+            Gson gson = new Gson();
+            DeviceLogin.Data user = gson.fromJson(state, DeviceLogin.Data.class);
+            if (user != null) {
+                PreferenceUtils.putString(context, AppConstant.USERID, user.getId());
+                PreferenceUtils.putString(context, AppConstant.USERNAME,user.getNickName());
+                PreferenceUtils.putString(context, AppConstant.USERIMG,user.getHeadImgUrl());
+                PreferenceUtils.putString(context, AppConstant.USERMOBILE,user.getMobile());
+                String pageType = PreferenceUtils.getString(context,AppConstant.PAGETYPE);
+                if ("1".equals(pageType)) {
+                    //去私人定制页面
+                    Intent intent1 = new Intent();
+                    intent1.setClass(context, NeedMovieActivity.class);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent1);
+                } else if("2".equals(pageType)) {
+                    //去用户信息页面
+                    Intent intent1 = new Intent();
+                    intent1.setClass(context, UserActivity.class);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent1);
+                }
+            }
+        }
+    }
 
 }

@@ -10,6 +10,8 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.lemon95.ymtv.R;
@@ -38,6 +40,8 @@ public class SplashActivity extends BaseActivity implements ISplashActivity{
     private ImageView lemon_splash_id;
     private PushAgent mPushAgent;
     public Handler handler = new Handler();
+    public LinearLayout lemon_updata_pro;
+    public ProgressBar mProgress; //下载进度条控件
 
     @Override
     protected int getLayoutId() {
@@ -92,6 +96,8 @@ public class SplashActivity extends BaseActivity implements ISplashActivity{
     @Override
     protected void setupViews() {
         // 方法1 Android获得屏幕的宽和高
+        lemon_updata_pro = (LinearLayout) findViewById(R.id.lemon_updata_pro);
+        mProgress = (ProgressBar) findViewById(R.id.update_progress);
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metric);
         int width = metric.widthPixels;  // 屏幕宽度（像素）

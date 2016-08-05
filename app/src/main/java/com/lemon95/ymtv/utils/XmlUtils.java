@@ -3,7 +3,13 @@ package com.lemon95.ymtv.utils;
 import android.util.Xml;
 
 import com.lemon95.ymtv.bean.Unifiedorder;
+import com.lemon95.ymtv.bean.Version;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -11,6 +17,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created by WXT on 2016/8/3.
@@ -45,5 +55,43 @@ public class XmlUtils {
             unifiedorder.setReturn_code(return_code);
         }
         return unifiedorder;
+    }
+
+    /**
+     * ﻿<?xml version="1.0" encoding="utf-8" ?>
+     <Broadcast>
+     <Version>1.0.3</Version>
+     <Url>http://resource.lemon95.com/App/Android/Broadcast/wyzqTVPlayer1.0.1.apk</Url>
+     <IsForced>False</IsForced>
+     <Description>1.0.3</Description>
+     </Broadcast>
+     * @param ver
+     * @return
+     */
+    public static Version formentVersion(String ver) throws Exception {
+        Version version = new Version();
+        ver = String.format(ver);
+        InputStream inputStream = new ByteArrayInputStream(ver.getBytes("UTF-8"));
+        XmlPullParser xmlPullParser = Xml.newPullParser();
+        xmlPullParser.setInput(inputStream,"utf-8");
+        int eventType = xmlPullParser.getEventType();
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            switch (eventType) {
+                case XmlPullParser.START_TAG:
+                    if (xmlPullParser.getName().equals("Version")) {
+                        version.setVersionId(xmlPullParser.nextText());
+                    } else if (xmlPullParser.getName().equals("Url")) {
+                        version.setUrl(xmlPullParser.nextText());
+                    } else if (xmlPullParser.getName().equals("IsForced")) {
+                        version.setIsUpdate(xmlPullParser.nextText());
+                    } else if (xmlPullParser.getName().equals("Description")) {
+                        version.setMsg(xmlPullParser.nextText());
+                    }
+                    break;
+            }
+            eventType = xmlPullParser.next();
+        }
+        return version;
+
     }
 }

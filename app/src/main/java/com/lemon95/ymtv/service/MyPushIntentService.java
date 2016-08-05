@@ -2,6 +2,7 @@ package com.lemon95.ymtv.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.Tag;
 
 import com.google.gson.Gson;
 import com.lemon95.ymtv.bean.DeviceLogin;
@@ -36,6 +37,8 @@ public class MyPushIntentService extends UmengBaseIntentService {
 	private static final String TAG = MyPushIntentService.class.getName();
 
 	private Intent intents = new Intent("com.lemon.push.RECEIVER");
+	private Intent intent2 = new Intent("com.lemon.login.RECEIVER");
+	private Intent intent3 = new Intent("com.lemon.Main.RECEIVER");
 
 	@Override
 	protected void onMessage(Context context, Intent intent) {
@@ -64,31 +67,15 @@ public class MyPushIntentService extends UmengBaseIntentService {
 			Map<String,String> map = msg.extra;
 			if (map != null) {
 				String messageType = map.get("messageType");
-				if ("1".equals(messageType)) {
+				String userId = PreferenceUtils.getString(context,AppConstant.USERID);
+				LogUtils.e(TAG,"用户ID：" + userId);
+				if ("1".equals(messageType) && StringUtils.isBlank(userId)) {
 					//扫描登录
-					Gson gson = new Gson();
-					DeviceLogin.Data user = gson.fromJson(msg.custom, DeviceLogin.Data.class);
-					if (user != null) {
-						PreferenceUtils.putString(context, AppConstant.USERID,user.getId());
-						PreferenceUtils.putString(context, AppConstant.USERNAME,user.getNickName());
-						PreferenceUtils.putString(context, AppConstant.USERIMG,user.getHeadImgUrl());
-						PreferenceUtils.putString(context, AppConstant.USERMOBILE,user.getMobile());
-						String pageType = PreferenceUtils.getString(context,AppConstant.PAGETYPE);
-						if ("1".equals(pageType)) {
-							//去私人定制页面
-							Intent intent1 = new Intent();
-							intent1.setClass(context, NeedMovieActivity.class);
-							intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							context.startActivity(intent1);
-						} else if("2".equals(pageType)) {
-							//去用户信息页面
-							Intent intent1 = new Intent();
-							intent1.setClass(context, UserActivity.class);
-							intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							context.startActivity(intent1);
-						}
-					}
-				} else if("2".equals(messageType)){
+					intent2.putExtra("state", msg.custom);
+					intent3.putExtra("state", msg.custom);
+					sendBroadcast(intent2);
+					sendBroadcast(intent3);
+				} else if("2".equals(messageType) && StringUtils.isNotBlank(userId)){
 					//支付成功{"builder_id":0,"custom":"{\"state\":true}"},"extra":{"messageType":2}}
 					JSONObject json = new JSONObject(msg.custom);
 					String state = json.getString("state");

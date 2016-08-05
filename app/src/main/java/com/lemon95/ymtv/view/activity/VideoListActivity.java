@@ -81,6 +81,7 @@ public class VideoListActivity extends BaseActivity {
         lemon_video_menu_id.requestFocus();
         gridViewAdapter = new GridViewAdapter(videoList,context);
         gridView.setAdapter(gridViewAdapter);
+        gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         gridView.setFocusable(false);  //初始化时不让Gridview抢焦点
         lemon_video_menu_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -173,10 +174,20 @@ public class VideoListActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 VideoSearchList.Data.VideoBriefs video = videoList.get(position);
-                Bundle bundle = new Bundle();
-                bundle.putString("videoId",video.getVideoId());
-                bundle.putString("videoType",video.getVideoTypeId());
-                startActivity(MovieDetailsActivity.class,bundle);
+                if (AppConstant.FUNNY.equals(video.getVideoTypeId())) {
+                    //搞笑
+                    Bundle bundle = new Bundle();
+                    bundle.putString("videoId", video.getVideoId());
+                    bundle.putString("SerialEpisodeId", "");
+                    bundle.putString("videoName", video.getVideoName());
+                    bundle.putString("videoType",video.getVideoTypeId());
+                    startActivity(PlayActivity.class,bundle);
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("videoId",video.getVideoId());
+                    bundle.putString("videoType",video.getVideoTypeId());
+                    startActivity(MovieDetailsActivity.class,bundle);
+                }
             }
         });
         gridView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -233,10 +244,10 @@ public class VideoListActivity extends BaseActivity {
 
     private void switchNoDrawBridgeVersion() {
         EffectNoDrawBridge effectNoDrawBridge = new EffectNoDrawBridge();
-        effectNoDrawBridge.setTranDurAnimTime(20);
+        effectNoDrawBridge.setTranDurAnimTime(10);
         mainUpView2.setEffectBridge(effectNoDrawBridge); // 4.3以下版本边框移动.
         mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
-        mainUpView2.setDrawUpRectPadding(new Rect(10, -6, 9, -41)); // 边框图片设置间距.
+        mainUpView2.setDrawUpRectPadding(new Rect(10, -8, 7, -41)); // 边框图片设置间距.
     }
 
     @Override

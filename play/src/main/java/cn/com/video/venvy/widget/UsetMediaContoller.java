@@ -384,7 +384,7 @@ public class UsetMediaContoller extends JjMediaContoller {
         private WeakReference<UsetMediaContoller> mc;
 
         public MHandler(UsetMediaContoller mc) {
-            this.mc = new WeakReference<>(mc);
+            this.mc = new WeakReference<UsetMediaContoller>(mc);
         }
 
         @Override

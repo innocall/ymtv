@@ -119,4 +119,5 @@ public interface IMovieBean {
     public void unifiedorder(String xml,MovieDao.OnUnifiedorderListener onUnifiedorderListener);
 
     public void getFirstLettersSearch(String firstLetters,String currentPage,String pageSize,MovieDao.OnFirstLettersSearchListener onFirstLettersSearchListener);
+
 }

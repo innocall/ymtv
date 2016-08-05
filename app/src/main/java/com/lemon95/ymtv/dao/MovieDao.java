@@ -11,9 +11,7 @@ import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.PersonalMovies;
-import com.lemon95.ymtv.bean.Recommend;
 import com.lemon95.ymtv.bean.SerialDitions;
-import com.lemon95.ymtv.bean.Unifiedorder;
 import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.VideoSearchList;
 import com.lemon95.ymtv.bean.VideoWatchHistory;
@@ -23,7 +21,6 @@ import com.lemon95.ymtv.utils.LogUtils;
 
 import java.util.List;
 
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -446,4 +443,5 @@ public class MovieDao implements IMovieBean{
         void onSuccess(FirstLettersSearch firstLettersSearch);
         void onFailure(Throwable e);
     }
+
 }
