@@ -13,6 +13,7 @@ import com.lemon95.ymtv.bean.WxPayDto;
 import com.lemon95.ymtv.bean.impl.IMovieBean;
 import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.dao.MovieDao;
+import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.RandomSecquenceCreator;
@@ -214,7 +215,8 @@ public class PlayMoviePresenter {
                     dto.setPartnerkey(AppConstant.partnerKey);
                     dto.setNotifyUrl(data.getNotifyUrl()); //支付完回调
                     dto.setOrderId(data.getOutTradeNo());
-                    dto.setBody(data.getSubject());
+                    //dto.setBody(data.getSubject());
+                    dto.setBody("tv_number=" + AppSystemUtils.getDeviceId());
                     dto.setTotalFee(WeixinUtil.getMoney(data.getTotalFee()));
                     // 生成订单签名
                     String sign = WeixinUtil.getmSign(dto);

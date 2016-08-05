@@ -352,6 +352,7 @@ public class PlayActivity extends BaseActivity {
         lemon_pay.setVisibility(View.VISIBLE);
         mVideoView.pause(); //暂停播放
         isTop = false;
+        videoJjMediaContoller.hide();
     }
 
     public void initPay(String url) {
