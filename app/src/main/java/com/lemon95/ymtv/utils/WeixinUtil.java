@@ -25,6 +25,7 @@ public class WeixinUtil {
 		SortedMap<String, String> packageParams = new TreeMap();
 		packageParams.put("appid", wxPay.getAppid());
 		packageParams.put("mch_id", wxPay.getMch_id());
+		packageParams.put("device_info", wxPay.getDevice_info());
 		packageParams.put("nonce_str", wxPay.getNonce_str());
 		packageParams.put("body", wxPay.getBody());
 //		packageParams.put("attach", "");
@@ -62,7 +63,7 @@ public class WeixinUtil {
 	 */
 	public static String getCodeUrl(WxPayDto wxPay) {
 		String xml = "<xml><appid>" + wxPay.getAppid() + "</appid>"
-				+ "<mch_id>" + wxPay.getMch_id() + "</mch_id>" + "<nonce_str>"
+				+ "<mch_id>" + wxPay.getMch_id() + "</mch_id>" + "<device_info><![CDATA[" + wxPay.getDevice_info() + "]]></device_info><nonce_str>"
 				+ wxPay.getNonce_str() + "</nonce_str>" + "<sign>"
 				+ wxPay.getSign() + "</sign>" + "<body><![CDATA["
 				+ wxPay.getBody() + "]]></body>" + "<out_trade_no>"

@@ -43,9 +43,11 @@
             android:name="UMENG_CHANNEL"
             android:value="ymtv" />
 
-        <service
+       <service
             android:name=".service.MyPushIntentService"
             android:process=":push" />
+       <!-- <service
+            android:name=".service.MyPushIntentService"/>-->
 
         <activity
             android:name=".view.activity.SplashActivity"

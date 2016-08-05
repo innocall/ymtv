@@ -11,6 +11,7 @@
         android:layout_gravity="center"
         android:padding="@dimen/px10"
         android:textSize="@dimen/px36"
+        android:textColor="#f7f6f6"
         android:background="#dc000000"/>
 
 </LinearLayout>

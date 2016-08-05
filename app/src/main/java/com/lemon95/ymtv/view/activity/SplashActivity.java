@@ -47,7 +47,7 @@ public class SplashActivity extends BaseActivity implements ISplashActivity{
         LogUtils.i(TAG, "别名：" + AppSystemUtils.getDeviceId());
         mPushAgent.setExclusiveAlias(AppSystemUtils.getDeviceId(), ALIAS_TYPE.SINA_WEIBO);
         mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
-        //mPushAgent.enable(mRegisterCallback);
+        mPushAgent.enable(mRegisterCallback);
         return R.layout.activity_splash;
     }
 

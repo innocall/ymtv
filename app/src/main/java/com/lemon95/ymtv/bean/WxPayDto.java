@@ -19,7 +19,7 @@ public class WxPayDto {
 	private String sign;//签名
 	private String nonce_str; //随机字符串
 	private String product_id; //商品ID
-	
+	private String device_info; //设备号
 	
 	
 	public String getOpenId() {
@@ -94,6 +94,12 @@ public class WxPayDto {
 	public void setProduct_id(String product_id) {
 		this.product_id = product_id;
 	}
-	 
 
+	public String getDevice_info() {
+		return device_info;
+	}
+
+	public void setDevice_info(String device_info) {
+		this.device_info = device_info;
+	}
 }

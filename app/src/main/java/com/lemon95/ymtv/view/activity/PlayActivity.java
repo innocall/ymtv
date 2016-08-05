@@ -1,7 +1,10 @@
 package com.lemon95.ymtv.view.activity;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Handler;
@@ -69,6 +72,7 @@ public class PlayActivity extends BaseActivity {
     private LinearLayout lemon_pay;
     private boolean isTop = true; //是否能够点击
     public boolean isPro = false;
+    private MsgReceiver msgReceiver;
     private Handler mHandler = new Handler(){
 
         @Override
@@ -84,6 +88,11 @@ public class PlayActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
+        //动态注册广播接收器
+        msgReceiver = new MsgReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.lemon.push.RECEIVER");
+        registerReceiver(msgReceiver, intentFilter);
         return R.layout.activity_play;
     }
 
@@ -250,6 +259,7 @@ public class PlayActivity extends BaseActivity {
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
+        unregisterReceiver(msgReceiver);
         playMoviePresenter.setIsParam(false);
         //上传播放记录
         VideoWatchHistory videoWatchHistory = new VideoWatchHistory();
@@ -392,6 +402,24 @@ public class PlayActivity extends BaseActivity {
             }
         }
     };
+
+    /**
+     * 自定义广播接收器，用于接收服务发出的信息
+     */
+    class MsgReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String state = intent.getStringExtra("state");
+            if ("true".equals(state)) {
+                ToastUtils.showBgToast("支付成功",context);
+                hidePay();
+            } else {
+                ToastUtils.showBgToast("支付失败",context);
+            }
+        }
+    }
+
 
     public void showLL() {
         lemon_ll_pro.setVisibility(View.VISIBLE);

@@ -35,6 +35,8 @@ import java.util.Map;
 public class MyPushIntentService extends UmengBaseIntentService {
 	private static final String TAG = MyPushIntentService.class.getName();
 
+	private Intent intents = new Intent("com.lemon.push.RECEIVER");
+
 	@Override
 	protected void onMessage(Context context, Intent intent) {
 		// 需要调用父类的函数，否则无法统计到消息送达
@@ -47,6 +49,7 @@ public class MyPushIntentService extends UmengBaseIntentService {
 			LogUtils.e(TAG, "custom=" + msg.custom);    //自定义消息的内容
 			LogUtils.e(TAG, "title=" + msg.title);    //通知标题
 			LogUtils.e(TAG, "text=" + msg.text);    //通知内容
+
 			// 对完全自定义消息的处理方式，点击或者忽略
 			boolean isClickOrDismissed = true;
 			if(isClickOrDismissed) {
@@ -85,6 +88,12 @@ public class MyPushIntentService extends UmengBaseIntentService {
 							context.startActivity(intent1);
 						}
 					}
+				} else if("2".equals(messageType)){
+					//支付成功{"builder_id":0,"custom":"{\"state\":true}"},"extra":{"messageType":2}}
+					JSONObject json = new JSONObject(msg.custom);
+					String state = json.getString("state");
+					intents.putExtra("state", state);
+					sendBroadcast(intents);
 				}
 			}
 		} catch (Exception e) {

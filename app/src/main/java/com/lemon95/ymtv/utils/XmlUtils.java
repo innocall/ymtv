@@ -38,9 +38,11 @@ public class XmlUtils {
         Unifiedorder unifiedorder = new Unifiedorder();
         if (StringUtils.isNotBlank(xmlStr)) {
             String return_code = xmlStr.substring(xmlStr.indexOf("<return_code><![CDATA[") + 22,xmlStr.indexOf("]]></return_code>"));
-            String code_url = xmlStr.substring(xmlStr.indexOf("<code_url><![CDATA[") + 19,xmlStr.indexOf("]]></code_url>"));
+            if ("SUCCESS".equals(return_code)) {
+                String code_url = xmlStr.substring(xmlStr.indexOf("<code_url><![CDATA[") + 19,xmlStr.indexOf("]]></code_url>"));
+                unifiedorder.setCode_url(code_url);
+            }
             unifiedorder.setReturn_code(return_code);
-            unifiedorder.setCode_url(code_url);
         }
         return unifiedorder;
     }

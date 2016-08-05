@@ -1,6 +1,11 @@
 package com.lemon95.ymtv.presenter;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+
 import com.google.gson.Gson;
 import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.Movie;
@@ -18,6 +23,7 @@ import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.RandomSecquenceCreator;
 import com.lemon95.ymtv.utils.StringUtils;
+import com.lemon95.ymtv.utils.ToastUtils;
 import com.lemon95.ymtv.utils.WeixinUtil;
 import com.lemon95.ymtv.utils.XmlUtils;
 import com.lemon95.ymtv.view.activity.PlayActivity;
@@ -210,13 +216,13 @@ public class PlayMoviePresenter {
                     WxPayDto dto = new WxPayDto();
                     dto.setAppid(AppConstant.appid);
                     dto.setMch_id(AppConstant.mch_id);
+                    dto.setDevice_info(AppSystemUtils.getDeviceId());
                     dto.setNonce_str(WeixinUtil.getNonceStr());
                     dto.setSpbillCreateIp(AppConstant.spbillCreateIp);
                     dto.setPartnerkey(AppConstant.partnerKey);
                     dto.setNotifyUrl(data.getNotifyUrl()); //支付完回调
                     dto.setOrderId(data.getOutTradeNo());
-                    //dto.setBody(data.getSubject());
-                    dto.setBody("tv_number=" + AppSystemUtils.getDeviceId());
+                    dto.setBody(data.getSubject());
                     dto.setTotalFee(WeixinUtil.getMoney(data.getTotalFee()));
                     // 生成订单签名
                     String sign = WeixinUtil.getmSign(dto);

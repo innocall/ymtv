@@ -110,7 +110,7 @@ public class LoginActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         //离开后关闭推送服务
-        mPushAgent.disable(iUmengUnregisterCallback);
+       // mPushAgent.disable(iUmengUnregisterCallback);
     }
 
     public IUmengUnregisterCallback iUmengUnregisterCallback = new IUmengUnregisterCallback() {
