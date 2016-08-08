@@ -1,6 +1,7 @@
 package com.lemon95.ymtv.view.activity;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -53,15 +54,18 @@ public class SerialActivity extends BaseActivity {
     protected void initialized() {
         serialAdapter = new SerialAdapter(serialEpisodes,context);
         lemon_gridview.setAdapter(serialAdapter);
+        lemon_gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
         lemon_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SerialDitions.Data.SerialEpisodes ser = serialEpisodes.get(position);
                 Bundle bundle = new Bundle();
-                bundle.putString("videoId", ser.getId());  //剧集ID
-                bundle.putString("videoName", getIntent().getStringExtra("videoName") + "(第" + ser.getSerialIndex() + "集)");
+                bundle.putString("videoId", ser.getSerialId());  //剧集ID
+                bundle.putString("videoName", getIntent().getStringExtra("videoName"));
                 bundle.putString("videoType", AppConstant.SERIALS);
-                bundle.putString("SerialEpisodeId", ser.getSerialId());
+                bundle.putString("SerialEpisodeId", ser.getId());
+                bundle.putInt("index", position + 1);
+                bundle.putParcelableArrayList("SerialEpisodes", serialEpisodes);
                 startActivity(PlayActivity.class, bundle);
             }
         });

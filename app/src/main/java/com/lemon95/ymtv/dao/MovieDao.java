@@ -8,6 +8,7 @@ import com.lemon95.ymtv.bean.FavoritesBean;
 import com.lemon95.ymtv.bean.FirstLettersSearch;
 import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.GenresMovie;
+import com.lemon95.ymtv.bean.GetOrder;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.PersonalMovies;
@@ -374,6 +375,24 @@ public class MovieDao implements IMovieBean{
                 });
     }
 
+    @Override
+    public void getOrder(String order, final OnOrderListener onOrderListener) {
+        ApiManager.getOrder(order).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<GetOrder>() {
+
+                    @Override
+                    public void call(GetOrder order1) {
+                        onOrderListener.onSuccess(order1);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        onOrderListener.onFailure(throwable);
+                    }
+                });
+    }
+
     public interface OnMovieDetailsListener{
         void onSuccess(Movie movie);  //获取成功
         void onFailure(Throwable e);  //获取失败
@@ -443,5 +462,12 @@ public class MovieDao implements IMovieBean{
         void onSuccess(FirstLettersSearch firstLettersSearch);
         void onFailure(Throwable e);
     }
+
+    public interface OnOrderListener{
+        void onSuccess(GetOrder getOrder);
+        void onFailure(Throwable e);
+    }
+
+
 
 }

@@ -3,6 +3,7 @@ package com.lemon95.androidtvwidget.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.GridView;
@@ -56,10 +57,36 @@ public class GridViewTV extends GridView {
 
 	@Override
 	protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
-		int lastSelectItem = getSelectedItemPosition();
-		super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
-		if (gainFocus) {
-			setSelection(lastSelectItem);
-		}
+		/*if(19 <= Build.VERSION.SDK_INT){
+			super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
+		} else {*/
+			int lastSelectItem = getSelectedItemPosition();
+			super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
+			if (gainFocus) {
+				setSelection(lastSelectItem);
+			}
+		//}
+
 	}
+
+	/**
+	 * 屏蔽android4.4 setAdapter时View抢焦点的BUG
+	 */
+	/*@Override
+	public boolean isInTouchMode() {
+		if(19 == Build.VERSION.SDK_INT){
+			return !(hasFocus() && !super.isInTouchMode());
+		}else{
+			return super.isInTouchMode();
+		}
+	}*/
+
+	/*@Override
+	public boolean isInTouchMode() {
+		if(19 <= Build.VERSION.SDK_INT){
+			return !(hasFocus() && !super.isInTouchMode());
+		}else{
+			return super.isInTouchMode();
+		}
+	}*/
 }

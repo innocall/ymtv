@@ -2,12 +2,15 @@ package com.lemon95.ymtv.view.activity;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.text.Html;
 import android.view.KeyEvent;
@@ -19,17 +22,22 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.lemon95.ymtv.R;
+import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.VideoWatchHistory;
 import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.myview.VerticalProgressBar;
 import com.lemon95.ymtv.presenter.PlayMoviePresenter;
+import com.lemon95.ymtv.service.PayService;
 import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.PreferenceUtils;
+import com.lemon95.ymtv.utils.StringUtils;
 import com.lemon95.ymtv.utils.ToastUtils;
 
 import com.lemon95.ymtv.myview.VideoMediaContoller;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.ArrayList;
 
 import cn.com.video.venvy.param.JjVideoView;
 import cn.com.video.venvy.param.OnJjBufferCompleteListener;
@@ -73,6 +81,9 @@ public class PlayActivity extends BaseActivity {
     private boolean isTop = true; //是否能够点击
     public boolean isPro = false;
     private MsgReceiver msgReceiver;
+    private ArrayList<SerialDitions.Data.SerialEpisodes> serialEpisodes; //电视剧剧集
+    public String orderId; //订单ID
+    private int index = 1;  //当前第几集
     private Handler mHandler = new Handler(){
 
         @Override
@@ -98,7 +109,9 @@ public class PlayActivity extends BaseActivity {
 
     @Override
     protected void setupViews() {
+        serialEpisodes = getIntent().getParcelableArrayListExtra("SerialEpisodes");
         isPersonal = getIntent().getBooleanExtra("isPersonal", false);
+        index = getIntent().getIntExtra("index",1);
         videoId = getIntent().getStringExtra("videoId");
         videoType = getIntent().getStringExtra("videoType");
         SerialEpisodeId = getIntent().getStringExtra("SerialEpisodeId");
@@ -169,14 +182,22 @@ public class PlayActivity extends BaseActivity {
 
             @Override
             public void onJjBufferCompleteListener(int arg0) {
+                mLoadBufferView.setVisibility(View.GONE);
             }
         });
         //视频播放完毕
         mVideoView.setOnJjCompletionListener(new OnJjCompletionListener() {
             @Override
             public void onJjCompletion() {
-                showMsg("播放完毕");
-                finish();
+                if (serialEpisodes != null && serialEpisodes.size() > index && AppConstant.SERIALS.equals(videoType)) {
+                    showMsg("自动进入下一集");
+                    SerialEpisodeId = serialEpisodes.get(index).getId();
+                    playMoviePresenter.getPlaySerialUrl(SerialEpisodeId);
+                    index = index + 1;
+                } else {
+                    finish();
+                    showMsg("播放完毕");
+                }
             }
         });
         mVideoView.setOnJjOpenFailedListener(new OnJjOnOpenFailedListener() {
@@ -188,7 +209,7 @@ public class PlayActivity extends BaseActivity {
                     String userId = PreferenceUtils.getString(context,AppConstant.USERID,"");
                     playMoviePresenter.initPageData(videoId, userId, isPersonal);
                 } else if(AppConstant.SERIALS.equals(videoType)) {
-                    playMoviePresenter.getPlaySerialUrl(videoId);
+                    playMoviePresenter.getPlaySerialUrl(SerialEpisodeId);
                 }
                 return false;
             }
@@ -232,7 +253,11 @@ public class PlayActivity extends BaseActivity {
         String name = getIntent().getStringExtra("videoName");
         mVideoView.setVideoJjResetState();
         mVideoView.setVideoJjType(3);
-        mVideoView.setVideoJjTitle(name);
+        if (AppConstant.MOVICE.equals(videoType)) {
+            mVideoView.setVideoJjTitle(name);
+        } else {
+            mVideoView.setVideoJjTitle(name + "(第" + index + "集)");
+        }
         mVideoView.setResourceVideo(url);
     }
 
@@ -259,6 +284,8 @@ public class PlayActivity extends BaseActivity {
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
+        //停止
+        unbindService();
         unregisterReceiver(msgReceiver);
         playMoviePresenter.setIsParam(false);
         //上传播放记录
@@ -359,17 +386,45 @@ public class PlayActivity extends BaseActivity {
     }
 
     public void showPay() {
+        //开始服务
+        bind();
         lemon_pay.setVisibility(View.VISIBLE);
         mVideoView.pause(); //暂停播放
         isTop = false;
         videoJjMediaContoller.hide();
     }
 
+    private boolean binded;
+
+    // 创建一个 ServiceConnection 对象
+    final ServiceConnection payService = new ServiceConnection () {
+
+        //服务关闭和杀死调用
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+        //服务成功时被调用
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            binded = true;
+            /*new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    LogUtils.i(TAG, "-------a-------");
+                }
+            }.start();*/
+            playMoviePresenter.isOrder = false;
+            playMoviePresenter.findOrder(orderId);
+        }
+    };
+
     public void initPay(String url) {
         ImageLoader.getInstance().displayImage(url,lemon_pay_img);
     }
 
     public void hidePay() {
+        //停止
+        unbindService();
         lemon_ll_pro.setVisibility(View.GONE);
         lemon_pay.setVisibility(View.GONE);
         mVideoView.start();
@@ -427,6 +482,25 @@ public class PlayActivity extends BaseActivity {
     }
 
     public void showMsg(String msg) {
-        ToastUtils.showBgToast(msg,context);
+        ToastUtils.showBgToast(msg, context);
+    }
+
+    /**
+     * 解除服务绑定
+     */
+    private void unbindService() {
+        if (binded) {
+            unbindService(payService);
+            binded = false;
+            playMoviePresenter.isOrder = true;
+        }
+    }
+
+    /**
+     * 绑定服务
+     */
+    public void bind() {
+        Intent intent = new Intent(this, PayService.class);
+        bindService(intent, payService, Context.BIND_AUTO_CREATE);
     }
 }

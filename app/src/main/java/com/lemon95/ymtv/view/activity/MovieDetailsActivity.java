@@ -27,6 +27,7 @@ import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.ImageUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.PreferenceUtils;
+import com.lemon95.ymtv.utils.StringUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -167,13 +168,17 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         this.data = data;
         ((TextView)findViewById(R.id.movie_details_name)).setText("《" + data.getMovieName() + "》");
         ((TextView)findViewById(R.id.movie_details_type)).setText("类型：" + data.getVideoGenres());
-        ((TextView)findViewById(R.id.movie_details_grade)).setText("评分：" + data.getScore());
+        String f = data.getScore();
+        if (StringUtils.isNotBlank(f)) {
+            f = f.substring(0,3);
+        }
+        ((TextView)findViewById(R.id.movie_details_grade)).setText("评分：" + f);
         ((TextView)findViewById(R.id.movie_details_direct)).setText("导演：" + data.getDirector());
         ((TextView)findViewById(R.id.movie_details_act)).setText("主演：" + data.getStarring());
         ((TextView)findViewById(R.id.movie_details_descri)).setText(data.getDescription());
         ImageView imageView = (ImageView)findViewById(R.id.movie_details_img_id);
         LogUtils.e(TAG, ImageUtils.getBigImg(data.getPicturePath()));
-        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + ImageUtils.getBigImg(data.getPicturePath()), imageView,options);
+        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + ImageUtils.getBigImg(data.getPicturePath()), imageView, options);
     }
 
     public void showPro() {
@@ -278,7 +283,9 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                     } else if(AppConstant.SERIALS.equals(videoType)) {
                         bundle.putString("SerialEpisodeId", serialData.getSerialEpisodes().get(0).getId());  //剧集ID
                         bundle.putString("videoId", serialData.getSerialEpisodes().get(0).getSerialId());
-                        bundle.putString("videoName", serialData.getSerialName() + "(第" + 1 + "集)");
+                        bundle.putString("videoName", serialData.getSerialName());
+                        bundle.putInt("index",0 + 1);
+                        bundle.putParcelableArrayList("SerialEpisodes",serialData.getSerialEpisodes());
                     }
                     bundle.putString("videoType",videoType);
                     startActivity(PlayActivity.class,bundle);
@@ -380,7 +387,11 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         this.serialData = data;
         ((TextView)findViewById(R.id.movie_details_name)).setText("《" + data.getSerialName() + "》");
         ((TextView)findViewById(R.id.movie_details_type)).setText("类型：" + data.getVideoGenres());
-        ((TextView)findViewById(R.id.movie_details_grade)).setText("评分：" + data.getScore());
+        String f = data.getScore();
+        if (StringUtils.isNotBlank(f)) {
+            f = f.substring(0,3);
+        }
+        ((TextView)findViewById(R.id.movie_details_grade)).setText("评分：" + f);
         ((TextView)findViewById(R.id.movie_details_direct)).setText("导演：" + data.getDirector());
         ((TextView)findViewById(R.id.movie_details_act)).setText("主演：" + data.getStarring());
         ((TextView)findViewById(R.id.movie_details_descri)).setText(data.getDescription());

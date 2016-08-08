@@ -1,3 +1,4 @@
+/*
 package com.lemon95.ymtv.service;
 
 import android.content.Context;
@@ -24,12 +25,6 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-/**
- * Developer defined push intent service. 
- * Remember to call {@link com.umeng.message.PushAgent#setPushIntentServiceClass(Class)}. 
- * @author lucas
- *
- */
 //完全自定义处理类
 //参考文档的1.6.5
 //http://dev.umeng.com/push/android/integration#1_6_5
@@ -88,3 +83,4 @@ public class MyPushIntentService extends UmengBaseIntentService {
 		}
 	}
 }
+*/

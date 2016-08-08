@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 
 import com.google.gson.Gson;
 import com.lemon95.ymtv.bean.ForWechat;
+import com.lemon95.ymtv.bean.GetOrder;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.RealSource;
@@ -45,6 +46,7 @@ public class PlayMoviePresenter {
     private PlayActivity playActivity;
     private IMovieBean iMovieBean;
     private boolean isParam = true;
+    public boolean isOrder = false;
 
     public PlayMoviePresenter(PlayActivity playActivity) {
         this.playActivity = playActivity;
@@ -135,6 +137,7 @@ public class PlayMoviePresenter {
     }
 
     public void getPlaySerialUrl(String videoId) {
+        LogUtils.i(TAG,"电视剧ID:" + videoId);
         iMovieBean.getSerialAnalysis(videoId, new MovieDao.OnSerialAnalysisListener() {
             @Override
             public void onSuccess(String movieSources) {
@@ -162,33 +165,33 @@ public class PlayMoviePresenter {
     }
 
     public void createUrl(final String xml) {
-       iMovieBean.unifiedorder(xml, new MovieDao.OnUnifiedorderListener(){
+       iMovieBean.unifiedorder(xml, new MovieDao.OnUnifiedorderListener() {
 
-            @Override
-            public void onSuccess(ResponseBody responseBody) {
-                try {
-                    String str = responseBody.string();
-                    LogUtils.e(TAG,str);
-                    Unifiedorder unifiedorder = XmlUtils.fiedorder(str);
-                    if (unifiedorder != null && "SUCCESS".equals(unifiedorder.getReturn_code())) {
-                        playActivity.initPay(AppConstant.QR_TOP + unifiedorder.getCode_url());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    if (isParam) {
-                        createUrl(xml);
-                    }
-                }
-            }
+           @Override
+           public void onSuccess(ResponseBody responseBody) {
+               try {
+                   String str = responseBody.string();
+                   LogUtils.e(TAG, str);
+                   Unifiedorder unifiedorder = XmlUtils.fiedorder(str);
+                   if (unifiedorder != null && "SUCCESS".equals(unifiedorder.getReturn_code())) {
+                       playActivity.initPay(AppConstant.QR_TOP + unifiedorder.getCode_url());
+                   }
+               } catch (Exception e) {
+                   e.printStackTrace();
+                   if (isParam) {
+                       createUrl(xml);
+                   }
+               }
+           }
 
-            @Override
-            public void onFailure(Throwable e) {
-                if (isParam) {
-                    createUrl(xml);
-                }
-                e.printStackTrace();
-            }
-        });
+           @Override
+           public void onFailure(Throwable e) {
+               if (isParam) {
+                   createUrl(xml);
+               }
+               e.printStackTrace();
+           }
+       });
     }
 
     public void addVideoHistory(VideoWatchHistory videoWatchHistory) {
@@ -212,6 +215,7 @@ public class PlayMoviePresenter {
             public void onSuccess(ForWechat forWechat) {
                 ForWechat.Data data = forWechat.getData();
                 if (data != null) {
+                    playActivity.orderId = data.getOutTradeNo();
                     // 统一下单
                     WxPayDto dto = new WxPayDto();
                     dto.setAppid(AppConstant.appid);
@@ -236,7 +240,7 @@ public class PlayMoviePresenter {
             @Override
             public void onFailure(Throwable e) {
                 if (isParam) {
-                    createOrder(userId,s,videoId);
+                    createOrder(userId, s, videoId);
                 }
                 e.printStackTrace();
             }
@@ -249,5 +253,32 @@ public class PlayMoviePresenter {
 
     public void setIsParam(boolean isParam) {
         this.isParam = isParam;
+    }
+
+    public void findOrder(final String orderId) {
+        if (StringUtils.isBlank(orderId) || isOrder) {
+            return;
+        }
+        iMovieBean.getOrder(orderId, new MovieDao.OnOrderListener() {
+            @Override
+            public void onSuccess(GetOrder getOrder) {
+                GetOrder.Data data = getOrder.getData();
+                if (data != null) {
+                    if ("1".equals(data.getStatus())) {
+                        //支付成功
+                        playActivity.hidePay();
+                    } else {
+                        findOrder(orderId);
+                    }
+                } else {
+                    findOrder(orderId);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                findOrder(orderId);
+            }
+        });
     }
 }

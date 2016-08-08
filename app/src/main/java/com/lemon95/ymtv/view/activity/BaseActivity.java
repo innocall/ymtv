@@ -19,7 +19,6 @@ import com.lemon95.ymtv.application.BaseApplication;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.message.PushAgent;
 
 /**
  * Created by WXT on 2016/7/8.
@@ -54,7 +53,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         //向用户展示信息前的准备工作在这个方法里处理
         preliminary();
         registerReceiver();
-        PushAgent.getInstance(context).onAppStart();  //推送服务
     }
 
     public void onResume() {

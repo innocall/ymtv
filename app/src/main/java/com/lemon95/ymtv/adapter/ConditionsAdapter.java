@@ -56,9 +56,9 @@ public class ConditionsAdapter extends BaseAdapter {
         }
         QueryConditions queryConditions = conditionsArrayList.get(position);
         holder.lemon_video_tv.setText(queryConditions.getName());
-        if (position == 0) {
+       /* if (position == 0) {
             holder.lemon_video_tv.setTextColor(Color.WHITE);
-        }
+        }*/
         return view;
     }
 

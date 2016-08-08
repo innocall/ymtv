@@ -9,6 +9,7 @@ import com.lemon95.ymtv.bean.FavoritesBean;
 import com.lemon95.ymtv.bean.FirstLettersSearch;
 import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.GenresMovie;
+import com.lemon95.ymtv.bean.GetOrder;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.PersonalMovies;
@@ -31,6 +32,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -310,5 +312,14 @@ public class ApiManager {
      */
     public static Observable<ResponseBody> downLoadFile(String url) {
         return apiManager.downLoadFile(url);
+    }
+
+    /**
+     * 查询订单信息
+     * @param orderNo
+     * @return
+     */
+    public static Observable<GetOrder> getOrder(String orderNo) {
+        return apiManager.getOrder(orderNo);
     }
 }

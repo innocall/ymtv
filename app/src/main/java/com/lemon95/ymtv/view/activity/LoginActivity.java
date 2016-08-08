@@ -8,36 +8,23 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.common.AppConstant;
-import com.lemon95.ymtv.service.MyPushIntentService;
 import com.lemon95.ymtv.utils.AppSystemUtils;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.QRUtils;
-import com.lemon95.ymtv.utils.ToastUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.umeng.common.message.UmengMessageDeviceConfig;
-import com.umeng.message.IUmengRegisterCallback;
-import com.umeng.message.IUmengUnregisterCallback;
-import com.umeng.message.MsgConstant;
-import com.umeng.message.PushAgent;
 
 import java.io.File;
 
 public class LoginActivity extends BaseActivity {
 
     private ImageView lemon_qr;
-    private PushAgent mPushAgent;
     public Handler handler = new Handler();
     private MsgReceiver msgReceiver;
 
@@ -54,12 +41,12 @@ public class LoginActivity extends BaseActivity {
     protected void setupViews() {
         lemon_qr = (ImageView) findViewById(R.id.lemon_qr);
         //初始化推送服务
-        mPushAgent = PushAgent.getInstance(getApplicationContext());
-        mPushAgent.enable(mRegisterCallback);
-        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
+//        mPushAgent = PushAgent.getInstance(getApplicationContext());
+//        mPushAgent.enable(mRegisterCallback);
+//        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
     }
 
-    public IUmengRegisterCallback mRegisterCallback = new IUmengRegisterCallback() {
+    /*public IUmengRegisterCallback mRegisterCallback = new IUmengRegisterCallback() {
 
         @Override
         public void onRegistered(String registrationId) {
@@ -73,12 +60,12 @@ public class LoginActivity extends BaseActivity {
             });
         }
 
-    };
+    };*/
 
     /**
      * 查看启动日志
      */
-    private void updateStatus(int i) {
+   /* private void updateStatus(int i) {
         String pkgName = getApplicationContext().getPackageName();
         String info = String.format("enabled:%s\nisRegistered:%s\nDeviceToken:%s\n" +
                         "SdkVersion:%s\nAppVersionCode:%s\nAppVersionName:%s",
@@ -95,7 +82,7 @@ public class LoginActivity extends BaseActivity {
             LogUtils.i(TAG,"再次开启推送服务");
             mPushAgent.enable(mRegisterCallback);
         }
-    }
+    }*/
 
 
 
@@ -127,13 +114,13 @@ public class LoginActivity extends BaseActivity {
        // mPushAgent.disable(iUmengUnregisterCallback);
     }
 
-    public IUmengUnregisterCallback iUmengUnregisterCallback = new IUmengUnregisterCallback() {
+   /* public IUmengUnregisterCallback iUmengUnregisterCallback = new IUmengUnregisterCallback() {
 
         @Override
         public void onUnregistered(String s) {
             updateStatus(1);
         }
-    };
+    };*/
 
     /**
      * 自定义广播接收器，用于接收服务发出的信息

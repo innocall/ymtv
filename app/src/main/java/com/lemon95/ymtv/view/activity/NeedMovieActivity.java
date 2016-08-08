@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,9 +77,6 @@ public class NeedMovieActivity extends BaseActivity {
         lemon_gridview.setAdapter(favoritesAdapter);
         mainUpView1.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
         LogUtils.i(TAG,AppSystemUtils.getSDKVersion() + "");
-        if (AppSystemUtils.getSDKVersion() == 19) {
-
-        }
         lemon_gridview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -87,6 +85,9 @@ public class NeedMovieActivity extends BaseActivity {
                  * 因为在重新加载数据以后会出问题.
                  */
                 LogUtils.i(TAG, "焦点改变");
+                if(19 < Build.VERSION.SDK_INT){
+                    isStart = true;
+                }
                 if (view != null && isStart) {
                     view.bringToFront();
                     mainUpView1.setFocusView(view, mOldView, 1.1f);

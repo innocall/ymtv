@@ -69,7 +69,7 @@ public class MovieDetailsPresenter {
             @Override
             public void onFailure(Throwable e) {
                 movieDetailsActivity.showToastLong("相关影视获取失败");
-                movieDetailsActivity.finish();
+                //movieDetailsActivity.finish();
             }
         });
     }
@@ -111,7 +111,7 @@ public class MovieDetailsPresenter {
             @Override
             public void onFailure(Throwable e) {
                 movieDetailsActivity.showToastLong("相关影视获取失败");
-                movieDetailsActivity.finish();
+                //movieDetailsActivity.finish();
             }
         });
     }

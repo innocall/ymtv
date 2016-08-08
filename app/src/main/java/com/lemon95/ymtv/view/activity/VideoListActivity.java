@@ -61,6 +61,7 @@ public class VideoListActivity extends BaseActivity {
     private TextView lemon_title;
     private boolean isPage = true; //是否在翻页
     private String totleCount = "0";
+    private boolean isStart = false;
 
     @Override
     protected int getLayoutId() {
@@ -86,7 +87,7 @@ public class VideoListActivity extends BaseActivity {
         lemon_video_menu_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (view != null) {
+                if (view != null && isStart) {
                     // 子控件置顶，必需使用ListViewTV才行，
                     // 不然焦点会错乱.
                     // 不要忘记这句关键的话哦.
@@ -104,8 +105,9 @@ public class VideoListActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 lemon_video_menu_id.setPoint(position);
-                TextView textView = (TextView)view.findViewById(R.id.lemon_video_tv);
-                textView.setTextColor(Color.WHITE);
+//                gridView.setSelection(0);  //点击前让第一个获取焦点
+//                mOpenEffectBridge.setVisibleWidget(true); // 隐藏
+//                mainUpView2.setUnFocusView(gridView.getChildAt(0));
                 if (mOldListView != null) {
                     TextView textView2 = (TextView) mOldListView.findViewById(R.id.lemon_video_tv);
                     textView2.setTextColor(getResources().getColor(R.color.lemon_b3aeae));
@@ -113,15 +115,15 @@ public class VideoListActivity extends BaseActivity {
                     TextView textView2 = (TextView)lemon_video_menu_id.getChildAt(0).findViewById(R.id.lemon_video_tv);
                     textView2.setTextColor(getResources().getColor(R.color.lemon_b3aeae));
                 }
+                //lemon_video_menu_id.setSelection(position);
+                TextView textView = (TextView)view.findViewById(R.id.lemon_video_tv);
+                textView.setTextColor(Color.WHITE);
                 mOldListView = view;
                 QueryConditions queryConditions = conditionsArrayList.get(position);
                 page = 1;
                 videoList.clear();
                 showPro2();
                 mOldGridView = null;
-                gridView.setSelection(0);
-                mOpenEffectBridge.setVisibleWidget(true); // 隐藏
-                mainUpView2.setUnFocusView(gridView.getChildAt(0));
                 lemon_title.setText(conditionsArrayList.get(position).getName());
                 videoListPresenter.getCombSearch(queryConditions.getAreaId(), queryConditions.getGenreId(), queryConditions.getGroupId(), queryConditions.getChargeMethod(), queryConditions.getVipLevel(), queryConditions.getYear(), queryConditions.getType(), page + "", AppConstant.PAGESIZE);
             }
@@ -132,6 +134,7 @@ public class VideoListActivity extends BaseActivity {
                 //View view = ((ListView)v).getSelectedView();
                // TextView textView = (TextView)view.findViewById(R.id.lemon_video_tv);
                 if (hasFocus) {
+                    isStart = false;
                     mOpenEffectBridge.setVisibleWidget(true);
                     lemon_video_menu_id.setSelector(R.drawable.lemon_liangguang_03);
                    // textView.setTextColor(getResources().getColor(R.color.lemon_b3aeae));
@@ -151,6 +154,12 @@ public class VideoListActivity extends BaseActivity {
                 if (view != null && mOldGridView != null) {
                     view.bringToFront();
                     mainUpView2.setFocusView(view, mOldGridView, 1.1f);
+                }
+                if (!isStart) {
+                    gridView.setFocusable(true);
+                    LogUtils.i(TAG, "离开焦点2");
+                    view.bringToFront();
+                    isStart = true;
                 }
                 mOldGridView = view;
                 int size = videoList.size();
@@ -196,15 +205,22 @@ public class VideoListActivity extends BaseActivity {
                 LogUtils.i(TAG, "gridView" + hasFocus);
                 if (hasFocus) {
                     mOpenEffectBridge.setVisibleWidget(false);
-                    if (mOldGridView == null) {
-                        mainUpView2.setFocusView(gridView.getSelectedView(),1.1f);
-                        mOldGridView = gridView.getSelectedView();
-                    } else {
-                        mainUpView2.setFocusView(mOldGridView,1.1f);
-                    }
+                    mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
+                    //if (isStart) {
+                        if (mOldGridView == null) {
+//                        View view = gridView.getChildAt(0);
+//                        mainUpView2.setFocusView(view,1.1f);
+                            View view = gridView.getSelectedView();
+                            mainUpView2.setFocusView(view,1.1f);
+                            mOldGridView = view;
+                        } else {
+                            mainUpView2.setFocusView(mOldGridView,1.1f);
+                        }
+                   // }
                 } else {
                     mainUpView2.setVisibility(View.GONE);
                     mOpenEffectBridge.setVisibleWidget(true); // 隐藏
+                    mainUpView2.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
                     mainUpView2.setUnFocusView(mOldGridView);
                 }
             }
@@ -295,6 +311,7 @@ public class VideoListActivity extends BaseActivity {
             totleCount = data.getTotalCount();
             videoList.addAll(data.getVideoBriefs());
             gridViewAdapter.notifyDataSetChanged();
+            isStart = false;
             hidePro2();
         }
       //  gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));

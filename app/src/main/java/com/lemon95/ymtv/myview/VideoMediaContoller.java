@@ -84,6 +84,7 @@ public class VideoMediaContoller extends VideoJjMediaContoller {
         if (totleTime > time) {
             mVideoView.seekTo(time);
         } else {
+            time = 0;
             playActivity.showMsg("即将播放完毕");
         }
     }

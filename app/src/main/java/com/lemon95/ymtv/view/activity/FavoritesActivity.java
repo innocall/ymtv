@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,6 +42,7 @@ public class FavoritesActivity extends BaseActivity{
     public int page = 1;
     private boolean isPage = true; //是否在翻页
     List<FavoritesBean.Data> dataList;
+    private boolean isStart = false;
 
     @Override
     protected int getLayoutId() {
@@ -71,11 +73,15 @@ public class FavoritesActivity extends BaseActivity{
                  * 因为在重新加载数据以后会出问题.
                  */
                 LogUtils.i(TAG, "焦点改变");
-                if (view != null) {
+                if(19 < Build.VERSION.SDK_INT){
+                    isStart = true;
+                }
+                if (view != null && isStart) {
                     view.bringToFront();
                     mainUpView1.setFocusView(view, mOldView, 1.1f);
                 }
                 mOldView = view;
+                isStart = true;
                 int size = videoList.size();
                 if (size - 15 < position && dataList != null && dataList.size() == Integer.parseInt(AppConstant.PAGESIZE)) {
                     if (isPage) {

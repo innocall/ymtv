@@ -7,6 +7,7 @@ import com.lemon95.ymtv.bean.FavoritesBean;
 import com.lemon95.ymtv.bean.FirstLettersSearch;
 import com.lemon95.ymtv.bean.ForWechat;
 import com.lemon95.ymtv.bean.GenresMovie;
+import com.lemon95.ymtv.bean.GetOrder;
 import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.PersonalMovies;
@@ -233,4 +234,11 @@ public interface ApiManagerService {
     @GET("/Media/TVs/FirstLettersSearch")
     Observable<FirstLettersSearch> getFirstLettersSearch(@Query("firstLetters") String firstLetters,@Query("currentPage")String currentPage,@Query("pageSize")String pageSize);
 
+    /**
+     * 查询订单信息
+     * @param orderNo
+     * @return
+     */
+    @GET("/Media/Pay/GetOrder")
+    Observable<GetOrder> getOrder(@Query("orderNo")String orderNo);
 }

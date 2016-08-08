@@ -19,7 +19,7 @@ public class ToastUtils {
         TextView chapterNameTV = (TextView) view.findViewById(R.id.chapterName);
         chapterNameTV.setText(msg);
         Toast toast = new Toast(context);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(view);
         toast.show();
     }

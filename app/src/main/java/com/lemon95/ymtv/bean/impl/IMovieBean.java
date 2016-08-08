@@ -120,4 +120,5 @@ public interface IMovieBean {
 
     public void getFirstLettersSearch(String firstLetters,String currentPage,String pageSize,MovieDao.OnFirstLettersSearchListener onFirstLettersSearchListener);
 
+    public void getOrder(String order,MovieDao.OnOrderListener onOrderListener);
 }
