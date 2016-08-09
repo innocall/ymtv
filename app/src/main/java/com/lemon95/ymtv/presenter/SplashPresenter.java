@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Recommend;
+import com.lemon95.ymtv.bean.Result;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.Video;
 import com.lemon95.ymtv.bean.VideoType;
@@ -318,27 +319,43 @@ public class SplashPresenter {
         }
     }
 
+    public void createToken() {
+        iSplashBean.GenerateToken(AppSystemUtils.getDeviceId(), new SplashDao.OnResultListener() {
+            @Override
+            public void onSuccess(Result deviceLogin) {
+                String token = deviceLogin.getData();
+                if (deviceLogin != null && StringUtils.isNotBlank(token)) {
+                    PreferenceUtils.putString(splashActivity,AppConstant.MACTOKEN,token);
+                    createOr(token);
+                }
+            }
 
+            @Override
+            public void onFailure(Throwable e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     public void start() {
         //检测版本更新
         checkVersion(splashActivity.getVersion());
         //生成登录二维码
-        createOr();
-        //登录
-        String userId = PreferenceUtils.getString(splashActivity,AppConstant.USERID);
-        if (StringUtils.isNotBlank(userId)) {
-            loginUser(userId,AppSystemUtils.getDeviceId());
+        String token = PreferenceUtils.getString(splashActivity,AppConstant.MACTOKEN,"");
+        if (StringUtils.isBlank(token)) {
+            createToken();
+        } else {
+            createOr(token);
+            loginUser(token);
         }
     }
 
     /**
      * 登录用户
-     * @param userId
-     * @param deviceId
+     * @param token
      */
-    private void loginUser(String userId, String deviceId) {
-        iSplashBean.deviceLogin(userId, deviceId, new SplashDao.OnDeviceLoginListener() {
+    private void loginUser(String token) {
+        iSplashBean.deviceLogin(token, new SplashDao.OnDeviceLoginListener() {
             @Override
             public void onSuccess(DeviceLogin deviceLogin) {
                 if (deviceLogin != null && deviceLogin.getData() != null) {
@@ -360,7 +377,7 @@ public class SplashPresenter {
     /**
      * 生成二维码
      */
-    private void createOr() {
+    private void createOr(String token) {
         String sdPath = Environment.getExternalStorageDirectory().getPath();
         String sdStatus = Environment.getExternalStorageState();
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
@@ -383,6 +400,6 @@ public class SplashPresenter {
         }
         LogUtils.e(TAG,"生成二维码");
         Bitmap bitmap = BitmapFactory.decodeResource(splashActivity.getResources(), R.drawable.ic_launcher);
-        boolean is = QRUtils.createQRImage(AppSystemUtils.getDeviceId(),220,220,bitmap,sdPath + AppConstant.DIRS + AppConstant.QRNAME);
+        boolean is = QRUtils.createQRImage(token,220,220,bitmap,sdPath + AppConstant.DIRS + AppConstant.QRNAME);
     }
 }

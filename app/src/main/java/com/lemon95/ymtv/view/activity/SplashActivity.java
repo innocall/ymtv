@@ -30,53 +30,8 @@ public class SplashActivity extends BaseActivity implements ISplashActivity{
 
     @Override
     protected int getLayoutId() {
-        //开始推送服务
-//        mPushAgent = PushAgent.getInstance(getApplicationContext());
-//        mPushAgent.setPushCheck(true);    //默认不检查集成配置文件
-//        LogUtils.i(TAG, "别名：" + AppSystemUtils.getDeviceId());
-//        mPushAgent.setExclusiveAlias(AppSystemUtils.getDeviceId(), ALIAS_TYPE.SINA_WEIBO);
-//        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
-//        mPushAgent.enable(mRegisterCallback);
         return R.layout.activity_splash;
     }
-
-//    public IUmengRegisterCallback mRegisterCallback = new IUmengRegisterCallback() {
-//
-//        @Override
-//        public void onRegistered(String registrationId) {
-//            // TODO Auto-generated method stub
-//            handler.post(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    updateStatus(0);
-//                }
-//            });
-//        }
-//
-//    };
-
-    /**
-     * 查看启动日志
-     */
-//    private void updateStatus(int i) {
-//        String pkgName = getApplicationContext().getPackageName();
-//        String info = String.format("enabled:%s\nisRegistered:%s\nDeviceToken:%s\n" +
-//                        "SdkVersion:%s\nAppVersionCode:%s\nAppVersionName:%s",
-//                mPushAgent.isEnabled(), mPushAgent.isRegistered(),
-//                mPushAgent.getRegistrationId(), MsgConstant.SDK_VERSION,
-//                UmengMessageDeviceConfig.getAppVersionCode(this), UmengMessageDeviceConfig.getAppVersionName(this));
-//        LogUtils.i(TAG, "==============推送启动情况===============");
-//        LogUtils.i(TAG,pkgName);
-//        LogUtils.i(TAG,info);
-//        LogUtils.i(TAG, "updateStatus:" + String.format("enabled:%s  isRegistered:%s",
-//                mPushAgent.isEnabled(), mPushAgent.isRegistered()));
-//        LogUtils.i(TAG, "=============================");
-//        if(i == 0 && !mPushAgent.isEnabled()) {
-//            LogUtils.i(TAG,"再次开启推送服务");
-//            mPushAgent.enable(mRegisterCallback);
-//        }
-//    }
 
     @Override
     protected void setupViews() {

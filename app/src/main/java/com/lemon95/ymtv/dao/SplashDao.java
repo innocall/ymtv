@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import com.lemon95.ymtv.api.ApiManager;
 import com.lemon95.ymtv.bean.DeviceLogin;
 import com.lemon95.ymtv.bean.Recommend;
+import com.lemon95.ymtv.bean.Result;
 import com.lemon95.ymtv.bean.Version;
 import com.lemon95.ymtv.bean.VideoType;
 import com.lemon95.ymtv.bean.impl.ISplashBean;
@@ -113,13 +114,12 @@ public class SplashDao implements ISplashBean {
 
     /**
      * 设备登录
-     * @param userId
-     * @param mac
+     * @param token
      * @param onDeviceLoginListener
      */
     @Override
-    public void deviceLogin(String userId, String mac, final OnDeviceLoginListener onDeviceLoginListener) {
-        ApiManager.deviceLogin(userId, mac).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    public void deviceLogin(String token, final OnDeviceLoginListener onDeviceLoginListener) {
+        ApiManager.deviceLogin(token).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<DeviceLogin>() {
 
                     @Override
@@ -130,6 +130,23 @@ public class SplashDao implements ISplashBean {
                     @Override
                     public void call(Throwable throwable) {
                         onDeviceLoginListener.onFailure(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void GenerateToken(String mac, final OnResultListener onResultListener) {
+        ApiManager.GenerateToken(mac).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Result>() {
+
+                    @Override
+                    public void call(Result result) {
+                        onResultListener.onSuccess(result);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        onResultListener.onFailure(throwable);
                     }
                 });
     }
@@ -164,6 +181,11 @@ public class SplashDao implements ISplashBean {
 
     public interface OnDeviceLoginListener {
         void onSuccess(DeviceLogin deviceLogin);
+        void onFailure(Throwable e);
+    }
+
+    public interface OnResultListener {
+        void onSuccess(Result deviceLogin);
         void onFailure(Throwable e);
     }
 }

@@ -80,7 +80,6 @@ public class PlayActivity extends BaseActivity {
     private LinearLayout lemon_pay;
     private boolean isTop = true; //是否能够点击
     public boolean isPro = false;
-    private MsgReceiver msgReceiver;
     private ArrayList<SerialDitions.Data.SerialEpisodes> serialEpisodes; //电视剧剧集
     public String orderId; //订单ID
     private int index = 1;  //当前第几集
@@ -100,10 +99,10 @@ public class PlayActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         //动态注册广播接收器
-        msgReceiver = new MsgReceiver();
+       /* msgReceiver = new MsgReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.lemon.push.RECEIVER");
-        registerReceiver(msgReceiver, intentFilter);
+        registerReceiver(msgReceiver, intentFilter);*/
         return R.layout.activity_play;
     }
 
@@ -286,7 +285,7 @@ public class PlayActivity extends BaseActivity {
         super.onDestroy();
         //停止
         unbindService();
-        unregisterReceiver(msgReceiver);
+       // unregisterReceiver(msgReceiver);
         playMoviePresenter.setIsParam(false);
         //上传播放记录
         VideoWatchHistory videoWatchHistory = new VideoWatchHistory();
@@ -461,7 +460,7 @@ public class PlayActivity extends BaseActivity {
     /**
      * 自定义广播接收器，用于接收服务发出的信息
      */
-    class MsgReceiver extends BroadcastReceiver {
+   /* class MsgReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -473,7 +472,7 @@ public class PlayActivity extends BaseActivity {
                 ToastUtils.showBgToast("支付失败",context);
             }
         }
-    }
+    }*/
 
 
     public void showLL() {

@@ -12,6 +12,7 @@ import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.PersonalMovies;
 import com.lemon95.ymtv.bean.Recommend;
+import com.lemon95.ymtv.bean.Result;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.Version;
@@ -196,12 +197,11 @@ public interface ApiManagerService {
 
     /**
      * 设备登录
-     * @param userId
-     * @param mac
+     * @param token
      * @return
      */
     @GET("/Media/TVs/DeviceLogin")
-    Observable<DeviceLogin> deviceLogin(@Query("userId") String userId,@Query("mac")String mac);
+    Observable<DeviceLogin> deviceLogin(@Query("token") String token);
 
     /**
      * 获取求片影视
@@ -241,4 +241,12 @@ public interface ApiManagerService {
      */
     @GET("/Media/Pay/GetOrder")
     Observable<GetOrder> getOrder(@Query("orderNo")String orderNo);
+
+    /**
+     * 根据mac生成token
+     * @param mac
+     * @return
+     */
+    @GET("/Media/TVs/GenerateToken")
+    Observable<Result> GenerateToken(@Query("mac")String mac);
 }

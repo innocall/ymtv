@@ -32,6 +32,7 @@ public interface AppConstant {
     String mch_id = "1264108101";
     String spbillCreateIp = "121.40.187.98";
     String QR_TOP = "https://paya.swiftpass.cn/pay/qrcode?uuid=";
+    String MACTOKEN = "MACTOKEN";
 
     //String spbillCreateIp = "120.76.76.120";
 }

@@ -102,8 +102,10 @@
 
         <service
             android:name=".service.PayService"
-            android:process=":pay">
-        </service>
+            android:process=":pay"></service>
+        <service
+            android:name=".service.LoginService"
+            android:process=":login"></service>
     </application>
 
 </manifest>

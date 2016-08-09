@@ -28,6 +28,8 @@ public interface ISplashBean {
 
     public void downImg(String imgUrl,String oldPath,SplashDao.OnImageDownListener onImageDownListener);
 
-    public void deviceLogin(String userId,String mac,SplashDao.OnDeviceLoginListener onDeviceLoginListener);
+    public void deviceLogin(String token,SplashDao.OnDeviceLoginListener onDeviceLoginListener);
+
+    public void GenerateToken(String mac,SplashDao.OnResultListener onResultListener);
 
 }

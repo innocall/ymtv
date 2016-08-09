@@ -14,6 +14,7 @@ import com.lemon95.ymtv.bean.Movie;
 import com.lemon95.ymtv.bean.MovieSources;
 import com.lemon95.ymtv.bean.PersonalMovies;
 import com.lemon95.ymtv.bean.Recommend;
+import com.lemon95.ymtv.bean.Result;
 import com.lemon95.ymtv.bean.SerialDitions;
 import com.lemon95.ymtv.bean.UploadResult;
 import com.lemon95.ymtv.bean.VideoSearchList;
@@ -263,12 +264,11 @@ public class ApiManager {
 
     /**
      * 设备登录
-     * @param userId
-     * @param mac
+     * @param token
      * @return
      */
-    public static Observable<DeviceLogin> deviceLogin(String userId,String mac) {
-        return apiManager.deviceLogin(userId,mac);
+    public static Observable<DeviceLogin> deviceLogin(String token) {
+        return apiManager.deviceLogin(token);
     }
 
     /**
@@ -321,5 +321,9 @@ public class ApiManager {
      */
     public static Observable<GetOrder> getOrder(String orderNo) {
         return apiManager.getOrder(orderNo);
+    }
+
+    public static Observable<Result> GenerateToken(String mac) {
+        return apiManager.GenerateToken(mac);
     }
 }
