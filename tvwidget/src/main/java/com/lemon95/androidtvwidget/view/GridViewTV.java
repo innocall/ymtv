@@ -15,6 +15,12 @@ import android.widget.GridView;
  */
 public class GridViewTV extends GridView {
 
+	private boolean isSearch = false;
+
+	public void setIsSearch(boolean isSearch) {
+		this.isSearch = isSearch;
+	}
+
 	public GridViewTV(Context context) {
 		super(context);
 		init(context, null);
@@ -69,24 +75,31 @@ public class GridViewTV extends GridView {
 
 	}
 
-	/**
-	 * 屏蔽android4.4 setAdapter时View抢焦点的BUG
-	 */
 	/*@Override
-	public boolean isInTouchMode() {
-		if(19 == Build.VERSION.SDK_INT){
-			return !(hasFocus() && !super.isInTouchMode());
-		}else{
-			return super.isInTouchMode();
+	public void setSelection(int position) {
+		super.setSelection(position);
+		if (!isInTouchMode()) {
+			setNextSelectedPositionInt(position);
+		} else {
+			mResurrectToPosition = position;
 		}
+		mLayoutMode = LAYOUT_SET_SELECTION;
+		if (mPositionScroller != null) {
+			mPositionScroller.stop();
+		}
+		requestLayout();
 	}*/
 
-	/*@Override
+	@Override
 	public boolean isInTouchMode() {
-		if(19 <= Build.VERSION.SDK_INT){
-			return !(hasFocus() && !super.isInTouchMode());
-		}else{
+		if (isSearch) {
+			if(19 <= Build.VERSION.SDK_INT){
+				return !(hasFocus() && !super.isInTouchMode());
+			}else{
+				return super.isInTouchMode();
+			}
+		} else {
 			return super.isInTouchMode();
 		}
-	}*/
+	}
 }

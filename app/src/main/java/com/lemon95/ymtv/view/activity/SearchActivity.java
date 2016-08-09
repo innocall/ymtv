@@ -3,8 +3,10 @@ package com.lemon95.ymtv.view.activity;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +31,7 @@ import com.lemon95.ymtv.presenter.SearchPresenter;
 import com.lemon95.ymtv.utils.LogUtils;
 import com.lemon95.ymtv.utils.StringUtils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +64,7 @@ public class SearchActivity extends BaseActivity{
     @Override
     protected void setupViews() {
         lemon_gridview = (GridViewTV) findViewById(R.id.lemon_gridview);
+        lemon_gridview.setIsSearch(true);
         lemon_search_msg = (EditText) findViewById(R.id.lemon_search_msg);
         skbContainer = (SkbContainer) findViewById(R.id.skbContainer);
         mainUpView1 = (MainUpView) findViewById(R.id.mainUpView1);
@@ -90,12 +94,14 @@ public class SearchActivity extends BaseActivity{
                     else
                         skbContainer.setDefualtSelectKey(0, 0);
                 } else {
+                    lemon_gridview.setFocusable(true);
                     mOldSoftKey = skbContainer.getSelectKey();
                     skbContainer.setKeySelected(null);
                 }
             }
         });
     }
+
 
     private void setSkbContainerMove() {
         mOldSoftKey = null;
@@ -163,7 +169,10 @@ public class SearchActivity extends BaseActivity{
                  * 这里注意要加判断是否为NULL.
                  * 因为在重新加载数据以后会出问题.
                  */
-                LogUtils.i(TAG, "焦点改变");
+                LogUtils.i(TAG, "焦点改变:" + position);
+                /*if(19 <= Build.VERSION.SDK_INT){
+                    i = 1;
+                }*/
                 if (view != null && i != 0) {
                     mainUpView1.setUpRectResource(R.drawable.health_focus_border);
                     view.bringToFront();
@@ -219,12 +228,36 @@ public class SearchActivity extends BaseActivity{
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     if (firstData != null) {
+                        if (mOldView == null) {
+                            mOldView =  lemon_gridview.getChildAt(0);
+                            //反射
+                            try {
+                                Field field = AdapterView.class.getDeclaredField("mNextSelectedPosition"); //得到该属性字段，注意该属性是AdapterView的，不是ListView的
+                                field.setAccessible(true); //禁用安全检查，如果属性不是public的，必须要加上此句才能访问
+                                field.set(lemon_gridview, 1); //设置 menuListView 实例中的 mNextSelectedPosition 为0，可以想象成 mListView.set(field, 0)
+                                Log.d(TAG, "反射后curPos = " + lemon_gridview.getSelectedItemPosition());
+                            } catch (Exception e) {
+                                Log.e(TAG, "反射失败后curPos = " + lemon_gridview.getSelectedItemPosition());
+                            }
+                            lemon_gridview.requestFocus();
+                            lemon_gridview.requestFocusFromTouch();
+                            lemon_gridview.setFocusable(true);
+                            lemon_gridview.setFocusableInTouchMode(true);
+                            lemon_gridview.setSelection(0);
+                        }
                         mainUpView1.setUpRectResource(R.drawable.health_focus_border);
                         mOpenEffectBridge.setVisibleWidget(false); // 隐藏
+                       // View view = lemon_gridview.getSelectedView();
                         mainUpView1.setFocusView(mOldView, 1.1f);
+                       // mOldView = view;
                     } else {
                         mainUpView1.setUpRectResource(R.drawable.test_rectangle);
                         mOpenEffectBridge.setVisibleWidget(true); // 隐藏
+                        //第一次获取焦点
+//                        mainUpView1.setUpRectResource(R.drawable.health_focus_border);
+//                        mOpenEffectBridge.setVisibleWidget(false); // 隐藏
+//                        View view = lemon_gridview.getChildAt(0);
+//                        mainUpView1.setFocusView(view,1.1f);
                     }
                     LogUtils.i(TAG, "gridView 获取焦点");
                 } else {

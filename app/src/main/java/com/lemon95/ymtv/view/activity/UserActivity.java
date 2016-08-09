@@ -1,5 +1,8 @@
 package com.lemon95.ymtv.view.activity;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -8,6 +11,7 @@ import com.lemon95.ymtv.common.AppConstant;
 import com.lemon95.ymtv.myview.CircleBitmapDisplayer;
 import com.lemon95.ymtv.utils.PreferenceUtils;
 import com.lemon95.ymtv.utils.StringUtils;
+import com.lemon95.ymtv.utils.ToastUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -18,6 +22,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
  */
 public class UserActivity extends BaseActivity {
 
+    private Intent intent3 = new Intent("com.lemon.Main.RECEIVER");
     DisplayImageOptions options;
 
     @Override
@@ -43,6 +48,16 @@ public class UserActivity extends BaseActivity {
         }
         ((TextView)findViewById(R.id.lemon_user_nick)).setText("昵称：" + PreferenceUtils.getString(context,AppConstant.USERNAME));
         ((TextView)findViewById(R.id.lemon_user_mobile)).setText("手机号：" + PreferenceUtils.getString(context,AppConstant.USERMOBILE));
+        findViewById(R.id.lemon_but_user).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PreferenceUtils.clearAll(context);
+                sendBroadcast(intent3);
+                PreferenceUtils.putString(context, AppConstant.PAGETYPE, "2");
+                startActivity(LoginActivity.class);
+                finish();
+            }
+        });
     }
 
     @Override

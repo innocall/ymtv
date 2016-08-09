@@ -40,51 +40,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void setupViews() {
         lemon_qr = (ImageView) findViewById(R.id.lemon_qr);
-        //初始化推送服务
-//        mPushAgent = PushAgent.getInstance(getApplicationContext());
-//        mPushAgent.enable(mRegisterCallback);
-//        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
     }
-
-    /*public IUmengRegisterCallback mRegisterCallback = new IUmengRegisterCallback() {
-
-        @Override
-        public void onRegistered(String registrationId) {
-            // TODO Auto-generated method stub
-            handler.post(new Runnable() {
-
-                @Override
-                public void run() {
-                    updateStatus(0);
-                }
-            });
-        }
-
-    };*/
-
-    /**
-     * 查看启动日志
-     */
-   /* private void updateStatus(int i) {
-        String pkgName = getApplicationContext().getPackageName();
-        String info = String.format("enabled:%s\nisRegistered:%s\nDeviceToken:%s\n" +
-                        "SdkVersion:%s\nAppVersionCode:%s\nAppVersionName:%s",
-                mPushAgent.isEnabled(), mPushAgent.isRegistered(),
-                mPushAgent.getRegistrationId(), MsgConstant.SDK_VERSION,
-                UmengMessageDeviceConfig.getAppVersionCode(this), UmengMessageDeviceConfig.getAppVersionName(this));
-        LogUtils.i(TAG, "==============推送启动情况===============");
-        LogUtils.i(TAG,pkgName);
-        LogUtils.i(TAG,info);
-        LogUtils.i(TAG, "updateStatus:" + String.format("enabled:%s  isRegistered:%s",
-                mPushAgent.isEnabled(), mPushAgent.isRegistered()));
-        LogUtils.i(TAG, "=============================");
-        if(i == 0 && !mPushAgent.isEnabled()) {
-            LogUtils.i(TAG,"再次开启推送服务");
-            mPushAgent.enable(mRegisterCallback);
-        }
-    }*/
-
-
 
     @Override
     protected void initialized() {
@@ -110,17 +66,7 @@ public class LoginActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(msgReceiver);
-        //离开后关闭推送服务
-       // mPushAgent.disable(iUmengUnregisterCallback);
     }
-
-   /* public IUmengUnregisterCallback iUmengUnregisterCallback = new IUmengUnregisterCallback() {
-
-        @Override
-        public void onUnregistered(String s) {
-            updateStatus(1);
-        }
-    };*/
 
     /**
      * 自定义广播接收器，用于接收服务发出的信息

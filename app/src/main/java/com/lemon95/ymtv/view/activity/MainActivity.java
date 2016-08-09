@@ -737,8 +737,8 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                 PreferenceUtils.putString(context, AppConstant.USERNAME, user.getNickName());
                 PreferenceUtils.putString(context, AppConstant.USERIMG, user.getHeadImgUrl());
                 PreferenceUtils.putString(context, AppConstant.USERMOBILE, user.getMobile());
-                ((TextView)findViewById(R.id.lemon_main_nick)).setText(PreferenceUtils.getString(context, AppConstant.USERNAME, "未登录"));
             }
+            ((TextView)findViewById(R.id.lemon_main_nick)).setText(PreferenceUtils.getString(context, AppConstant.USERNAME, "未登录"));
         }
     }
 }
