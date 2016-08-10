@@ -230,17 +230,6 @@ public class SearchActivity extends BaseActivity{
                     if (firstData != null) {
                         if (mOldView == null) {
                             mOldView =  lemon_gridview.getChildAt(0);
-                            //反射
-                            try {
-                                Field field = AdapterView.class.getDeclaredField("mNextSelectedPosition"); //得到该属性字段，注意该属性是AdapterView的，不是ListView的
-                                field.setAccessible(true); //禁用安全检查，如果属性不是public的，必须要加上此句才能访问
-                                field.set(lemon_gridview, 1); //设置 menuListView 实例中的 mNextSelectedPosition 为0，可以想象成 mListView.set(field, 0)
-                                Log.d(TAG, "反射后curPos = " + lemon_gridview.getSelectedItemPosition());
-                            } catch (Exception e) {
-                                Log.e(TAG, "反射失败后curPos = " + lemon_gridview.getSelectedItemPosition());
-                            }
-                            lemon_gridview.requestFocus();
-                            lemon_gridview.requestFocusFromTouch();
                             lemon_gridview.setFocusable(true);
                             lemon_gridview.setFocusableInTouchMode(true);
                             lemon_gridview.setSelection(0);
@@ -248,6 +237,7 @@ public class SearchActivity extends BaseActivity{
                         mainUpView1.setUpRectResource(R.drawable.health_focus_border);
                         mOpenEffectBridge.setVisibleWidget(false); // 隐藏
                        // View view = lemon_gridview.getSelectedView();
+                        mOldView.bringToFront();
                         mainUpView1.setFocusView(mOldView, 1.1f);
                        // mOldView = view;
                     } else {

@@ -57,7 +57,7 @@ public class LoginPresenter {
     public void createOr(String token,ImageView lemon_qr) {
         String sdPath = Environment.getExternalStorageDirectory().getPath();
         File file = new File(sdPath + AppConstant.DIRS + AppConstant.QRNAME);
-        if (!file.isFile()) {
+       // if (!file.isFile()) {
             File file2 = new File(sdPath + AppConstant.DIRS);
             if (!file2.exists()) {
                 file2.mkdirs();
@@ -67,9 +67,9 @@ public class LoginPresenter {
             if (is) {
                 ImageLoader.getInstance().displayImage("file:///" + sdPath + AppConstant.DIRS + AppConstant.QRNAME,lemon_qr);
             }
-        } else {
-            ImageLoader.getInstance().displayImage("file:///" + sdPath + AppConstant.DIRS + AppConstant.QRNAME,lemon_qr);
-        }
+//        } else {
+//            ImageLoader.getInstance().displayImage("file:///" + sdPath + AppConstant.DIRS + AppConstant.QRNAME,lemon_qr);
+//        }
         //开始服务
         loginActivity.bind();
     }

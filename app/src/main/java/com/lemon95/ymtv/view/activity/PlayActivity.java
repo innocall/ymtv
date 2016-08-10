@@ -226,7 +226,7 @@ public class PlayActivity extends BaseActivity {
     @Override
     protected void initialized() {
         //获取播放地址
-        if (AppConstant.MOVICE.equals(videoType)) {
+        if (AppConstant.MOVICE.equals(videoType) || AppConstant.FUNNY.equals(videoType)) {
             //playMoviePresenter.getPlayUrl(videoId);
             String userId = PreferenceUtils.getString(context,AppConstant.USERID,"");
             playMoviePresenter.initPageData(videoId, userId, isPersonal);

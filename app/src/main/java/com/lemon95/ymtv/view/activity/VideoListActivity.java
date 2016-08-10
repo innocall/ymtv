@@ -62,6 +62,7 @@ public class VideoListActivity extends BaseActivity {
     private boolean isPage = true; //是否在翻页
     private String totleCount = "0";
     private boolean isStart = false;
+    private boolean isListClick = false;
 
     @Override
     protected int getLayoutId() {
@@ -105,9 +106,26 @@ public class VideoListActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 lemon_video_menu_id.setPoint(position);
-//                gridView.setSelection(0);  //点击前让第一个获取焦点
-//                mOpenEffectBridge.setVisibleWidget(true); // 隐藏
-//                mainUpView2.setUnFocusView(gridView.getChildAt(0));
+                isListClick = true;
+
+                mainUpView2.setVisibility(View.GONE);
+                mOpenEffectBridge.setVisibleWidget(true); // 隐藏
+                mainUpView2.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
+                mainUpView2.setUnFocusView(mOldGridView);
+                gridView.requestFocus();
+                gridView.setSelection(0);  //点击前让第一个获取焦点
+                mainUpView2.setUnFocusView(gridView.getChildAt(0));
+             //   mOpenEffectBridge.flyWhiteBorder(gridView.getChildAt(0),gridView.getChildAt(0),0,0);
+
+                gridView.setFocusable(false);
+                lemon_video_menu_id.requestFocus();
+                //lemon_video_menu_id.setSelection(position);
+                //view.setFocusable(true);
+//                if (mOldListView != null) {
+//                    mOldListView.setBackgroundColor(Color.parseColor("#0E0A0B"));
+//                }
+//                view.setBackgroundResource(R.drawable.lemon_liangguang_03);
+
                 if (mOldListView != null) {
                     TextView textView2 = (TextView) mOldListView.findViewById(R.id.lemon_video_tv);
                     textView2.setTextColor(getResources().getColor(R.color.lemon_b3aeae));
@@ -140,6 +158,8 @@ public class VideoListActivity extends BaseActivity {
                    // textView.setTextColor(getResources().getColor(R.color.lemon_b3aeae));
                 } else {
                     lemon_video_menu_id.setSelector(R.color.lemon_0E0A0B);
+                    mOpenEffectBridge.setVisibleWidget(false);
+                    mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
                 }
             }
         });
@@ -156,6 +176,7 @@ public class VideoListActivity extends BaseActivity {
                     mainUpView2.setFocusView(view, mOldGridView, 1.1f);
                 }
                 if (!isStart) {
+                    isListClick = false;
                     gridView.setFocusable(true);
                     LogUtils.i(TAG, "离开焦点2");
                     view.bringToFront();
@@ -203,9 +224,9 @@ public class VideoListActivity extends BaseActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 LogUtils.i(TAG, "gridView" + hasFocus);
-                if (hasFocus) {
-                    mOpenEffectBridge.setVisibleWidget(false);
-                    mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
+                if (hasFocus && !isListClick) {
+//                    mOpenEffectBridge.setVisibleWidget(false);
+//                    mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
                     //if (isStart) {
                         if (mOldGridView == null) {
 //                        View view = gridView.getChildAt(0);
@@ -260,7 +281,8 @@ public class VideoListActivity extends BaseActivity {
 
     private void switchNoDrawBridgeVersion() {
         EffectNoDrawBridge effectNoDrawBridge = new EffectNoDrawBridge();
-        effectNoDrawBridge.setTranDurAnimTime(10);
+        effectNoDrawBridge.setTranDurAnimTime(1);
+        mOpenEffectBridge.setDrawUpRectEnabled(false);
         mainUpView2.setEffectBridge(effectNoDrawBridge); // 4.3以下版本边框移动.
         mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
         mainUpView2.setDrawUpRectPadding(new Rect(10, -8, 7, -41)); // 边框图片设置间距.
@@ -271,6 +293,11 @@ public class VideoListActivity extends BaseActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             return super.onKeyDown(keyCode, event);
         }
+       /* else if(keyCode == KeyEvent.KEYCODE_RIGHT_BRACKET) {
+            if (gridView.isFocusable()) {
+                gridView.requestFocus();
+            }
+        }*/
         return isKeyDown;
     }
 

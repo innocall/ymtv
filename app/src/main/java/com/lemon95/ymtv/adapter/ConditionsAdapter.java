@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.lemon95.androidtvwidget.view.TextViewWithTTF;
 import com.lemon95.ymtv.R;
 import com.lemon95.ymtv.bean.QueryConditions;
+import com.lemon95.ymtv.utils.LogUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import java.util.ArrayList;
@@ -20,9 +21,11 @@ import java.util.ArrayList;
  */
 public class ConditionsAdapter extends BaseAdapter {
 
+    private static final String TAG = "ConditionsAdapter";
     private ArrayList<QueryConditions> conditionsArrayList;
     private Context context;
     private DisplayImageOptions options;
+    private boolean isParam = true;
 
     public ConditionsAdapter(ArrayList<QueryConditions> conditionsArrayList,Context context) {
         this.conditionsArrayList = conditionsArrayList;
@@ -56,9 +59,11 @@ public class ConditionsAdapter extends BaseAdapter {
         }
         QueryConditions queryConditions = conditionsArrayList.get(position);
         holder.lemon_video_tv.setText(queryConditions.getName());
-       /* if (position == 0) {
+       if (position == 0 && isParam) {
+            LogUtils.i(TAG,"白色" + position);
+            isParam = false;
             holder.lemon_video_tv.setTextColor(Color.WHITE);
-        }*/
+        }
         return view;
     }
 

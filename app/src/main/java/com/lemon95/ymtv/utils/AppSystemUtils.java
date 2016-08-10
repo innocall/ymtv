@@ -13,7 +13,7 @@ import android.util.Log;
 public class AppSystemUtils {
 
 	public static String getVersionName(Context context) {
-		return getPackageInfo(context).packageName;
+		return getPackageInfo(context).versionName;
 	}
 
 	public static int getVersionCode(Context context) {

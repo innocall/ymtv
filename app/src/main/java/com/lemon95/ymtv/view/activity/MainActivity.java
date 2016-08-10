@@ -608,24 +608,30 @@ public class MainActivity extends BaseActivity implements OpenTabHost.OnTabSelec
                 break;
             case R.id.page2_item2:
                 MobclickAgent.onEvent(context, "page2_item2");
+                video = videoList.get(1);
                 bundle.putString("videoId", video.getVideoId());
                 bundle.putString("SerialEpisodeId", "");
+                bundle.putBoolean("isPersonal", false);
                 bundle.putString("videoName", video.getTitle());
                 bundle.putString("videoType",video.getVideoTypeId());
                 startActivity(PlayActivity.class,bundle);
                 break;
             case R.id.page2_item3:
                 MobclickAgent.onEvent(context, "page2_item3");
+                video = videoList.get(2);
                 bundle.putString("videoId", video.getVideoId());
                 bundle.putString("SerialEpisodeId", "");
+                bundle.putBoolean("isPersonal", false);
                 bundle.putString("videoName", video.getTitle());
                 bundle.putString("videoType",video.getVideoTypeId());
                 startActivity(PlayActivity.class, bundle);
                 break;
             case R.id.page2_item4:
                 MobclickAgent.onEvent(context, "page2_item4");
+                video = videoList.get(3);
                 bundle.putString("videoId", video.getVideoId());
                 bundle.putString("SerialEpisodeId", "");
+                bundle.putBoolean("isPersonal", false);
                 bundle.putString("videoName", video.getTitle());
                 bundle.putString("videoType",video.getVideoTypeId());
                 startActivity(PlayActivity.class, bundle);

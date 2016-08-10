@@ -204,7 +204,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
             itemView1.setVisibility(View.VISIBLE);
             itemView1.setOnClickListener(this);
             ImageView details_img1 = (ImageView)findViewById(R.id.details_img1);
-            ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d1.getPicturePath(), details_img1);
+            ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d1.getPicturePath(), details_img1,options);
             ((TextView)findViewById(R.id.details_name1)).setText(d1.getVideoName());
             com.lemon95.ymtv.bean.GenresMovie.Data d2 = dataList.get(1);
             if (d2 != null) {
@@ -212,7 +212,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                 itemView2.setVisibility(View.VISIBLE);
                 itemView2.setOnClickListener(this);
                 ImageView details_img2 = (ImageView)findViewById(R.id.details_img2);
-                ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d2.getPicturePath(), details_img2);
+                ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d2.getPicturePath(), details_img2,options);
                 ((TextView)findViewById(R.id.details_name2)).setText(d2.getVideoName());
                 com.lemon95.ymtv.bean.GenresMovie.Data d3 = dataList.get(2);
                 if (d3 != null) {
@@ -220,7 +220,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                     itemView3.setVisibility(View.VISIBLE);
                     itemView3.setOnClickListener(this);
                     ImageView details_img3 = (ImageView)findViewById(R.id.details_img3);
-                    ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d3.getPicturePath(), details_img3);
+                    ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d3.getPicturePath(), details_img3,options);
                     ((TextView)findViewById(R.id.details_name3)).setText(d3.getVideoName());
                     com.lemon95.ymtv.bean.GenresMovie.Data d4 = dataList.get(3);
                     if (d4 != null) {
@@ -228,7 +228,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                         itemView4.setVisibility(View.VISIBLE);
                         itemView4.setOnClickListener(this);
                         ImageView details_img4 = (ImageView)findViewById(R.id.details_img4);
-                        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d4.getPicturePath(), details_img4);
+                        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d4.getPicturePath(), details_img4,options);
                         ((TextView)findViewById(R.id.details_name4)).setText(d4.getVideoName());
                         com.lemon95.ymtv.bean.GenresMovie.Data d5 = dataList.get(4);
                         if (d5 != null) {
@@ -236,7 +236,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                             itemView5.setVisibility(View.VISIBLE);
                             itemView5.setOnClickListener(this);
                             ImageView details_img5 = (ImageView)findViewById(R.id.details_img5);
-                            ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d5.getPicturePath(), details_img5);
+                            ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d5.getPicturePath(), details_img5,options);
                             ((TextView)findViewById(R.id.details_name5)).setText(d5.getVideoName());
                             com.lemon95.ymtv.bean.GenresMovie.Data d6 = dataList.get(5);
                             if (d6 != null) {
@@ -244,7 +244,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                                 itemView6.setVisibility(View.VISIBLE);
                                 itemView6.setOnClickListener(this);
                                 ImageView details_img6 = (ImageView)findViewById(R.id.details_img6);
-                                ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d6.getPicturePath(), details_img6);
+                                ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d6.getPicturePath(), details_img6,options);
                                 ((TextView)findViewById(R.id.details_name6)).setText(d6.getVideoName());
                                 com.lemon95.ymtv.bean.GenresMovie.Data d7 = dataList.get(6);
                                 if (d7 != null) {
@@ -252,7 +252,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                                     itemView7.setVisibility(View.VISIBLE);
                                     itemView7.setOnClickListener(this);
                                     ImageView details_img7 = (ImageView)findViewById(R.id.details_img7);
-                                    ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d7.getPicturePath(), details_img7);
+                                    ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d7.getPicturePath(), details_img7,options);
                                     ((TextView)findViewById(R.id.details_name7)).setText(d7.getVideoName());
                                 }
                             }
