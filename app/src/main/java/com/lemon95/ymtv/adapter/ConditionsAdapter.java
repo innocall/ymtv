@@ -26,6 +26,11 @@ public class ConditionsAdapter extends BaseAdapter {
     private Context context;
     private DisplayImageOptions options;
     private boolean isParam = true;
+    private int point = 0;
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
 
     public ConditionsAdapter(ArrayList<QueryConditions> conditionsArrayList,Context context) {
         this.conditionsArrayList = conditionsArrayList;
@@ -59,10 +64,12 @@ public class ConditionsAdapter extends BaseAdapter {
         }
         QueryConditions queryConditions = conditionsArrayList.get(position);
         holder.lemon_video_tv.setText(queryConditions.getName());
-       if (position == 0 && isParam) {
+        if (position == point) {
             LogUtils.i(TAG,"白色" + position);
             isParam = false;
             holder.lemon_video_tv.setTextColor(Color.WHITE);
+        } else {
+            holder.lemon_video_tv.setTextColor(context.getResources().getColor(R.color.lemon_b3aeae));
         }
         return view;
     }

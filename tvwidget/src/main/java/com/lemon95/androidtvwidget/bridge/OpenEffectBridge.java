@@ -24,7 +24,7 @@ import com.lemon95.androidtvwidget.view.MainUpView;
  */
 public class OpenEffectBridge extends BaseEffectBridgeWrapper {
 
-	private static final int DEFAULT_TRAN_DUR_ANIM = 300;
+	private static final int DEFAULT_TRAN_DUR_ANIM = 1;
 	private int mTranDurAnimTime = DEFAULT_TRAN_DUR_ANIM;
 	private AnimatorSet mCurrentAnimatorSet;
 	private boolean isInDraw = false;

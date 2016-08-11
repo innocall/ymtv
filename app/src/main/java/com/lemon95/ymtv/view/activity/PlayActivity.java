@@ -203,7 +203,7 @@ public class PlayActivity extends BaseActivity {
             @Override
             public boolean onJjOpenFailed(int i, int i1) {
                // showError("播放出错");
-                if (AppConstant.MOVICE.equals(videoType)) {
+                if (AppConstant.MOVICE.equals(videoType) || AppConstant.FUNNY.equals(videoType)){
                     //playMoviePresenter.getPlayUrl(videoId);
                     String userId = PreferenceUtils.getString(context,AppConstant.USERID,"");
                     playMoviePresenter.initPageData(videoId, userId, isPersonal);

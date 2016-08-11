@@ -15,7 +15,7 @@ import com.lemon95.androidtvwidget.view.MainUpView;
 public class BaseEffectBridgeWrapper extends BaseEffectBridge {
 
 	private static final float DEFAULT_SCALE = 1.0f;
-	private static final int DEFAULT_TRAN_DUR_ANIM = 300;
+	private static final int DEFAULT_TRAN_DUR_ANIM = 1;
 
 	private MainUpView mMainUpView;
 	private Drawable mDrawableShadow;

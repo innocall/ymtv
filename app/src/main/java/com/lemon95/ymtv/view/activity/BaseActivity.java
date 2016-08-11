@@ -47,7 +47,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             // 删除窗口背景
             getWindow().setBackgroundDrawable(null);
         }
-
         BaseApplication.getInstance().addActivity(this);
 
         //向用户展示信息前的准备工作在这个方法里处理

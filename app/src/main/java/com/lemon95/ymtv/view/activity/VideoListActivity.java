@@ -3,6 +3,8 @@ package com.lemon95.ymtv.view.activity;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -47,7 +49,7 @@ public class VideoListActivity extends BaseActivity {
     private MainUpView mainUpView2;
     OpenEffectBridge mOpenEffectBridge;
     private ProgressBar lemon_movie_details_pro1,lemon_movie_details_pro2;
-    private LinearLayout lemon_movie_details_main;
+    private LinearLayout lemon_movie_details_main,lemon_ll;
     private boolean isKeyDown = false;
     private VideoListPresenter videoListPresenter = new VideoListPresenter(this);
     private ConditionsAdapter conditionsAdapter;
@@ -62,7 +64,8 @@ public class VideoListActivity extends BaseActivity {
     private boolean isPage = true; //是否在翻页
     private String totleCount = "0";
     private boolean isStart = false;
-    private boolean isListClick = false;
+    private boolean isListClick = true;
+    private int point = 0; //gridview 位置
 
     @Override
     protected int getLayoutId() {
@@ -75,16 +78,18 @@ public class VideoListActivity extends BaseActivity {
         lemon_video_menu_id = (ListViewTV) findViewById(R.id.lemon_video_menu_id);
         lemon_video_menu_id.setItemsCanFocus(true);
         gridView = (GridViewTV) findViewById(R.id.gridView);
+        gridView.setIsSearch(true);
         lemon_movie_details_pro1 = (ProgressBar) findViewById(R.id.lemon_movie_details_pro1);
         lemon_movie_details_pro2 = (ProgressBar) findViewById(R.id.lemon_movie_details_pro2);
         lemon_movie_details_main = (LinearLayout) findViewById(R.id.lemon_movie_details_main);
+        lemon_ll = (LinearLayout) findViewById(R.id.lemon_ll);
         lemon_title = (TextView) findViewById(R.id.lemon_title);
         mOpenEffectBridge.setVisibleWidget(true); // 隐藏
         lemon_video_menu_id.requestFocus();
         gridViewAdapter = new GridViewAdapter(videoList,context);
         gridView.setAdapter(gridViewAdapter);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        gridView.setFocusable(false);  //初始化时不让Gridview抢焦点
+       // gridView.setFocusable(false);  //初始化时不让Gridview抢焦点
         lemon_video_menu_id.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -96,6 +101,12 @@ public class VideoListActivity extends BaseActivity {
                     LogUtils.i(TAG, "离开焦点2");
                     view.bringToFront();
                 }
+               /* View view1 = lemon_video_menu_id.getChildAt(0);
+                if (view1 != null && isListClick) {
+                    isListClick = false;
+                    TextView textView = (TextView)view1.findViewById(R.id.lemon_video_tv);
+                    textView.setTextColor(Color.WHITE);
+                }*/
             }
 
             @Override
@@ -106,60 +117,40 @@ public class VideoListActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 lemon_video_menu_id.setPoint(position);
-                isListClick = true;
-
-                mainUpView2.setVisibility(View.GONE);
-                mOpenEffectBridge.setVisibleWidget(true); // 隐藏
-                mainUpView2.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
-                mainUpView2.setUnFocusView(mOldGridView);
-                gridView.requestFocus();
-                gridView.setSelection(0);  //点击前让第一个获取焦点
-                mainUpView2.setUnFocusView(gridView.getChildAt(0));
-             //   mOpenEffectBridge.flyWhiteBorder(gridView.getChildAt(0),gridView.getChildAt(0),0,0);
-
-                gridView.setFocusable(false);
-                lemon_video_menu_id.requestFocus();
-                //lemon_video_menu_id.setSelection(position);
-                //view.setFocusable(true);
-//                if (mOldListView != null) {
-//                    mOldListView.setBackgroundColor(Color.parseColor("#0E0A0B"));
-//                }
-//                view.setBackgroundResource(R.drawable.lemon_liangguang_03);
-
-                if (mOldListView != null) {
-                    TextView textView2 = (TextView) mOldListView.findViewById(R.id.lemon_video_tv);
-                    textView2.setTextColor(getResources().getColor(R.color.lemon_b3aeae));
-                } else {
-                    TextView textView2 = (TextView)lemon_video_menu_id.getChildAt(0).findViewById(R.id.lemon_video_tv);
-                    textView2.setTextColor(getResources().getColor(R.color.lemon_b3aeae));
-                }
-                //lemon_video_menu_id.setSelection(position);
-                TextView textView = (TextView)view.findViewById(R.id.lemon_video_tv);
+                initListColor();
+                conditionsAdapter.setPoint(position);
+                TextView textView = (TextView) view.findViewById(R.id.lemon_video_tv);
                 textView.setTextColor(Color.WHITE);
                 mOldListView = view;
                 QueryConditions queryConditions = conditionsArrayList.get(position);
                 page = 1;
-                videoList.clear();
-                showPro2();
                 mOldGridView = null;
                 lemon_title.setText(conditionsArrayList.get(position).getName());
+                showPro2();
+                videoList.clear();
+                totleCount = "0";
+                gridViewAdapter.notifyDataSetChanged();
+                point = 0;
+                gridView.smoothScrollToPosition(0);  //定位到顶部
+
+                lemon_video_menu_id.requestFocus();
+//                mainUpView2.setVisibility(View.GONE);
+//                mOpenEffectBridge.setVisibleWidget(true); // 隐藏
+//                mainUpView2.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
                 videoListPresenter.getCombSearch(queryConditions.getAreaId(), queryConditions.getGenreId(), queryConditions.getGroupId(), queryConditions.getChargeMethod(), queryConditions.getVipLevel(), queryConditions.getYear(), queryConditions.getType(), page + "", AppConstant.PAGESIZE);
             }
         });
         lemon_video_menu_id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                //View view = ((ListView)v).getSelectedView();
-               // TextView textView = (TextView)view.findViewById(R.id.lemon_video_tv);
                 if (hasFocus) {
                     isStart = false;
                     mOpenEffectBridge.setVisibleWidget(true);
                     lemon_video_menu_id.setSelector(R.drawable.lemon_liangguang_03);
-                   // textView.setTextColor(getResources().getColor(R.color.lemon_b3aeae));
+                    // textView.setTextColor(getResources().getColor(R.color.lemon_b3aeae));
                 } else {
+                    gridView.setPoint(point);
                     lemon_video_menu_id.setSelector(R.color.lemon_0E0A0B);
-                    mOpenEffectBridge.setVisibleWidget(false);
-                    mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
                 }
             }
         });
@@ -170,18 +161,21 @@ public class VideoListActivity extends BaseActivity {
                  * 这里注意要加判断是否为NULL.
                  * 因为在重新加载数据以后会出问题.
                  */
-               // mOpenEffectBridge.setVisibleWidget(false);
-                if (view != null && mOldGridView != null) {
-                    view.bringToFront();
-                    mainUpView2.setFocusView(view, mOldGridView, 1.1f);
+                // mOpenEffectBridge.setVisibleWidget(false);
+                if (view != null) {
+                    if (point == 0) {
+                        if (mOldGridView != view) {
+                            view.bringToFront();
+                            LogUtils.i(TAG,"放大" + position);
+                            mainUpView2.setFocusView(view, mOldGridView, 1.1f);
+                        }
+                    } else {
+                        view.bringToFront();
+                        LogUtils.i(TAG,"放大" + position);
+                        mainUpView2.setFocusView(view, mOldGridView, 1.1f);
+                    }
                 }
-                if (!isStart) {
-                    isListClick = false;
-                    gridView.setFocusable(true);
-                    LogUtils.i(TAG, "离开焦点2");
-                    view.bringToFront();
-                    isStart = true;
-                }
+                point = position;
                 mOldGridView = view;
                 int size = videoList.size();
                 if (size - 15 < position && size < Integer.parseInt(totleCount)) {
@@ -190,7 +184,7 @@ public class VideoListActivity extends BaseActivity {
                         page = page + 1;
                         int poi = lemon_video_menu_id.getSelectedItemPosition();
                         QueryConditions queryConditions = conditionsArrayList.get(poi);
-                        videoListPresenter.getCombSearch(queryConditions.getAreaId(),queryConditions.getGenreId(),queryConditions.getGroupId(),queryConditions.getChargeMethod(),queryConditions.getVipLevel(),queryConditions.getYear(),queryConditions.getType(),page + "",AppConstant.PAGESIZE);
+                        videoListPresenter.getCombSearch(queryConditions.getAreaId(), queryConditions.getGenreId(), queryConditions.getGroupId(), queryConditions.getChargeMethod(), queryConditions.getVipLevel(), queryConditions.getYear(), queryConditions.getType(), page + "", AppConstant.PAGESIZE);
                         isPage = false;
                     }
                 }
@@ -210,13 +204,13 @@ public class VideoListActivity extends BaseActivity {
                     bundle.putString("videoId", video.getVideoId());
                     bundle.putString("SerialEpisodeId", "");
                     bundle.putString("videoName", video.getVideoName());
-                    bundle.putString("videoType",video.getVideoTypeId());
-                    startActivity(PlayActivity.class,bundle);
+                    bundle.putString("videoType", video.getVideoTypeId());
+                    startActivity(PlayActivity.class, bundle);
                 } else {
                     Bundle bundle = new Bundle();
-                    bundle.putString("videoId",video.getVideoId());
-                    bundle.putString("videoType",video.getVideoTypeId());
-                    startActivity(MovieDetailsActivity.class,bundle);
+                    bundle.putString("videoId", video.getVideoId());
+                    bundle.putString("videoType", video.getVideoTypeId());
+                    startActivity(MovieDetailsActivity.class, bundle);
                 }
             }
         });
@@ -224,22 +218,29 @@ public class VideoListActivity extends BaseActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 LogUtils.i(TAG, "gridView" + hasFocus);
-                if (hasFocus && !isListClick) {
-//                    mOpenEffectBridge.setVisibleWidget(false);
-//                    mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
-                    //if (isStart) {
+                if (hasFocus) {
+                    mOpenEffectBridge.setVisibleWidget(false);
+                    mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
+                    //if (!isListClick) {
                         if (mOldGridView == null) {
-//                        View view = gridView.getChildAt(0);
-//                        mainUpView2.setFocusView(view,1.1f);
-                            View view = gridView.getSelectedView();
-                            mainUpView2.setFocusView(view,1.1f);
-                            mOldGridView = view;
+                           myHandler.postAtFrontOfQueue(new Runnable() {
+                               public void run() {
+                                   LogUtils.i(TAG, "空");
+                                   gridView.setSelection(0);
+                                   //isListClick = false;
+                                   mOldGridView = gridView.getChildAt(0);
+                                   mainUpView2.setFocusView(mOldGridView, 1.1f);
+                               }
+                           });
                         } else {
-                            mainUpView2.setFocusView(mOldGridView,1.1f);
+                            LogUtils.i(TAG,"非空");
+                            mainUpView2.setFocusView(mOldGridView, 1.1f);
                         }
-                   // }
+                     /*} else {
+                        mainUpView2.setFocusView(mOldGridView, 1.1f);
+                    }*/
                 } else {
-                    mainUpView2.setVisibility(View.GONE);
+                   // mainUpView2.setVisibility(View.GONE);
                     mOpenEffectBridge.setVisibleWidget(true); // 隐藏
                     mainUpView2.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
                     mainUpView2.setUnFocusView(mOldGridView);
@@ -247,6 +248,34 @@ public class VideoListActivity extends BaseActivity {
             }
         });
     }
+
+    public void initListColor() {
+        for (int i=0;i<conditionsArrayList.size();i++) {
+            View view = lemon_video_menu_id.getChildAt(i);
+            if (view != null) {
+                TextView textView2 = (TextView) view.findViewById(R.id.lemon_video_tv);
+                textView2.setTextColor(getResources().getColor(R.color.lemon_b3aeae));
+            }
+        }
+    }
+
+    private final static int HIDE_PRO2 = 0;
+    private Handler myHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case HIDE_PRO2:
+                    if (lemon_video_menu_id.getChildAt(0) != null) {
+                        TextView textView = (TextView)lemon_video_menu_id.getChildAt(0).findViewById(R.id.lemon_video_tv);
+                        textView.setTextColor(Color.WHITE);
+                    }
+                    hidePro();
+                    break;
+            }
+        }
+    };
+
 
     @Override
     protected void initialized() {
@@ -293,8 +322,10 @@ public class VideoListActivity extends BaseActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             return super.onKeyDown(keyCode, event);
         }
-       /* else if(keyCode == KeyEvent.KEYCODE_RIGHT_BRACKET) {
+       /* else if(keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
             if (gridView.isFocusable()) {
+                LogUtils.i(TAG,"右键");
+               // lemon_video_menu_id.setFocusable(false);
                 gridView.requestFocus();
             }
         }*/
@@ -311,20 +342,18 @@ public class VideoListActivity extends BaseActivity {
         lemon_video_menu_id.setAdapter(conditionsAdapter);
         conditionsAdapter.notifyDataSetChanged();
         lemon_title.setText(conditionsArrayList.get(0).getName());
-        /*if (lemon_video_menu_id.getChildAt(0) != null) {
-            TextView textView = (TextView)lemon_video_menu_id.getChildAt(0).findViewById(R.id.lemon_video_tv);
-            textView.setTextColor(Color.WHITE);
-        }*/
         hidePro();
     }
 
     public void showPro2() {
         lemon_movie_details_pro2.setVisibility(View.VISIBLE);
-        gridView.setVisibility(View.GONE);
+        lemon_ll.setVisibility(View.VISIBLE);
+       // gridView.setVisibility(View.GONE);
     }
 
     public void hidePro2() {
         lemon_movie_details_pro2.setVisibility(View.GONE);
+        lemon_ll.setVisibility(View.GONE);
         gridView.setVisibility(View.VISIBLE);
     }
 
@@ -335,11 +364,35 @@ public class VideoListActivity extends BaseActivity {
     public void showGridView( VideoSearchList.Data data) {
         isPage = true;
         if (data != null) {
+          //  gridViewAdapter.notifyDataSetChanged();
+            /*if (mOldGridView == null) {
+                myHandler.postAtFrontOfQueue(new Runnable() {
+                    public void run() {
+                        gridView.smoothScrollToPosition (0);
+                        //mOldGridView = gridView.getChildAt(0);
+                        //mainUpView2.setFocusView(mOldGridView, 1.1f);
+                    }
+                });
+            }*/
             totleCount = data.getTotalCount();
             videoList.addAll(data.getVideoBriefs());
             gridViewAdapter.notifyDataSetChanged();
             isStart = false;
             hidePro2();
+            /*new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+                        Thread.sleep(2000);  //隐藏滚动效果
+                        Message msg = new Message();
+                        msg.what = HIDE_PRO2;
+                        myHandler.sendMessage(msg);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();*/
         }
       //  gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
     }

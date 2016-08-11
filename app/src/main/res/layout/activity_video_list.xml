@@ -4,37 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/lemon95_main_bg"
-    android:orientation="horizontal"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:focusableInTouchMode="false"
     android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:orientation="horizontal"
     tools:context="com.lemon95.ymtv.view.activity.VideoListActivity">
 
     <ProgressBar
         android:id="@+id/lemon_movie_details_pro1"
         android:layout_width="@dimen/px150"
         android:layout_height="@dimen/px150"
-        android:focusableInTouchMode="false"
+        android:layout_gravity="center"
         android:focusable="false"
-        android:layout_gravity="center" />
+        android:focusableInTouchMode="false" />
 
     <LinearLayout
         android:id="@+id/lemon_movie_details_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:focusableInTouchMode="false"
         android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:orientation="horizontal"
         android:visibility="gone">
 
         <LinearLayout
             android:layout_width="@dimen/px309"
             android:layout_height="match_parent"
             android:background="@drawable/lemon_video_menu_bg"
-            android:gravity="center_horizontal"
-            android:focusableInTouchMode="false"
             android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
@@ -42,39 +42,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/px54"
-                android:text="@string/lemon95_movie"
-                android:focusableInTouchMode="false"
                 android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/lemon95_movie"
                 android:textColor="@color/lemon_b3aeae"
                 android:textSize="@dimen/px51" />
-            
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/px75"
-                android:focusableInTouchMode="false"
                 android:focusable="false"
-                android:src="@drawable/lemon_up"/>
+                android:focusableInTouchMode="false"
+                android:src="@drawable/lemon_up" />
 
             <com.lemon95.androidtvwidget.view.ListViewTV
                 android:id="@+id/lemon_video_menu_id"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/px820"
-                android:scrollbars="none"
-                android:descendantFocusability="afterDescendants"
                 android:layout_gravity="center"
+                android:descendantFocusability="afterDescendants"
+                android:focusable="true"
                 android:focusableInTouchMode="true"
+                android:listSelector="@drawable/lemon_liangguang_03"
                 android:nextFocusRight="@+id/gridView"
                 android:nextFocusUp="@+id/lemon_video_menu_id"
-                android:focusable="true"
-                android:listSelector="@drawable/lemon_liangguang_03"></com.lemon95.androidtvwidget.view.ListViewTV>
+                android:scrollbars="none"></com.lemon95.androidtvwidget.view.ListViewTV>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/px75"
                 android:layout_gravity="center"
-                android:focusableInTouchMode="false"
                 android:focusable="false"
-                android:src="@drawable/lemon_down"/>
+                android:focusableInTouchMode="false"
+                android:src="@drawable/lemon_down" />
         </LinearLayout>
 
         <LinearLayout
@@ -92,8 +92,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/px60"
-                    android:text="@string/lemon95_rm_movie"
                     android:paddingLeft="@dimen/px48"
+                    android:text="@string/lemon95_rm_movie"
                     android:textColor="@color/lemon_b3aeae"
                     android:textSize="@dimen/px36" />
 
@@ -111,14 +111,14 @@
                         android:background="@drawable/lemon_bug_search_bg"
                         android:drawablePadding="@dimen/px12"
                         android:drawableRight="@drawable/lemon_search"
+                        android:nextFocusDown="@+id/gridView"
+                        android:nextFocusLeft="@+id/gridView"
                         android:paddingLeft="@dimen/px24"
                         android:paddingRight="@dimen/px24"
                         android:text="@string/lemon95_search"
-                        android:visibility="gone"
-                        android:nextFocusLeft="@+id/gridView"
-                        android:nextFocusDown="@+id/gridView"
                         android:textColor="@color/lemon_color2"
-                        android:textSize="@dimen/px30" />
+                        android:textSize="@dimen/px30"
+                        android:visibility="gone" />
 
                     <TextClock
                         android:layout_width="wrap_content"
@@ -145,25 +145,32 @@
                     android:layout_gravity="center"
                     android:clipChildren="false"
                     android:columnWidth="@dimen/px249"
-                    android:paddingLeft="@dimen/px48"
-                    android:paddingRight="@dimen/px6"
                     android:descendantFocusability="afterDescendants"
                     android:gravity="center_vertical"
+                    android:horizontalSpacing="@dimen/px48"
                     android:nextFocusLeft="@+id/lemon_video_menu_id"
                     android:nextFocusUp="@+id/lemon_but_search"
-                    android:horizontalSpacing="@dimen/px48"
                     android:numColumns="auto_fit"
+                    android:paddingLeft="@dimen/px48"
+                    android:paddingRight="@dimen/px6"
                     android:scrollbars="none" />
 
-                <ProgressBar
-                    android:id="@+id/lemon_movie_details_pro2"
-                    android:layout_width="@dimen/px150"
-                    android:layout_height="@dimen/px150"
-                    android:layout_gravity="center" />
+                <LinearLayout
+                    android:id="@+id/lemon_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/px872"
+                    android:gravity="center">
+
+                    <ProgressBar
+                        android:id="@+id/lemon_movie_details_pro2"
+                        android:layout_width="@dimen/px150"
+                        android:layout_height="@dimen/px150"
+                        android:layout_gravity="center" />
+                </LinearLayout>
 
             </FrameLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -175,7 +182,7 @@
                     android:layout_marginRight="@dimen/px30"
                     android:scaleType="fitXY"
                     android:src="@drawable/lemon_logo" />
-            </RelativeLayout>
+            </RelativeLayout>-->
         </LinearLayout>
 
     </LinearLayout>
@@ -183,6 +190,6 @@
     <com.lemon95.androidtvwidget.view.MainUpView
         android:id="@+id/mainUpView2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

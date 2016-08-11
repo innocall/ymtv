@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
@@ -16,6 +17,11 @@ import android.widget.GridView;
 public class GridViewTV extends GridView {
 
 	private boolean isSearch = false;
+	private int point = 0;
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
 
 	public void setIsSearch(boolean isSearch) {
 		this.isSearch = isSearch;
@@ -63,10 +69,14 @@ public class GridViewTV extends GridView {
 
 	@Override
 	protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
+		super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
 		/*if(19 <= Build.VERSION.SDK_INT){
 			super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
 		} else {*/
 			int lastSelectItem = getSelectedItemPosition();
+			if (point != 0) {
+				lastSelectItem = point;
+			}
 			super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
 			if (gainFocus) {
 				setSelection(lastSelectItem);
@@ -102,4 +112,5 @@ public class GridViewTV extends GridView {
 			return super.isInTouchMode();
 		}
 	}
+
 }

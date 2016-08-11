@@ -73,7 +73,7 @@ public class SearchActivity extends BaseActivity{
         // 建议使用 NoDraw.
         mainUpView1.setEffectBridge(new EffectNoDrawBridge());
         mOpenEffectBridge = (EffectNoDrawBridge) mainUpView1.getEffectBridge();
-        mOpenEffectBridge.setTranDurAnimTime(20);
+        mOpenEffectBridge.setTranDurAnimTime(1);
         // 移动方框缩小的距离.
         mainUpView1.setDrawUpRectPadding(new Rect(10, -10, -2, -43));
         lemon_gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -137,8 +137,10 @@ public class SearchActivity extends BaseActivity{
                     lemon_search_msg.setText(lemon_search_msg.getText() + softKey.getKeyLabel());
                 }
                 String ss = lemon_search_msg.getText().toString().trim();
+              //  lemon_gridview.smoothScrollToPosition(0);  //定位到顶部
                 if (StringUtils.isNotBlank(ss)) {
                     firstData.clear();
+                    searchAdapter.notifyDataSetChanged();
                    // i = 0;
                     searchPresenter.searchData(ss, page);
                 }
@@ -156,7 +158,9 @@ public class SearchActivity extends BaseActivity{
                 String ss = lemon_search_msg.getText().toString().trim();
                 if (StringUtils.isNotBlank(ss)) {
                     firstData.clear();
+                    searchAdapter.notifyDataSetChanged();
                    // i = 0;
+                   // lemon_gridview.smoothScrollToPosition(0);  //定位到顶部
                     searchPresenter.searchData(ss, page);
                 }
             }
