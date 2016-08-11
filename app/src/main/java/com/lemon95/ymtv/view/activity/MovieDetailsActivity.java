@@ -1,12 +1,17 @@
 package com.lemon95.ymtv.view.activity;
 
+import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -14,10 +19,12 @@ import android.widget.TextView;
 
 import com.lemon95.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.lemon95.androidtvwidget.bridge.OpenEffectBridge;
+import com.lemon95.androidtvwidget.view.GridViewTV;
 import com.lemon95.androidtvwidget.view.MainLayout;
 import com.lemon95.androidtvwidget.view.MainUpView;
 import com.lemon95.androidtvwidget.view.ReflectItemView;
 import com.lemon95.ymtv.R;
+import com.lemon95.ymtv.adapter.GenresMovieAdapter;
 import com.lemon95.ymtv.bean.Favorite;
 import com.lemon95.ymtv.bean.GenresMovie;
 import com.lemon95.ymtv.bean.SerialDitions;
@@ -31,6 +38,7 @@ import com.lemon95.ymtv.utils.StringUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +53,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     private ProgressBar lemon_movie_details_pro;
     private LinearLayout lemon_movie_details_main;
     private com.lemon95.ymtv.bean.Movie.Data data; //影片数据
-    private List<GenresMovie.Data> dataList; //相关影视
+    private List<GenresMovie.Data> videoList = new ArrayList<>(); //相关影视
     private MovieDetailsPresenter movieDetailsActivity = new MovieDetailsPresenter(this);
     private boolean isKeyDown = false;
     private SerialDitions.Data serialData; //电视剧数据数据
@@ -54,6 +62,10 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     private DisplayImageOptions options;
     private String videoId;
     private Boolean isPersonal = false;
+    private GridViewTV gridView;
+    private GenresMovieAdapter genresMovieAdapter;
+    private boolean isStart = false;
+    private int point = 0;  //gridview 位置
 
     @Override
     protected int getLayoutId() {
@@ -73,6 +85,11 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                 .showImageForEmptyUri(R.drawable.lemon_details_small_def)  // 设置图片Uri为空或是错误的时候显示的图片
                 .showImageOnFail(R.drawable.lemon_details_small_def)       // 设置图片加载或解码过程中发生错误显示的图片
                 .build();
+        gridView = (GridViewTV) findViewById(R.id.gridView);
+        gridView.setIsSearch(true);
+        genresMovieAdapter = new GenresMovieAdapter(videoList,context);
+        gridView.setAdapter(genresMovieAdapter);
+        gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         lemon_movie_details_pro = (ProgressBar)findViewById(R.id.lemon_movie_details_pro);
         lemon_movie_details_main = (LinearLayout)findViewById(R.id.lemon_movie_details_main);
         details_serial = (ReflectItemView) findViewById(R.id.details_serial);
@@ -99,8 +116,6 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     public void initViewMove() {
-        mainUpView2 = (MainUpView) findViewById(R.id.mainUpView2);
-        mOpenEffectBridge = (OpenEffectBridge) mainUpView2.getEffectBridge();
         switchNoDrawBridgeVersion();
         /*if (Utils.getSDKVersion() == 17) { // 测试 android 4.2版本.
         } else { // 其它版本（android 4.3以上）.
@@ -119,9 +134,10 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                 mainUpView2.setFocusView(newFocus, mOldFocus, scale);
                 mOldFocus = newFocus; // 4.3以下需要自己保存.
                 // 测试是否让边框绘制在下面，还是上面. (建议不要使用此函数)
-                if (newFocus != null) {
+                /*if (newFocus != null) {
                     testTopDemo(newFocus, scale);
-                }
+                }*/
+                LogUtils.i(TAG,"大小改变");
             }
         });
         //初始化焦点
@@ -143,21 +159,23 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         } else {
             mOpenEffectBridge.setVisibleWidget(true);
             mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
-            if (newView instanceof  TextView) {
+            /*if (newView instanceof  TextView) {
                 ((TextView)newView).setEllipsize(TextUtils.TruncateAt.MARQUEE);
                 ((TextView)newView).setSingleLine(true);
                 ((TextView)newView).setMarqueeRepeatLimit(6);
             }
-            LogUtils.e(TAG, "显示");
+            LogUtils.e(TAG, "显示");*/
         }
     }
 
     private void switchNoDrawBridgeVersion() {
+        mainUpView2 = (MainUpView) findViewById(R.id.mainUpView2);
+        mOpenEffectBridge = (OpenEffectBridge) mainUpView2.getEffectBridge();
         EffectNoDrawBridge effectNoDrawBridge = new EffectNoDrawBridge();
         effectNoDrawBridge.setTranDurAnimTime(10);
         mainUpView2.setEffectBridge(effectNoDrawBridge); // 4.3以下版本边框移动.
         mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
-        mainUpView2.setDrawUpRectPadding(new Rect(10, 10, 8, -28)); // 边框图片设置间距.
+        mainUpView2.setDrawUpRectPadding(new Rect(7, -22, 0, -30)); // 边框图片设置间距.
     }
 
     /**
@@ -197,69 +215,10 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
      * @param dataList
      */
     public void initViewByGenresMoveDate(List<GenresMovie.Data> dataList) {
-        this.dataList = dataList;
-        com.lemon95.ymtv.bean.GenresMovie.Data d1 = dataList.get(0);
-        if (d1 != null) {
-            ReflectItemView itemView1 = (ReflectItemView)findViewById(R.id.details_item1);
-            itemView1.setVisibility(View.VISIBLE);
-            itemView1.setOnClickListener(this);
-            ImageView details_img1 = (ImageView)findViewById(R.id.details_img1);
-            ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d1.getPicturePath(), details_img1,options);
-            ((TextView)findViewById(R.id.details_name1)).setText(d1.getVideoName());
-            com.lemon95.ymtv.bean.GenresMovie.Data d2 = dataList.get(1);
-            if (d2 != null) {
-                ReflectItemView itemView2 = (ReflectItemView)findViewById(R.id.details_item2);
-                itemView2.setVisibility(View.VISIBLE);
-                itemView2.setOnClickListener(this);
-                ImageView details_img2 = (ImageView)findViewById(R.id.details_img2);
-                ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d2.getPicturePath(), details_img2,options);
-                ((TextView)findViewById(R.id.details_name2)).setText(d2.getVideoName());
-                com.lemon95.ymtv.bean.GenresMovie.Data d3 = dataList.get(2);
-                if (d3 != null) {
-                    ReflectItemView itemView3 = (ReflectItemView)findViewById(R.id.details_item3);
-                    itemView3.setVisibility(View.VISIBLE);
-                    itemView3.setOnClickListener(this);
-                    ImageView details_img3 = (ImageView)findViewById(R.id.details_img3);
-                    ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d3.getPicturePath(), details_img3,options);
-                    ((TextView)findViewById(R.id.details_name3)).setText(d3.getVideoName());
-                    com.lemon95.ymtv.bean.GenresMovie.Data d4 = dataList.get(3);
-                    if (d4 != null) {
-                        ReflectItemView itemView4 = (ReflectItemView)findViewById(R.id.details_item4);
-                        itemView4.setVisibility(View.VISIBLE);
-                        itemView4.setOnClickListener(this);
-                        ImageView details_img4 = (ImageView)findViewById(R.id.details_img4);
-                        ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d4.getPicturePath(), details_img4,options);
-                        ((TextView)findViewById(R.id.details_name4)).setText(d4.getVideoName());
-                        com.lemon95.ymtv.bean.GenresMovie.Data d5 = dataList.get(4);
-                        if (d5 != null) {
-                            ReflectItemView itemView5 = (ReflectItemView)findViewById(R.id.details_item5);
-                            itemView5.setVisibility(View.VISIBLE);
-                            itemView5.setOnClickListener(this);
-                            ImageView details_img5 = (ImageView)findViewById(R.id.details_img5);
-                            ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d5.getPicturePath(), details_img5,options);
-                            ((TextView)findViewById(R.id.details_name5)).setText(d5.getVideoName());
-                            com.lemon95.ymtv.bean.GenresMovie.Data d6 = dataList.get(5);
-                            if (d6 != null) {
-                                ReflectItemView itemView6 = (ReflectItemView)findViewById(R.id.details_item6);
-                                itemView6.setVisibility(View.VISIBLE);
-                                itemView6.setOnClickListener(this);
-                                ImageView details_img6 = (ImageView)findViewById(R.id.details_img6);
-                                ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d6.getPicturePath(), details_img6,options);
-                                ((TextView)findViewById(R.id.details_name6)).setText(d6.getVideoName());
-                                com.lemon95.ymtv.bean.GenresMovie.Data d7 = dataList.get(6);
-                                if (d7 != null) {
-                                    ReflectItemView itemView7 = (ReflectItemView)findViewById(R.id.details_item7);
-                                    itemView7.setVisibility(View.VISIBLE);
-                                    itemView7.setOnClickListener(this);
-                                    ImageView details_img7 = (ImageView)findViewById(R.id.details_img7);
-                                    ImageLoader.getInstance().displayImage(AppConstant.RESOURCE + d7.getPicturePath(), details_img7,options);
-                                    ((TextView)findViewById(R.id.details_name7)).setText(d7.getVideoName());
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        if (dataList != null) {
+            this.videoList.clear();
+            this.videoList.addAll(dataList);
+            genresMovieAdapter.notifyDataSetChanged();
         }
     }
 
@@ -267,7 +226,71 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
         details_play.setOnClickListener(this);
         details_serial.setOnClickListener(this);
         details_sc.setOnClickListener(this);
+        gridView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                /**
+                 * 这里注意要加判断是否为NULL.
+                 * 因为在重新加载数据以后会出问题.
+                 */
+                LogUtils.i(TAG, "焦点改变" + position);
+                if (19 < Build.VERSION.SDK_INT) {
+                    isStart = true;
+                }
+                if (view != null && isStart) {
+                    view.bringToFront();
+                    mainUpView2.setFocusView(view, mOldFocus, 1.1f);
+                }
+                point = position;
+                mOldFocus = view;
+                isStart = true;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        gridView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    //if (gridView.getChildCount() > 0) {
+                    mainUpView2.setUnFocusView(gridView);
+                    mainUpView2.setUpRectResource(R.drawable.health_focus_border);
+                    // gridView.setSelection(0);
+                    myHandler.postAtFrontOfQueue(new Runnable() {
+                        public void run() {
+                            LogUtils.i(TAG, "空");
+                            gridView.setSelection(point);
+                            mOldFocus = gridView.getChildAt(point);
+                            mainUpView2.setFocusView(mOldFocus, 1.1f);
+                        }
+                    });
+                    // View newView = gridView.getChildAt(0);
+                    // newView.bringToFront();
+                    // mainUpView2.setFocusView(newView, 1.1f);
+                    // mOldFocus = gridView.getChildAt(0);
+                    // }
+                    LogUtils.i(TAG, "gridView 获取焦点");
+                } else {
+                    mOpenEffectBridge.setVisibleWidget(true); // 隐藏
+                    mainUpView2.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
+                    mainUpView2.setUnFocusView(mOldFocus);
+                }
+            }
+        });
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                isKeyDown = true;
+                videoId = videoList.get(position).getVideoId();
+                face(videoList.get(position),videoId);
+                lemon_movie_details_pro.setVisibility(View.VISIBLE);
+            }
+        });
     }
+
+    private Handler myHandler = new Handler();
 
     @Override
     public void onClick(View v) {
@@ -309,48 +332,6 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
                     favorite.setVideoId(videoId);
                     favorite.setVideoTypeId(videoType);
                     movieDetailsActivity.addFavorite(favorite);
-                    break;
-                case R.id.details_item1:
-                    isKeyDown = true;
-                    videoId = dataList.get(0).getVideoId();
-                    face(dataList.get(0),videoId);
-                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
-                    break;
-                case R.id.details_item2:
-                    isKeyDown = true;
-                    videoId = dataList.get(1).getVideoId();
-                    face(dataList.get(1),videoId);
-                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
-                    break;
-                case R.id.details_item3:
-                    isKeyDown = true;
-                    videoId = dataList.get(2).getVideoId();
-                    face(dataList.get(2), videoId);
-                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
-                    break;
-                case R.id.details_item4:
-                    isKeyDown = true;
-                    videoId = dataList.get(3).getVideoId();
-                    face(dataList.get(3), videoId);
-                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
-                    break;
-                case R.id.details_item5:
-                    isKeyDown = true;
-                    videoId = dataList.get(4).getVideoId();
-                    face(dataList.get(4), videoId);
-                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
-                    break;
-                case R.id.details_item6:
-                    isKeyDown = true;
-                    videoId = dataList.get(5).getVideoId();
-                    face(dataList.get(5), videoId);
-                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
-                    break;
-                case R.id.details_item7:
-                    isKeyDown = true;
-                    videoId = dataList.get(6).getVideoId();
-                    face(dataList.get(6), videoId);
-                    lemon_movie_details_pro.setVisibility(View.VISIBLE);
                     break;
             }
         }

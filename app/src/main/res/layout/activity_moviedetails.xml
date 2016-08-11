@@ -24,15 +24,15 @@
                 android:id="@+id/lemon95_movie_title_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
                 android:nextFocusDown="@+id/details_play"
+                android:nextFocusLeft="@+id/details_item1"
+                android:nextFocusRight="@+id/details_item1"
+                android:nextFocusUp="@+id/details_item1"
                 android:paddingLeft="@dimen/px36"
                 android:paddingTop="@dimen/px63"
                 android:text="@string/lemon95_movie"
                 android:textColor="@color/lemon_b3aeae"
-                android:focusableInTouchMode="true"
-                android:nextFocusUp="@+id/details_item1"
-                android:nextFocusLeft="@+id/details_item1"
-                android:nextFocusRight="@+id/details_item1"
                 android:textSize="@dimen/px39"
                 android:textStyle="bold" />
 
@@ -141,13 +141,12 @@
                         android:id="@+id/details_play"
                         android:layout_width="@dimen/px279"
                         android:layout_height="@dimen/px78"
+                        android:layout_marginBottom="@dimen/px12"
                         android:layout_marginLeft="@dimen/px20"
                         android:layout_marginRight="@dimen/px24"
                         android:layout_marginTop="@dimen/px27"
-                        android:layout_marginBottom="@dimen/px12"
                         android:clickable="true"
                         android:focusable="true"
-                        android:nextFocusDown="@+id/details_item1"
                         app:isShape="true"
                         app:radius="@dimen/px8">
 
@@ -171,19 +170,19 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:scaleType="fitXY"
                                     android:layout_gravity="center_vertical"
+                                    android:scaleType="fitXY"
                                     android:src="@drawable/lemon_tubiao_08" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/px12"
+                                    android:gravity="center_vertical"
                                     android:text="@string/lemon_play"
                                     android:textColor="#FFFFFF"
-                                    android:layout_marginLeft="@dimen/px12"
-                                    android:layout_gravity="center_vertical"
-                                    android:gravity="center_vertical"
-                                    android:textSize="@dimen/px40"/>
+                                    android:textSize="@dimen/px40" />
 
                             </LinearLayout>
                         </FrameLayout>
@@ -193,13 +192,12 @@
                         android:id="@+id/details_sc"
                         android:layout_width="@dimen/px279"
                         android:layout_height="@dimen/px78"
+                        android:layout_marginBottom="@dimen/px12"
                         android:layout_marginLeft="@dimen/px344"
                         android:layout_marginRight="@dimen/px24"
                         android:layout_marginTop="@dimen/px27"
-                        android:layout_marginBottom="@dimen/px12"
                         android:clickable="true"
                         android:focusable="true"
-                        android:nextFocusDown="@+id/details_item1"
                         app:isShape="true"
                         app:radius="@dimen/px8">
 
@@ -223,19 +221,19 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:scaleType="fitXY"
                                     android:layout_gravity="center_vertical"
+                                    android:scaleType="fitXY"
                                     android:src="@drawable/lemon_tubiao_11" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/px12"
+                                    android:gravity="center_vertical"
                                     android:text="@string/lemon_sc"
                                     android:textColor="#FFFFFF"
-                                    android:layout_marginLeft="@dimen/px12"
-                                    android:layout_gravity="center_vertical"
-                                    android:gravity="center_vertical"
-                                    android:textSize="@dimen/px40"/>
+                                    android:textSize="@dimen/px40" />
 
                             </LinearLayout>
                         </FrameLayout>
@@ -245,16 +243,15 @@
                         android:id="@+id/details_serial"
                         android:layout_width="@dimen/px279"
                         android:layout_height="@dimen/px78"
+                        android:layout_marginBottom="@dimen/px12"
                         android:layout_marginLeft="@dimen/px667"
                         android:layout_marginRight="@dimen/px24"
                         android:layout_marginTop="@dimen/px27"
-                        android:layout_marginBottom="@dimen/px12"
                         android:clickable="true"
                         android:focusable="true"
-                        android:nextFocusDown="@+id/details_item1"
                         android:nextFocusRight="@null"
-                        app:isShape="true"
                         android:visibility="gone"
+                        app:isShape="true"
                         app:radius="@dimen/px8">
 
                         <FrameLayout
@@ -277,19 +274,19 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:scaleType="fitXY"
                                     android:layout_gravity="center_vertical"
+                                    android:scaleType="fitXY"
                                     android:src="@drawable/lemon_serial" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/px12"
+                                    android:gravity="center_vertical"
                                     android:text="@string/lemon_serial"
                                     android:textColor="#FFFFFF"
-                                    android:layout_marginLeft="@dimen/px12"
-                                    android:layout_gravity="center_vertical"
-                                    android:gravity="center_vertical"
-                                    android:textSize="@dimen/px40"/>
+                                    android:textSize="@dimen/px40" />
 
                             </LinearLayout>
                         </FrameLayout>
@@ -308,14 +305,28 @@
             android:textColor="@color/lemon_dcdcdc"
             android:textSize="@dimen/px30" />
 
-        <include layout="@layout/details_item"></include>
+        <com.lemon95.androidtvwidget.view.GridViewTV
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px337"
+            android:layout_gravity="center"
+            android:clipChildren="false"
+            android:columnWidth="@dimen/px181"
+            android:descendantFocusability="afterDescendants"
+            android:gravity="center_vertical"
+            android:horizontalSpacing="@dimen/px16"
+            android:numColumns="auto_fit"
+            android:paddingLeft="@dimen/px20"
+            android:scrollbars="none" />
+
+        <!--<include layout="@layout/details_item"></include>-->
     </LinearLayout>
 
     <ProgressBar
         android:id="@+id/lemon_movie_details_pro"
         android:layout_width="@dimen/px150"
         android:layout_height="@dimen/px150"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
     <!-- 最顶层的边框移动 -->
     <com.lemon95.androidtvwidget.view.MainUpView

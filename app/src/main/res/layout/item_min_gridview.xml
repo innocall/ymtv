@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/px171"
+    android:layout_height="@dimen/px337"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/px24">
+
+
+        <RelativeLayout
+            android:layout_width="@dimen/px171"
+            android:layout_height="@dimen/px225"
+            android:layout_marginTop="@dimen/px22">
+
+            <ImageView
+                android:id="@+id/lemon_grid_img"
+                android:layout_width="@dimen/px171"
+                android:layout_height="@dimen/px225"
+                android:scaleType="fitXY"
+                android:src="@drawable/lemon_details_def"></ImageView>
+
+            <TextView
+                android:id="@+id/lemon_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px40"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_vertical"
+                android:background="#b00b0505"
+                android:textColor="@color/lemon_dcdcdc"
+                android:textSize="@dimen/px24"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/lemon_grid_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/px12"
+            android:width="@dimen/px171"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="@color/lemon_dcdcdc"
+            android:textSize="@dimen/px30" />
+
+    <!--<TextView
+        android:id="@+id/lemon_grid_textView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px72"
+        android:layout_gravity="bottom|center"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:ellipsize="marquee"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textColor="@color/lemon_dcdcdc"
+        android:textSize="@dimen/px36" />-->
+
+</LinearLayout>
