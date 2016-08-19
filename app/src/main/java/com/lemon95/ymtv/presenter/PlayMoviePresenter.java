@@ -59,7 +59,7 @@ public class PlayMoviePresenter {
      * @param userId
      * @param isPre
      */
-    public void initPageData(final String id, final String userId,boolean isPre) {
+    public void initPageData(final String id, final String userId, final boolean isPre) {
         iMovieBean.getMovieDetails(id,userId,isPre, new MovieDao.OnMovieDetailsListener(){
 
             @Override
@@ -80,7 +80,7 @@ public class PlayMoviePresenter {
                                 RealSource.seg s = seg.get(RandomSecquenceCreator.getRandom(seg.size()));
                                 LogUtils.i("播放地址：", s.getFurl());
                                 playActivity.startPlay(s.getFurl());
-                                if ("false".equals(data.getEnable())) {
+                                if ("false".equals(data.getEnable()) && isPre) {
                                     playActivity.isPro = true;
                                     setIsParam(true);
                                     createOrder(userId, "13", id);  //生产订单

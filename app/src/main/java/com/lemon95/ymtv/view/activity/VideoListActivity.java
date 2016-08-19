@@ -66,6 +66,7 @@ public class VideoListActivity extends BaseActivity {
     private boolean isStart = false;
     private boolean isListClick = true;
     private int point = 0; //gridview 位置
+    private TextView lemon_search;
 
     @Override
     protected int getLayoutId() {
@@ -76,6 +77,7 @@ public class VideoListActivity extends BaseActivity {
     protected void setupViews() {
         initViewMove();
         lemon_video_menu_id = (ListViewTV) findViewById(R.id.lemon_video_menu_id);
+        lemon_search = (TextView) findViewById(R.id.lemon_search);
         lemon_video_menu_id.setItemsCanFocus(true);
         gridView = (GridViewTV) findViewById(R.id.gridView);
         gridView.setIsSearch(true);
@@ -166,12 +168,12 @@ public class VideoListActivity extends BaseActivity {
                     if (point == 0) {
                         if (mOldGridView != view) {
                             view.bringToFront();
-                            LogUtils.i(TAG,"放大" + position);
+                            LogUtils.i(TAG, "放大" + position);
                             mainUpView2.setFocusView(view, mOldGridView, 1.1f);
                         }
                     } else {
                         view.bringToFront();
-                        LogUtils.i(TAG,"放大" + position);
+                        LogUtils.i(TAG, "放大" + position);
                         mainUpView2.setFocusView(view, mOldGridView, 1.1f);
                     }
                 }
@@ -222,28 +224,45 @@ public class VideoListActivity extends BaseActivity {
                     mOpenEffectBridge.setVisibleWidget(false);
                     mainUpView2.setUpRectResource(R.drawable.health_focus_border); // 设置移动边框的图片.
                     //if (!isListClick) {
-                        if (mOldGridView == null) {
-                           myHandler.postAtFrontOfQueue(new Runnable() {
-                               public void run() {
-                                   LogUtils.i(TAG, "空");
-                                   gridView.setSelection(0);
-                                   //isListClick = false;
-                                   mOldGridView = gridView.getChildAt(0);
-                                   mainUpView2.setFocusView(mOldGridView, 1.1f);
-                               }
-                           });
-                        } else {
-                            LogUtils.i(TAG,"非空");
-                            mainUpView2.setFocusView(mOldGridView, 1.1f);
-                        }
+                    if (mOldGridView == null) {
+                        myHandler.postAtFrontOfQueue(new Runnable() {
+                            public void run() {
+                                LogUtils.i(TAG, "空");
+                                gridView.setSelection(0);
+                                //isListClick = false;
+                                mOldGridView = gridView.getChildAt(0);
+                                mainUpView2.setFocusView(mOldGridView, 1.1f);
+                            }
+                        });
+                    } else {
+                        LogUtils.i(TAG, "非空");
+                        mainUpView2.setFocusView(mOldGridView, 1.1f);
+                    }
                      /*} else {
                         mainUpView2.setFocusView(mOldGridView, 1.1f);
                     }*/
                 } else {
-                   // mainUpView2.setVisibility(View.GONE);
+                    // mainUpView2.setVisibility(View.GONE);
                     mOpenEffectBridge.setVisibleWidget(true); // 隐藏
                     mainUpView2.setUpRectResource(R.drawable.test_rectangle); // 设置移动边框的图片.
                     mainUpView2.setUnFocusView(mOldGridView);
+                }
+            }
+        });
+        //搜索
+        lemon_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SearchActivity.class);
+            }
+        });
+        lemon_search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                   // lemon_video_menu_id.setIsParam(false);
+                } else {
+                    lemon_video_menu_id.setIsParam(false);
                 }
             }
         });

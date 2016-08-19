@@ -67,6 +67,7 @@ public class ConditionsAdapter extends BaseAdapter {
         if (position == point) {
             LogUtils.i(TAG,"白色" + position);
             isParam = false;
+           // holder.lemon_video_tv.setNextFocusUpId(R.id.lemon_search);
             holder.lemon_video_tv.setTextColor(Color.WHITE);
         } else {
             holder.lemon_video_tv.setTextColor(context.getResources().getColor(R.color.lemon_b3aeae));

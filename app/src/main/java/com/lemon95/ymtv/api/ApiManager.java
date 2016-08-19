@@ -42,11 +42,12 @@ import rx.Observable;
  */
 public class ApiManager {
 
-    private static final String ENDPOINT = "http://media.lemon95.com";
+   // private static final String ENDPOINT = "http://media.lemon95.com";
+    private static final String ENDPOINT = "http://video.lemon95.com";
 //    private static String SecretKey = "123456789";
 //    private static String AppKey = "com.lemon95.lemonvideo";
     private static String SecretKey = "ec8b570ad4bd403783c52ecb5cdfa849";
-    private static String AppKey = "1259402909";
+    private static String AppKey = "ym";
 
     public static Gson getGson() {
         Gson gson = new GsonBuilder()

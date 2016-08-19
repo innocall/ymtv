@@ -11,6 +11,7 @@ import android.widget.ListView;
 public class ListViewTV extends ListView {
 
 	private int listPon = 0;
+	private boolean isParam = true;
 
 	public ListViewTV(Context context) {
 		super(context);
@@ -20,6 +21,14 @@ public class ListViewTV extends ListView {
 	public ListViewTV(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context, attrs);
+	}
+
+	public boolean isParam() {
+		return isParam;
+	}
+
+	public void setIsParam(boolean isParam) {
+		this.isParam = isParam;
 	}
 
 	/**
@@ -64,9 +73,10 @@ public class ListViewTV extends ListView {
 			b = (int)getSelectedView().getY();
 		}
 		super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
-		if (gainFocus) {
+		if (gainFocus && isParam) {
 			setSelectionFromTop(lastSelectItem, b);
 		}
+		isParam = true;
 	}
 
 	@Override

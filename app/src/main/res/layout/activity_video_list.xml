@@ -55,17 +55,33 @@
                 android:focusableInTouchMode="false"
                 android:src="@drawable/lemon_up" />
 
+            <TextView
+                android:id="@+id/lemon_search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px90"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingTop="@dimen/px16"
+                android:paddingBottom="@dimen/px16"
+                android:background="@drawable/lemon_list_bg"
+                android:text="搜索"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusDown="@+id/lemon_video_menu_id"
+                android:textColor="@color/lemon_b3aeae"
+                android:textSize="@dimen/px39"/>
+
             <com.lemon95.androidtvwidget.view.ListViewTV
                 android:id="@+id/lemon_video_menu_id"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px820"
+                android:layout_height="@dimen/px700"
                 android:layout_gravity="center"
                 android:descendantFocusability="afterDescendants"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:listSelector="@drawable/lemon_liangguang_03"
                 android:nextFocusRight="@+id/gridView"
-                android:nextFocusUp="@+id/lemon_video_menu_id"
+                android:nextFocusUp="@+id/lemon_search"
                 android:scrollbars="none"></com.lemon95.androidtvwidget.view.ListViewTV>
 
             <ImageView

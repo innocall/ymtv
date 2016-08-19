@@ -283,6 +283,7 @@ public class MovieDetailsActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 isKeyDown = true;
+                isPersonal = false;
                 videoId = videoList.get(position).getVideoId();
                 face(videoList.get(position),videoId);
                 lemon_movie_details_pro.setVisibility(View.VISIBLE);
