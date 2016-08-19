@@ -7,4 +7,10 @@
 
 ![](https://github.com/innocall/ymtv/blob/master/img/main.gif "影檬TV")
 
+![](https://github.com/innocall/ymtv/blob/master/img/2.gif "影檬TV")
+
+![](https://github.com/innocall/ymtv/blob/master/img/3.gif "影檬TV")
+
+![](https://github.com/innocall/ymtv/blob/master/img/4.gif "影檬TV")
+
 
