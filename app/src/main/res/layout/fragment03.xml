@@ -24,7 +24,7 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item1"
-                android:layout_width="@dimen/px435"
+                android:layout_width="@dimen/px434"
                 android:layout_height="@dimen/px660"
                 android:layout_marginLeft="@dimen/px297"
                 android:layout_marginTop="@dimen/px48"
@@ -41,7 +41,7 @@
                     <ImageView
                         android:id="@+id/lemon_page3_img1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/px572"
                         android:scaleType="fitXY"
                         android:src="@drawable/lemon_t_def" />
 
@@ -66,7 +66,7 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item2"
-                android:layout_width="@dimen/px435"
+                android:layout_width="@dimen/px434"
                 android:layout_height="@dimen/px660"
                 android:layout_marginLeft="@dimen/px742"
                 android:layout_marginTop="@dimen/px48"
@@ -82,7 +82,7 @@
                     <ImageView
                         android:id="@+id/lemon_page3_img2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/px572"
                         android:scaleType="fitXY"
                         android:src="@drawable/lemon_t_def" />
 
@@ -107,7 +107,7 @@
 
             <com.lemon95.androidtvwidget.view.ReflectItemView
                 android:id="@+id/page3_item3"
-                android:layout_width="@dimen/px435"
+                android:layout_width="@dimen/px434"
                 android:layout_height="@dimen/px660"
                 android:layout_marginLeft="@dimen/px1189"
                 android:layout_marginTop="@dimen/px48"
@@ -125,7 +125,7 @@
                     <ImageView
                         android:id="@+id/lemon_page3_img3"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/px572"
                         android:scaleType="fitXY"
                         android:src="@drawable/lemon_t_def" />
 

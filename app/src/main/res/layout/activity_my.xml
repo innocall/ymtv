@@ -122,7 +122,7 @@
                     android:layout_width="@dimen/px330"
                     android:layout_height="@dimen/px330"
                     android:scaleType="fitXY"
-                    android:src="@drawable/lemon_details_def"/>
+                    android:src="@drawable/app_p"/>
 
                 <TextView
                     android:layout_width="wrap_content"

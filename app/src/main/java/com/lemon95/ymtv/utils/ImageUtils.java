@@ -56,13 +56,14 @@ public class ImageUtils {
      * @return
      */
     public static String getBigImg(String path) {
-        if (StringUtils.isNotBlank(path)) {
+        /*if (StringUtils.isNotBlank(path)) {
             String l = path.substring(0,path.lastIndexOf("/") + 1);
             String name = path.substring(path.lastIndexOf("/") + 2,path.length());
             return l + name;
         } else {
             return path;
-        }
+        }*/
+        return path;
     }
 
 }
